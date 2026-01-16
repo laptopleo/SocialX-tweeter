@@ -1,6 +1,9 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import DeepSeekForm from "../../_components/DeepSeekForm";
+
+// ⚡ Force dynamic rendering to avoid Edge Runtime issues
+export const dynamic = "force-dynamic";
 
 const DeepSeek = () => {
     const handleGenerate = async (prompt: string): Promise<string> => {
@@ -27,7 +30,11 @@ const DeepSeek = () => {
         }
     };
 
-    return <DeepSeekForm onGenerate={handleGenerate} />;
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-black text-white flex items-center justify-center">Loading...</div>}>
+            <DeepSeekForm onGenerate={handleGenerate} />
+        </Suspense>
+    );
 };
 
 export default DeepSeek;

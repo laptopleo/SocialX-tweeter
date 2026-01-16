@@ -8,6 +8,7 @@ import Image from "next/image";
 
 import Badge from "@/components/badge";
 import { PLAN_TYPE } from "@/constants/pricing-plans";
+import { CommentType } from "@/types/comment.type";
 
 interface PropsType {
   comment: CommentType;
@@ -61,16 +62,22 @@ const CommentItem: React.FC<PropsType> = ({ comment }) => {
         className="flex flex-row 
           items-start  gap-3"
       >
-        <Avatar role="button" onClick={goToUser}>
-          <AvatarImage
-            src={comment?.user?.profileImage || ""}
-            alt={comment?.user?.username || ""}
-            className="object-cover"
-          />
-          <AvatarFallback className="font-bold">
-            {comment?.user?.name?.[0]}
-          </AvatarFallback>
-        </Avatar>
+        <div
+          role="button"
+          onClick={goToUser}
+          className="cursor-pointer"
+        >
+          <Avatar>
+            <AvatarImage
+              src={comment?.user?.profileImage || ""}
+              alt={comment?.user?.username || ""}
+              className="object-cover"
+            />
+            <AvatarFallback className="font-bold">
+              {comment?.user?.name?.[0]}
+            </AvatarFallback>
+          </Avatar>
+        </div>
         <div className="w-[90%] lg:w-[91.25%]">
           <div className="flex items-center gap-[4px]">
             <div className="flex flex-row gap-[2px]">

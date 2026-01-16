@@ -29,6 +29,7 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    
   }
 
   .dark {
@@ -39,6 +40,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
     --primary: 203 89% 53%;
+     --color-primary: oklch(0.62 0.19 250.5); /* Azul principal */
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -61,15 +63,62 @@
   * {
     @apply border-border;
   }
+  html {
+    min-height: 100dvh;
+    scroll-behavior: smooth;
+  }
 
-  html, body {
-    height: 100%;
+  body {
+    min-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
     @apply bg-background text-foreground;
   }
 
   .public-DraftStyleDefault-block {
     margin: 0 !important;
   }
+
+  /* ⚡ Scrollbar invisible utility */
+  @layer utilities {
+    .scrollbar-hide {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
+  }
+  /* Scrollbars completamente invisibles pero funcionales */
+.scrollbar-invisible {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Asegurar invisibilidad también en navegadores WebKit */
+.scrollbar-invisible::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+/* En tu globals.css o un archivo de estilos */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Para el grid responsive */
+@media (max-width: 1024px) {
+  .lg\\:grid-cols-12 {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 
 }

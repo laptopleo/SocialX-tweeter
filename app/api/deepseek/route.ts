@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
     // 2. Configuración mejorada del fetch con el endpoint de Gemini
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, 
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, 
       {
         method: "POST",
         headers: {

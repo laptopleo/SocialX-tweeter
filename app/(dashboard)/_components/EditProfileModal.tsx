@@ -15,7 +15,6 @@ import { SquarePen } from "lucide-react";
 import CheckUsername from "@/components/check-username";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Spinner } from "@/components/spinner";
 import { useCurrentUserContext } from "@/context/currentuser-provider";
 import CoverImageUpload from "./_common/CoverImageUpload";
 import ProfileImageUpload from "./_common/ProfileImageUpload";
@@ -24,6 +23,7 @@ import axios from "axios";
 import { BASE_URL } from "@/lib/base-url";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
+import { UserType } from "@/types/user.type"
 
 const EditProfileModal = () => {
   const queryClient = useQueryClient();
@@ -242,7 +242,6 @@ const EditProfileModal = () => {
                   className="!mt-5 gap-1"
                   disabled={loading}
                 >
-                  {loading && <Spinner size="default" />}
                   Update
                 </Button>
               </form>

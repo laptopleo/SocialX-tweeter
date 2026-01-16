@@ -1,0 +1,58 @@
+# ============================================
+# CODEOWNERS - Revisores automáticos de código
+# ============================================
+# Cada línea es un patrón de archivo seguido de uno o más propietarios.
+# Los propietarios serán solicitados para revisión cuando alguien abra un PR.
+
+# Propietario por defecto para todo el repositorio
+* @leonardo558
+
+# ============================================
+# Configuración y CI/CD
+# ============================================
+/.github/ @leonardo558
+/scripts/ @leonardo558
+*.yml @leonardo558
+*.yaml @leonardo558
+.npmrc @leonardo558
+.prettierrc @leonardo558
+.eslintrc* @leonardo558
+next.config.* @leonardo558
+tsconfig.json @leonardo558
+package.json @leonardo558
+
+# ============================================
+# Base de datos y Prisma
+# ============================================
+/prisma/ @leonardo558
+*.prisma @leonardo558
+
+# ============================================
+# Autenticación y seguridad
+# ============================================
+/lib/auth.ts @leonardo558
+/app/api/auth/ @leonardo558
+middleware.ts @leonardo558
+
+# ============================================
+# API Routes
+# ============================================
+/app/api/ @leonardo558
+
+# ============================================
+# Componentes críticos
+# ============================================
+/components/ui/ @leonardo558
+/app/layout.tsx @leonardo558
+
+# ============================================
+# Tipos y definiciones
+# ============================================
+/types/ @leonardo558
+*.d.ts @leonardo558
+
+# ============================================
+# Documentación
+# ============================================
+*.md @leonardo558
+/docs/ @leonardo558

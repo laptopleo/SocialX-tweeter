@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import CommentItem from "./_common/CommentItem";
+import { CommentType } from "@/types/comment.type";
 
 interface PropsType {
   comments: CommentType[];

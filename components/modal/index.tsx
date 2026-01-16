@@ -45,8 +45,9 @@ const Modal: React.FC<PropsType> = ({
 
       <Dialog modal open={isOpen} onOpenChange={handleClose}>
         <DialogContent
-          className="min-h-[350px] max-h-[600px] !max-w-[600px]
+          className="min-h-[350px] max-h-[90vh] !max-w-[95vw] md:!max-w-[1000px]
                 pt-5 pb-10 !rounded-2xl overflow-y-auto
+                scrollbar-hide
               "
         >
           <DialogHeader

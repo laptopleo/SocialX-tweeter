@@ -4,13 +4,13 @@ import { Spinner } from "@/components/spinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import Link from "next/link";
-import React from "react";
-
 
 import Badge from "@/components/badge";
-import useUsers from "@/hooks/useUsers";
-import FollowButton from "./_common/FollowButton";
 import { PLAN_TYPE } from "@/constants/pricing-plans";
+import useUsers from "@/hooks/useUsers";
+import type { UsersApiResponse } from "@/types/api.types";
+import FollowButton from "./_common/FollowButton";
+import { UserType } from "@/types/user.type"
 
 const FollowList = () => {
   const { data, isLoading } = useUsers();
@@ -40,9 +40,8 @@ const FollowList = () => {
    dark:border-[rgb(47,51,54)] rounded-xl p-4  
   "
     >
-     
-        <h2 className="text-[20px] font-bold">Who to follow</h2>
-     
+      <h2 className="text-[20px] font-bold">Who to follow</h2>
+
       <div className="w-full h-[28vh] overflow-auto scroll-smooth scrollbar-hide">
         <ul role="list" className="flex flex-col gap-6 mt-4 pb-2">
           {users?.map((user) => (

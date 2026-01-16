@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Loader2, ChevronRight } from "lucide-react";
-import { Input } from '@/components/ui/input';
-import Image from 'next/image';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import Header from './_common/Header';
-
+import { Input } from "@/components/ui/input";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import { ChevronRight, Loader2 } from "lucide-react";
+import Image from "next/image";
+import React, { useState } from "react";
+import Header from "./_common/Header";
 
 interface DeepSeekFormProps {
   initialQuery?: string;
@@ -16,7 +15,9 @@ interface DeepSeekFormProps {
 
 const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
   const [prompt, setPrompt] = useState(initialQuery);
-  const [responses, setResponses] = useState<{ text: string; type: string; content?: Blob | File }[]>([]);
+  const [responses, setResponses] = useState<
+    { text: string; type: string; content?: Blob | File }[]
+  >([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGenerate = async (e: React.FormEvent) => {
@@ -28,72 +29,89 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
     setPrompt("");
 
     try {
-        // Aquí ya deberías recibir directamente el string
-        const aiResponse = await onGenerate(prompt);
-        setResponses((prev) => [{ text: aiResponse, type: "ai" }, ...prev]);
+      // Aquí ya deberías recibir directamente el string
+      const aiResponse = await onGenerate(prompt);
+      setResponses((prev) => [{ text: aiResponse, type: "ai" }, ...prev]);
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Error desconocido";
-        setResponses((prev) => [
-            { text: `❌ Error: ${errorMessage}`, type: "error" },
-            ...prev,
-        ]);
+      const errorMessage =
+        error instanceof Error ? error.message : "Error desconocido";
+      setResponses((prev) => [
+        { text: `❌ Error: ${errorMessage}`, type: "error" },
+        ...prev,
+      ]);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
-};
-  const handleFileUpload = (type: 'file' | 'image') => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = type === 'file' ? '' : 'image/';
+  };
+  const handleFileUpload = (type: "file" | "image") => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = type === "file" ? "" : "image/";
     input.onchange = (e: Event) => {
       const target = e.target as HTMLInputElement;
       const file = target.files?.[0];
       if (file) {
-        setResponses(prev => [{
-          text: `${type === 'file' ? 'Archivo' : 'Imagen'} subido: ${file.name}`,
-          type: "user",
-          content: file
-        }, ...prev]);
+        setResponses((prev) => [
+          {
+            text: `${type === "file" ? "Archivo" : "Imagen"} subido: ${
+              file.name
+            }`,
+            type: "user",
+            content: file,
+          },
+          ...prev,
+        ]);
       }
     };
     input.click();
   };
 
   const handlePhotoTake = () => {
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-        const video = document.createElement('video');
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        const video = document.createElement("video");
         video.srcObject = stream;
         video.play();
 
         setTimeout(() => {
-          const canvas = document.createElement('canvas');
+          const canvas = document.createElement("canvas");
           canvas.width = video.videoWidth;
           canvas.height = video.videoHeight;
-          const ctx = canvas.getContext('2d');
-          
+          const ctx = canvas.getContext("2d");
+
           if (ctx) {
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            canvas.toBlob(blob => {
+            canvas.toBlob((blob) => {
               if (blob) {
-                setResponses(prev => [{
-                  text: "Foto tomada",
-                  type: "user",
-                  content: blob
-                }, ...prev]);
+                setResponses((prev) => [
+                  {
+                    text: "Foto tomada",
+                    type: "user",
+                    content: blob,
+                  },
+                  ...prev,
+                ]);
               }
-              stream.getTracks().forEach(track => track.stop());
-            }, 'image/jpeg');
+              stream.getTracks().forEach((track) => track.stop());
+            }, "image/jpeg");
           }
         }, 1500);
       })
-      .catch(error => {
-        console.error('Error al acceder a la cámara:', error);
-        setResponses(prev => [{ text: "Error al tomar foto", type: "error" }, ...prev]);
+      .catch((error) => {
+        console.error("Error al acceder a la cámara:", error);
+        setResponses((prev) => [
+          { text: "Error al tomar foto", type: "error" },
+          ...prev,
+        ]);
       });
   };
 
-  const renderMessageContent = (msg: { text: string; type: string; content?: Blob | File }) => {
+  const renderMessageContent = (msg: {
+    text: string;
+    type: string;
+    content?: Blob | File;
+  }) => {
     if (msg.content) {
       const url = URL.createObjectURL(msg.content);
       return (
@@ -117,17 +135,25 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center p-4">
       <div className="w-full max-w-3xl flex flex-col items-center space-y-6">
-         
-      <Header label="Grok 3" showBackArrow />
+        <Header label="Grok 3" showBackArrow />
 
         <div className="w-full h-96 overflow-y-auto flex flex-col-reverse space-y-4 space-y-reverse scrollbar-hide p-2">
           {responses.map((msg, index) => (
             <div key={index} className="flex w-full">
-              <div className={`flex items-center w-1/2 ${msg.type === "user" ? "mr-auto" : "ml-auto"}`}>
-                <div className={`p-4 rounded-lg shadow-lg ${
-                  msg.type === "user" ? "bg-gray-700" : 
-                  msg.type === "error" ? "bg-red-900" : "bg-gray-800"
-                }`}>
+              <div
+                className={`flex items-center w-1/2 ${
+                  msg.type === "user" ? "mr-auto" : "ml-auto"
+                }`}
+              >
+                <div
+                  className={`p-4 rounded-lg shadow-lg ${
+                    msg.type === "user"
+                      ? "bg-gray-700"
+                      : msg.type === "error"
+                      ? "bg-red-900"
+                      : "bg-gray-800"
+                  }`}
+                >
                   {renderMessageContent(msg)}
                 </div>
               </div>
@@ -158,18 +184,25 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
               )}
             </Button>
             <div className="flex justify-center space-x-2 mt-4">
-                <div className="">
-
+              <div className="">
                 <AttachFileIcon className="h-6 w-6 rotate-45" />
-          <Button onClick={() => handleFileUpload('file')} variant="ghost" className='p-1'>Upload File</Button>
-                </div>
-          <Button onClick={() => handleFileUpload('image')} variant="ghost">Upload Image</Button>
-          <Button onClick={handlePhotoTake} variant="ghost">Take a photo</Button>
-        </div>
+                <Button
+                  onClick={() => handleFileUpload("file")}
+                  variant="ghost"
+                  className="p-1"
+                >
+                  Upload File
+                </Button>
+              </div>
+              <Button onClick={() => handleFileUpload("image")} variant="ghost">
+                Upload Image
+              </Button>
+              <Button onClick={handlePhotoTake} variant="ghost">
+                Take a photo
+              </Button>
+            </div>
           </div>
         </form>
-
-        
       </div>
     </div>
   );

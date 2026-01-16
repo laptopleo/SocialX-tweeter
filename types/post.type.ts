@@ -1,24 +1,26 @@
-type PostType = {
+
+import type { CommentType } from "./comment.type";
+
+export type PostType = {
   id: number;
   body: string;
   userId: number;
-  comments: [];
+  comments: CommentType[];
 
   likeIds: number[];
 
- 
-  postImage: string;
-  postVideo: string;
-  postGif: string;
+  postImage: string | null;
+  postVideo: string | null;
+  postGif: string | null;
 
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 
-
-
-  
-  user: UserType;
-  
-
-  
+  user: {
+    id: number;
+    name: string;
+    username: string | null;
+    profileImage?: string | null;
+    subscription?: { plan: string } | null;
+  };
 };

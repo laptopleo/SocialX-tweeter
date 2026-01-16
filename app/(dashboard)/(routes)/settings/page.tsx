@@ -1,7 +1,7 @@
-import React, { Fragment } from "react";
-import Header from "../../_components/_common/Header";
 import BillingSettings from "@/components/settings/billing-settings";
 import DarkModetoggle from "@/components/settings/dark-mode";
+import { Fragment } from "react";
+import Header from "../../_components/_common/Header";
 
 const Settings = () => {
   return (

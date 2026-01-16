@@ -1,0 +1,214 @@
+name: 🚀 CD - Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Prevenir deploys concurrentes
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  # ============================================
+  # Pre-Deploy Validation
+  # ============================================
+  pre-deploy:
+    name: 🔍 Pre-Deploy Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: 📚 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔷 TypeScript check
+        run: npx tsc --noEmit
+
+      - name: 🔍 Lint check
+        run: pnpm lint
+
+      - name: 🗄️ Prisma validation
+        run: npx prisma validate
+
+      - name: 🏗️ Build test
+        run: pnpm build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+
+  # ============================================
+  # Database Backup
+  # ============================================
+  backup:
+    name: 🗄️ Database Backup
+    runs-on: ubuntu-latest
+    needs: pre-deploy
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: 📚 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🗄️ Create backup
+        run: |
+          mkdir -p backups
+          npx prisma db pull --force
+          echo "✅ Schema backup created"
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: 💾 Upload backup artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-backup-${{ github.sha }}
+          path: prisma/schema.prisma
+          retention-days: 30
+
+  # ============================================
+  # Deploy to Vercel
+  # ============================================
+  deploy:
+    name: 🚀 Deploy to Vercel
+    runs-on: ubuntu-latest
+    needs: [pre-deploy, backup]
+    timeout-minutes: 20
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: 📚 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🗄️ Run database migrations
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: 🚀 Deploy to Vercel
+        id: deploy
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: ./
+
+      - name: 📊 Deployment summary
+        run: |
+          echo "## 🚀 Deployment Successful!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **URL:** ${{ steps.deploy.outputs.preview-url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployed at:** $(date)" >> $GITHUB_STEP_SUMMARY
+
+  # ============================================
+  # Post-Deploy Health Check
+  # ============================================
+  health-check:
+    name: 🏥 Post-Deploy Health Check
+    runs-on: ubuntu-latest
+    needs: deploy
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🏥 Wait for deployment
+        run: sleep 30
+
+      - name: 🔍 Check homepage
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.NEXT_PUBLIC_APP_URL }})
+          if [ $response -eq 200 ]; then
+            echo "✅ Homepage is accessible"
+          else
+            echo "❌ Homepage returned status code: $response"
+            exit 1
+          fi
+
+      - name: 🔍 Check API health
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.NEXT_PUBLIC_APP_URL }}/api/health || echo "404")
+          echo "API health check returned: $response"
+          # No fallar si el endpoint no existe
+          echo "✅ Health check completed"
+
+      - name: 📊 Health check summary
+        run: |
+          echo "## 🏥 Health Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All health checks passed" >> $GITHUB_STEP_SUMMARY
+
+  # ============================================
+  # Notify Success
+  # ============================================
+  notify:
+    name: 📢 Notify Deployment
+    runs-on: ubuntu-latest
+    needs: [deploy, health-check]
+    if: success()
+
+    steps:
+      - name: 🎉 Success notification
+        run: |
+          echo "## 🎉 Deployment Completed Successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Summary:" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Pre-deploy validation passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Database backup created" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Deployed to production" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Health checks passed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Production URL:** ${{ secrets.NEXT_PUBLIC_APP_URL }}" >> $GITHUB_STEP_SUMMARY

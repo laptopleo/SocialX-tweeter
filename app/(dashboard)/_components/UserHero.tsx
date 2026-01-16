@@ -1,9 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { UserWithRelations } from "@/types/user-profile.type";
 
 interface PropsType {
-  user: UserType;
+  user: UserWithRelations;
 }
 
 const UserHero: React.FC<PropsType> = ({ user }) => {

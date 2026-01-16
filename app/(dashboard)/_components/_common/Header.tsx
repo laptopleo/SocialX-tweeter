@@ -23,9 +23,12 @@ const Header: React.FC<PropsType> = ({
   }, [router]);
   return (
     <div
-      className={cn("p-5", {
-        "border-b-[1px] dark:border-[rgb(29,111,173)]": showBorder,
-      })}
+      className={cn(
+        "flex justify-center p-4 sticky top-0 z-30 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/60 w-full text-black dark:text-white",
+        {
+          "border-b-[1px] dark:border-[rgb(29,111,173)]": showBorder,
+        }
+      )}
     >
       <div className="flex flex-row items-center gap-5">
         {showBackArrow && (

@@ -1,36 +1,19 @@
 "use client";
 
-
-import { Spinner } from "@/components/spinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import usePost from "@/hooks/usePost";
+import { PostType } from "@/types/post.type";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const TweetList = () => {
-  const { data, isLoading } = usePost({});
+  const { data } = usePost({ isInfinite: false }); // Explicitly set isInfinite to false
   const router = useRouter();
-  // Ajustamos la lectura de la data:
-  const posts = Array.isArray(data) ? data : data?.posts ?? [];
- 
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center p-4">
-        <Spinner size="icon" />
-      </div>
-    );
-  }
-
-  if (!posts.length) {
-    return <p className="p-4">No hay publicaciones para mostrar</p>;
-  }
-
-
-
- 
+  // Simplified data extraction for useQuery response - need to properly check the data type
+  const posts = data && 'posts' in data ? data.posts ?? [] : [];
 
   return (
     <div className="bg-background border dark:border-[rgb(47,51,54)] rounded-xl p-4">
@@ -79,7 +62,7 @@ const TweetList = () => {
                     )}
                   </p>
                 </div>
-               
+
                 {index !== posts.length - 1 && (
                   <hr className="border-gray-200 dark:border-gray-700" />
                 )}
@@ -88,9 +71,6 @@ const TweetList = () => {
           })}
         </div>
       </div>
-
-      
-      
     </div>
   );
 };

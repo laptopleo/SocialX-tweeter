@@ -2,16 +2,24 @@ import { prisma } from "@/lib/prismadb";
 import { signupSchema } from "@/lib/validation/auth-validate";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
+import { rateLimit, getIdentifier, RATE_LIMITS } from "@/lib/rate-limit";
 
-
-export const config = {
-    runtime: 'nodejs'
-  };
+export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
   try {
+    // ⚡ Rate limiting estricto para registro
+    const identifier = getIdentifier(request);
+    const { success } = await rateLimit(identifier, RATE_LIMITS.AUTH);
+    
+    if (!success) {
+      return NextResponse.json(
+        { message: "Too many registration attempts. Please try again later.", status: "error" },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
-    console.log(body);
     const { name, email, username, password, dateOfBirth } =
       await signupSchema.parseAsync(body);
 
@@ -49,7 +57,9 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
+    if (process.env.NODE_ENV === 'development') {
+  console.error('Registration error:', error);
+}
     return NextResponse.json(
       {
         message: "Registration failed",

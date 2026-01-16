@@ -3,6 +3,7 @@
 import { useCallback, useState, useMemo } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCurrentUserContext } from "@/context/currentuser-provider";
+import { UserType } from "@/types/user.type";
 
 import { toast } from "./use-toast";
 import { followUser } from "@/app/actions/follow.action";

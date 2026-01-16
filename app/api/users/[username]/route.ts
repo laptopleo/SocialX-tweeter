@@ -2,8 +2,10 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, context: any) {
-  const { params } = context;
+export async function GET(
+  request: Request,
+  context: { params: Promise<{ username: string }> }
+) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
@@ -13,7 +15,7 @@ export async function GET(request: Request, context: any) {
       );
     }
 
-    const username = params.username;
+    const { username } = await context.params;
     if (!username) {
       return NextResponse.json(
         { message: "Username must be provided", status: "error" },
@@ -21,31 +23,38 @@ export async function GET(request: Request, context: any) {
       );
     }
 
+    const isOwner = session.user.username === username;
+
+    const baseSelect = {
+      id: true,
+      name: true,
+      username: true,
+      bio: true,
+      coverImage: true,
+      profileImage: true,
+      createdAt: true,
+      updatedAt: true,
+      followingIds: true,
+      hasNotification: true,
+      subscription: {
+        select: {
+          plan: true,
+        },
+      },
+    } as const;
+
+    const ownerSelect = {
+      ...baseSelect,
+      email: true,
+      dateOfBirth: true,
+      emailVerified: true,
+    } as const;
+
     const existingUser = await prisma.user.findUnique({
       where: {
         username: username,
       },
-      select: {
-        id: true,
-        name: true,
-        username: true,
-        bio: true,
-        email: true,
-        dateOfBirth: true,
-        emailVerified: true,
-        coverImage: true,
-        profileImage: true,
-        createdAt: true,
-        updatedAt: true,
-        followingIds: true,
-        hasNotification: true,
-        //isVerified: true,
-        subscription: {
-          select: {
-            plan: true,
-          },
-        },
-      },
+      select: isOwner ? ownerSelect : baseSelect,
     });
     if (!existingUser) {
       return NextResponse.json(

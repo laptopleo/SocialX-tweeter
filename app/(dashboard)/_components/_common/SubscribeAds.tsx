@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/hooks/useStore";
@@ -14,11 +15,11 @@ const SubscribeAds = () => {
       <div className="w-full">
         <h2
           className="text-[20px] 
-        font-bold"
+        font-bold text-black dark:text-white mb-2"
         >
           Subscribe to Premium
         </h2>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 text-black dark:text-white">
           <p className="text-[15px] leading-[19px]">
             Subscribe to unlock new features and if eligible, receive a share of
             ads revenue.

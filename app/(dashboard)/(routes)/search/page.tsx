@@ -1,17 +1,21 @@
-import React, { Fragment } from "react";
+"use client";
+import { Fragment, Suspense } from "react";
 import Header from "../../_components/_common/Header";
 
-
-import SearchForm from "../../_components/SearchForms";
 import SearchFeed from "../../_components/SearchFeed";
+import SearchForm from "../../_components/SearchForms";
 
 const Search = () => {
   return (
     <Fragment>
-      <Header showBorder={false} showBackArrow>
-        <SearchForm />
+      <Header label="Search" showBackArrow ={true} >
+        <Suspense fallback={<div>Loading search form...</div>}>
+          <SearchForm />
+        </Suspense>
       </Header>
-      <SearchFeed />
+      <Suspense fallback={<div>Loading search results...</div>}>
+        <SearchFeed />
+      </Suspense>
     </Fragment>
   );
 };

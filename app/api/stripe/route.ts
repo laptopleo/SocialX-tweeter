@@ -4,6 +4,9 @@ import { stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
+// ⚡ Force Node.js runtime for Prisma compatibility
+export const runtime = 'nodejs';
+
 const settingsUrl = absoluteUrl("/settings");
 
 export async function GET() {

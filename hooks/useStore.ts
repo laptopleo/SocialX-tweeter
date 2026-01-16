@@ -52,11 +52,49 @@ const createProModalSlice: StateCreator<
   onCloseProModal: () => set({ isProModalOpen: false }),
 });
 
-type StoreType = BirthDaySlice & EditModalSlice & ProModalSlice;
+// Features Modal slice
+type FeaturesModalSlice = {
+  isFeaturesModalOpen: boolean;
+  onOpenFeaturesModal: () => void;
+  onCloseFeaturesModal: () => void;
+};
+
+const createFeaturesModalSlice: StateCreator<
+  FeaturesModalSlice,
+  [],
+  [],
+  FeaturesModalSlice
+> = (set) => ({
+  isFeaturesModalOpen: false,
+  onOpenFeaturesModal: () => set({ isFeaturesModalOpen: true }),
+  onCloseFeaturesModal: () => set({ isFeaturesModalOpen: false }),
+});
+
+// About Modal slice
+type AboutModalSlice = {
+  isAboutModalOpen: boolean;
+  onOpenAboutModal: () => void;
+  onCloseAboutModal: () => void;
+};
+
+const createAboutModalSlice: StateCreator<
+  AboutModalSlice,
+  [],
+  [],
+  AboutModalSlice
+> = (set) => ({
+  isAboutModalOpen: false,
+  onOpenAboutModal: () => set({ isAboutModalOpen: true }),
+  onCloseAboutModal: () => set({ isAboutModalOpen: false }),
+});
+
+type StoreType = BirthDaySlice & EditModalSlice & ProModalSlice & FeaturesModalSlice & AboutModalSlice;
 
 //Combine the slices into a single
 export const useStore = create<StoreType>()((...a) => ({
   ...createBirthDaySlice(...a),
   ...createEditModalSlice(...a),
   ...createProModalSlice(...a),
+  ...createFeaturesModalSlice(...a),
+  ...createAboutModalSlice(...a),
 }));

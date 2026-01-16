@@ -5,6 +5,9 @@ import { stripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prismadb";
 import { PLAN_TYPE } from "@/constants/pricing-plans";
 
+// ⚡ Force Node.js runtime for Prisma compatibility
+export const runtime = 'nodejs';
+
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = (await headers()).get("stripe-signature") as string;

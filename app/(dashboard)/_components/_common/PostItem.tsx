@@ -1,11 +1,10 @@
 "use client";
 import Badge from "@/components/badge";
-
 import { Spinner } from "@/components/spinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PLAN_TYPE } from "@/constants/pricing-plans";
-
 import useLike from "@/hooks/useLike";
+import { PostType } from "@/types/post.type";
 import { formatDistanceToNowStrict } from "date-fns";
 import { Dot, Heart, MessageCircle } from "lucide-react";
 import Image from "next/image";
@@ -19,38 +18,31 @@ interface PropsType {
 
 const PostItem: React.FC<PropsType> = ({ post, userId }) => {
   const router = useRouter();
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-//   ==========================================FUNCION PARA LA Q EL VIDEO PARE LA REPRODUCCION
+  useEffect(() => {
+    const currentVideoRef = videoRef.current;
+    if (!currentVideoRef) return;
 
-const videoRef = useRef<HTMLVideoElement | null>(null);
-
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (videoRef.current) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
         if (!entry.isIntersecting) {
-          videoRef.current.pause(); // Pausar si el video no está visible
+          currentVideoRef.pause();
         }
-      }
-    },
-    { threshold: 0.5 } // El 50% del video debe estar en pantalla para considerarlo visible
-  );
+      },
+      { threshold: 0.5 }
+    );
 
-  if (videoRef.current) {
-    observer.observe(videoRef.current);
-  }
+    observer.observe(currentVideoRef);
 
-  return () => {
-    if (videoRef.current) {
-      observer.unobserve(videoRef.current);
-    }
-  };
-}, []);
+    return () => {
+      observer.unobserve(currentVideoRef);
+    };
+  }, []);
 
   const { hasLiked, loading, toggleLike } = useLike(
     post?.id,
-    post?.likeIds,
-    userId
+    post?.likeIds
   );
 
   const goToUser = useCallback(
@@ -72,6 +64,10 @@ useEffect(() => {
     },
     [toggleLike]
   );
+
+  const stopPropagation = useCallback((event: React.MouseEvent) => {
+    event.stopPropagation();
+  }, []);
 
   const createdAt = useMemo(() => {
     if (!post.createdAt) return null;
@@ -99,34 +95,40 @@ useEffect(() => {
     <div
       role="button"
       onClick={goToPost}
-      className="
-          w-full border-b-[1px]
-          dark:border-[rgb(47,51,54)]
-          p-5 transition relative
-          "
+      className="flex-1 py-4 transition cursor-pointer border border-gray-200 dark:border-neutral-800"
     >
-      <div
-        className="flex flex-row 
-          items-start  gap-3"
-      >
-        <Avatar role="button" onClick={goToUser}>
-          <AvatarImage
-            src={post?.user?.profileImage || ""}
-            alt={post?.user.username || ""}
-            className="object-cover abso"
-          />
-          <AvatarFallback className="font-bold">
-            {post?.user?.name?.[0]}
-          </AvatarFallback>
-        </Avatar>
-        <div className="w-[90%] lg:w-[91.25%]">
-          <div className="flex items-center gap-[4px]">
-            <div className="flex flex-row gap-[2px]">
+      <div className="flex gap-3">
+        {/* Left padding for avatar alignment */}
+        <div className="w-1"></div>
+        {/* Avatar Section */}
+        <div className="flex-shrink-0">
+          <div className="relative">
+            <div
+              role="button"
+              onClick={goToUser}
+              className="cursor-pointer"
+            >
+              <Avatar className="ring-2 ring-white dark:ring-black">
+                <AvatarImage
+                  src={post?.user?.profileImage || ""}
+                  alt={post?.user.username || ""}
+                  className="object-cover"
+                />
+                <AvatarFallback className="font-bold bg-blue-500 text-white">
+                  {post?.user?.name?.[0]}
+                </AvatarFallback>
+              </Avatar>
+            </div>
+          </div>
+        </div>
+
+        {/* Content Section */}
+        <div className="flex-1 min-w-0 pr-4">
+          {/* User Info */}
+          <div className="flex flex-wrap items-center gap-1 mb-1">
+            <div className="flex items-center gap-1">
               <h5
-                className="
-              font-bold cursor-pointer
-              hover:underline
-              "
+                className="font-bold text-gray-900 dark:text-white cursor-pointer hover:underline truncate"
                 role="button"
                 onClick={goToUser}
               >
@@ -134,123 +136,114 @@ useEffect(() => {
               </h5>
               {post?.user?.subscription?.plan === PLAN_TYPE.PRO && <Badge />}
             </div>
+
             <span
-              className="!text-[#959fa8] 
-              text-sm inline-block truncate 
-              font-normal"
+              className="text-gray-500 dark:text-gray-400 text-sm font-normal truncate cursor-pointer hover:underline"
               role="button"
               onClick={goToUser}
             >
               @{post?.user?.username}
             </span>
-            <div className="flex items-center">
-              <span
-                className="!text-[#959fa8]
-               text-sm"
-              >
-                <Dot size="15px" />
-              </span>
-              <span
-                className="!text-[#959fa8] 
-              text-sm"
-              >
-                {createdAt}
-              </span>
-            </div>
+
+            <Dot
+              className="text-gray-500 dark:text-gray-400 flex-shrink-0"
+              size={15}
+            />
+
+            <span className="text-gray-500 dark:text-gray-400 text-sm flex-shrink-0">
+              {createdAt}
+            </span>
           </div>
 
-          <div className="mt-1 w-full flex  mb-10 border-b-[1px] dark:border-[rgb(47,51,54)]">
+          {/* Post Body */}
+          <div className="mb-3">
             <div
               dangerouslySetInnerHTML={{ __html: post.body }}
-              className="lg:h-24 text-black dark:text-white overflow-hidden break-words line-clamp-4 font-semibold"
+              className="text-gray-900 dark:text-gray-100 break-words font-normal text-[15px] leading-5 line-clamp-4 lg:line-clamp-6 overflow-hidden"
             />
           </div>
 
+          {/* Media Content */}
           {post?.postImage && (
-            <div
-              className="relative w-full my-3 lg:w-full lg:h-[20em] h-[12em]  overflow-hidden rounded-md"
-              onClick={(e) => e.stopPropagation()} // Evita la propagación del evento
+            <div 
+              className="relative w-full rounded-2xl overflow-hidden mb-3 border border-gray-200 dark:border-neutral-800"
+              onClick={stopPropagation}
             >
               <Image
-                src={post?.postImage}
-                alt={post?.user?.username || "Image"}
-                fill
-                loading="lazy"
-                className="object-cover rounded-md"
+                src={post.postImage}
+                alt={post.user?.username || "Post image"}
+                width={500}
+                height={500}
+                className="w-full object-cover cursor-pointer"
               />
             </div>
           )}
+
           {post?.postVideo && (
-            <div className="relative w-full my-3 lg:w-full lg:h-[20em] h-[12em]  overflow-hidden rounded-md"
-            onClick={(e) => e.stopPropagation()} // Evita la propagación del evento
+            <div 
+              className="relative w-full rounded-2xl overflow-hidden mb-3 border border-gray-200 dark:border-neutral-800"
+              onClick={stopPropagation}
             >
               <video
-              ref={videoRef} // Asigna el ref
-                src={post?.postVideo}
+                ref={videoRef}
+                src={post.postVideo}
                 controls
-                className="w-full h-full object-cover rounded-md"
+                className="w-full object-cover cursor-pointer"
               />
             </div>
           )}
+
           {post?.postGif && (
-            <div className="relative w-full  lg:w-[20em] lg:h-[20em] h-[12em]  overflow-hidden rounded-md"
-            onClick={(e) => e.stopPropagation()}>
+            <div 
+              className="relative w-full rounded-2xl overflow-hidden mb-3 border border-gray-200 dark:border-neutral-800"
+              onClick={stopPropagation}
+            >
               <video
-                src={post?.postGif}
+                src={post.postGif}
                 muted
                 loop
                 autoPlay
                 playsInline
+                className="w-full object-contain bg-transparent"
+                controls={false}
                 disablePictureInPicture
                 disableRemotePlayback
-                controls={false}
-                className="w-[10em] lg:w-full h-full object-cover rounded-lg transition-opacity group-hover:opacity-90 bg-purple-700"
-                style={{
-                  backgroundColor: "transparent",
-                  objectFit: "contain",
-                  objectPosition: "center",
-                }}
                 controlsList="nodownload nofullscreen noremoteplayback"
               />
             </div>
           )}
-          <div
-            className="flex flex-row 
-                  items-center mt-3 gap-10"
-          >
-            <div
-              role="button"
-              className="flex flex-row 
-              items-center gap-1
-            text-[#959fa8]
-            cursor-pointer
-            transition
-            hover:text-primary
-            "
-            >
-              <MessageCircle size={15} />
-              <span className="text-sm">{post?.comments?.length || 0}</span>
-            </div>
 
-            <div
-              role="button"
-              className={`flex flex-row 
-              items-center gap-1
-            text-[#959fa8]
-            cursor-pointer
-            transition
-           hover:text-red-500
-            ${loading ? "pointer-events-none" : ""}
-            `}
-              onClick={onLike}
+          {/* Actions */}
+          <div className="flex items-center gap-8 mt-3 pt-1">
+            <button
+              type="button"
+              onClick={stopPropagation}
+              className="flex items-center group gap-1 text-gray-500 hover:text-blue-500 transition-colors"
             >
-              {loading && <Spinner />}
-              <Heart
-                className={hasLiked ? "fill-red-500 !stroke-red-500" : ""}
-                size={15}
-              />
+              <div className="p-2 rounded-full group-hover:bg-blue-500/10 transition-colors">
+                <MessageCircle size={18} />
+              </div>
+              <span className="text-sm">{post?.comments?.length || 0}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={onLike}
+              disabled={loading}
+              className={`flex items-center group gap-1 text-gray-500 hover:text-red-500 transition-colors ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              <div className="p-2 rounded-full group-hover:bg-red-500/10 transition-colors">
+                
+                  <Heart
+                    size={18}
+                    className={hasLiked ? "fill-red-500 stroke-red-500" : ""}
+                  />
+              
+              </div>
               <span className="text-sm">{post?.likeIds?.length || 0}</span>
-            </div>
+            </button>
           </div>
         </div>
       </div>

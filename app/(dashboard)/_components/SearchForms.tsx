@@ -23,7 +23,7 @@ const SearchForm = () => {
   return (
     <div className="w-full">
       <form
-        className="w-full flex-1"
+        className="w-full"
         action="#"
         role="search"
         onSubmit={handleSubmit}
@@ -31,7 +31,7 @@ const SearchForm = () => {
         <div
           className="relative flex flex-row
                items-center h-11 bg-[#eee]
-               dark:bg-gray-800 rounded-full"
+               dark:bg-black rounded-full"
         >
           <div
             className="shrink-0 w-8 flex 

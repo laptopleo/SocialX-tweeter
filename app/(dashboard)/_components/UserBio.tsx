@@ -1,18 +1,19 @@
 "use client";
-import React, { useMemo } from "react";
-import { format } from "date-fns";
-import { useCurrentUserContext } from "@/context/currentuser-provider";
 import { Button } from "@/components/ui/button";
-import { CalendarCheck } from "lucide-react";
+import { useCurrentUserContext } from "@/context/currentuser-provider";
 import { useStore } from "@/hooks/useStore";
-
+import { format } from "date-fns";
+import { CalendarCheck } from "lucide-react";
+import React, { useMemo } from "react";
 
 import Badge from "@/components/badge";
-import FollowButton from "./_common/FollowButton";
 import { PLAN_TYPE } from "@/constants/pricing-plans";
+import type { UserWithRelations } from "@/types/user-profile.type";
+import FollowButton from "./_common/FollowButton";
+import { UserType } from "@/types/user.type";
 
 interface PropsType {
-  user: UserType;
+  user: UserWithRelations;
 }
 
 const UserBio: React.FC<PropsType> = ({ user }) => {
@@ -40,7 +41,7 @@ const UserBio: React.FC<PropsType> = ({ user }) => {
         ) : (
           <FollowButton
             userId={Number(user?.id)}
-            username={user?.username as string}
+            username={user?.username ?? ""}
           />
         )}
       </div>
@@ -51,13 +52,11 @@ const UserBio: React.FC<PropsType> = ({ user }) => {
             {user?.subscription?.plan === PLAN_TYPE.PRO && <Badge />}
           </div>
           <p className="!text-[#959fa8] text-base block truncate font-normal">
-            @{user.username}
+            @{user.username ?? ""}
           </p>
           {/* Se agrega el bio, solo si existe */}
           {user.bio && (
-            <p className="mt-2 text-base text-gray-600">
-              {user.bio}
-            </p>
+            <p className="mt-2 text-base text-gray-600">{user.bio}</p>
           )}
         </div>
 

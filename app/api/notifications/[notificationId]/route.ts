@@ -4,16 +4,16 @@ import { prisma } from "@/lib/prismadb";
 
 export async function DELETE(
   request: NextRequest,
-  context: any
+  context: { params: Promise<{ notificationId: string }> }
 ): Promise<NextResponse> {
-  const { params } = context as { params: { notificationId: string } };
   try {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "No autenticado" }, { status: 401 });
     }
 
-    const notifId = parseInt(params.notificationId);
+    const { notificationId } = await context.params;
+    const notifId = parseInt(notificationId);
     if (isNaN(notifId)) {
       return NextResponse.json({ error: "ID inválido" }, { status: 400 });
     }

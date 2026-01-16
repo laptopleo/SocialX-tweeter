@@ -1,4 +1,6 @@
-type UserType = {
+import { CommentType } from "./comment.type";
+import { PostType } from "./post.type";
+export type UserType = {
     id: number;  // Cambiar id a number si la base de datos lo maneja como número
     name: string;
     username: string;

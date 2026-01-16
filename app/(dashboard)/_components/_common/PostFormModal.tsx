@@ -11,12 +11,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import useUploadcare from "@/hooks/useUploadcare";
 import { Button } from "@/components/ui/button";
-import DraftEditor from "@/components/draft-editor";
+import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { BASE_URL } from "@/lib/base-url";
 import { toast } from "@/hooks/use-toast";
 import { addComment } from "../../../actions/comment.action";
-import { EditorState } from "draft-js";
 
 import useUploadcareVideo from "@/hooks/useUploadcareVideo";
 import Image from "next/image";
@@ -25,6 +24,7 @@ import GifButton from "@/components/gif";
 
 import useTenorGifsCare from "@/hooks/useTenorGifs";
 import { Modal, Dialog, DialogContent } from '@mui/material';
+import { UserType } from "@/types/user.type";
 
 interface PropsType {
     placeholder: string;
@@ -64,9 +64,6 @@ interface PropsType {
     const queryClient = useQueryClient();
   
     const [loading, setLoading] = React.useState(false);
-    const [editorState, setEditorState] = React.useState(
-      EditorState.createEmpty()
-    );
   
     const currentUser = data?.currentUser ?? ({} as UserType);
   
@@ -84,7 +81,6 @@ interface PropsType {
     const handleClose = useCallback(() => {
         onClose();
         clearGif();
-        setEditorState(EditorState.createEmpty());
         form.reset();
         clearFile();
         clearVideo();
@@ -241,7 +237,7 @@ interface PropsType {
                     </AvatarFallback>
                   </Avatar>
                 </div>
-                <div className="flex flex-col gap-1 flex-1 lg:w-full  p-2 text-white overflow-hidden break-words line-clamp-6">
+                  <div className="flex flex-col gap-1 flex-1 lg:w-full  p-2 text-white overflow-hidden break-words line-clamp-6">
                   {isComment && (
                     <div className="flex items-center">
                       <p className="!text-[#959fa8] text-sm font-normal">
@@ -257,22 +253,11 @@ interface PropsType {
                     className="min-h-6 !max-h-80 
                                       overflow-auto overflow-x-hidden mb-3"
                   >
-                    <DraftEditor
-                      placeholder={placeholder}
-                      wrapperClassName="!min-h-6 !max-h-80 
-                        !border-none w-full"
-                      editorClassName="placeholder:text-muted-foreground 
-                        outline-0 px-0 
-                        focus-visible:outline-none 
-                        text-[18px] resize-none 
-                        !py-0 w-full 
-                        focus:border-0 !border-none "
-                      editorState={editorState}
-                      setEditorState={setEditorState}
-                      onChange={(html) => {
-                        form.setValue("body", html);
-                      }}
-                    />
+                  <Textarea
+                    placeholder={placeholder}
+                    className="min-h-[3rem] max-h-80 resize-y text-[18px]"
+                    {...form.register("body")}
+                  />
                   </div>
                   {/* IMAGENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN */}
                   <div className="flex items-center">

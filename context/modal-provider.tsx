@@ -1,6 +1,8 @@
 "use client";
 import BirthDayModal from "@/components/birthday-modal";
 import ProModal from "@/components/pro-modal";
+import FeaturesModal from "@/components/features-modal";
+import AboutModal from "@/components/about-modal";
 import React, { useEffect } from "react";
 
 const ModalProvider = () => {
@@ -16,9 +18,8 @@ const ModalProvider = () => {
   return (
     <>
       <ProModal />
-    
-
-      
+      <FeaturesModal />
+      <AboutModal />
       <BirthDayModal />
     </>
   );

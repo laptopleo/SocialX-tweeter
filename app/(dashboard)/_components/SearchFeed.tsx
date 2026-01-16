@@ -1,30 +1,54 @@
 "use client";
-import React from "react";
-import useSearch from "@/hooks/useSearch";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Spinner } from "@/components/spinner";
-import PostItem from "./_common/PostItem";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import useSearch from "@/hooks/useSearch";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import FollowButton from "./_common/FollowButton";
+import PostItem from "./_common/PostItem";
 
 import Badge from "@/components/badge";
 import { PLAN_TYPE } from "@/constants/pricing-plans";
+import { UserType } from "@/types/user.type"
+import { PostType } from "@/types/post.type";
 
 const SearchFeed = () => {
   const router = useRouter();
   const param = useSearchParams();
   const query = param.get("q") ?? "";
-  const filter = param.get("f") ?? "";
+  const currentFilter = param.get("f") ?? "";
 
   const { data, isLoading } = useSearch({
     query,
-    filter,
+    filter: currentFilter,
   });
 
-  const posts = data?.posts || [];
-  const users: UserType[] = data?.users || ([] as UserType[]);
+  // Type guards to safely access data based on the filter
+  const hasPostsData = (data: unknown): data is { posts: PostType[] } => {
+    return data !== null && 
+           data !== undefined && 
+           typeof data === 'object' && 
+           'posts' in data;
+  };
+
+  const hasUsersData = (data: unknown): data is { users: UserType[] } => {
+    return data !== null && 
+           data !== undefined && 
+           typeof data === 'object' && 
+           'users' in data;
+  };
+
+  const posts: PostType[] =
+    currentFilter !== "user" && hasPostsData(data)
+      ? data.posts
+      : [];
+  
+  const users: UserType[] =
+    currentFilter === "user" && hasUsersData(data)
+      ? data.users
+      : [];
+
 
   const handleQuery = () => {
     router.push(`/search?q=${encodeURIComponent(query)}`);
@@ -35,7 +59,7 @@ const SearchFeed = () => {
   };
 
   return (
-    <Tabs defaultValue={filter ? "people" : "posts"} className="w-full">
+    <Tabs defaultValue={currentFilter ? "people" : "posts"} className="w-full">
       <TabsList
         className="flex items-center justify-start
       gap-14 w-full px-5 h-auto pb-2 !bg-transparent

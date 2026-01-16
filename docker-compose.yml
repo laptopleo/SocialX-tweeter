@@ -1,0 +1,163 @@
+# ============================================
+# Docker Compose - Desarrollo Local Completo
+# ============================================
+# Levanta toda la infraestructura localmente:
+# - Next.js app
+# - PostgreSQL
+# - Redis (opcional)
+#
+# Uso:
+#   docker-compose up -d
+#   docker-compose down
+# ============================================
+
+version: '3.9'
+
+services:
+  # ============================================
+  # PostgreSQL Database
+  # ============================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: socialx-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: socialx
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - socialx-network
+
+  # ============================================
+  # Redis Cache (Opcional)
+  # ============================================
+  redis:
+    image: redis:7-alpine
+    container_name: socialx-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - socialx-network
+
+  # ============================================
+  # Next.js Application
+  # ============================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: socialx-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Database
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/socialx?schema=public
+      DIRECT_DATABASE_URL: postgresql://postgres:postgres@postgres:5432/socialx?schema=public
+      
+      # Redis (si lo usas)
+      REDIS_URL: redis://redis:6379
+      
+      # Auth (usar tus valores reales)
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_GOOGLE_ID: ${AUTH_GOOGLE_ID}
+      AUTH_GOOGLE_SECRET: ${AUTH_GOOGLE_SECRET}
+      
+      # App URLs
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+      NEXT_PUBLIC_BASE_URL: http://localhost:3000
+      
+      # Stripe
+      STRIPE_API_KEY: ${STRIPE_API_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      
+      # AI Services
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      NEXT_PUBLIC_TENOR_API_KEY: ${NEXT_PUBLIC_TENOR_API_KEY}
+      
+      # File Uploads
+      NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY: ${NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY}
+      
+      # Pusher
+      PUSHER_APP_ID: ${PUSHER_APP_ID}
+      PUSHER_KEY: ${PUSHER_KEY}
+      PUSHER_SECRET: ${PUSHER_SECRET}
+      PUSHER_CLUSTER: ${PUSHER_CLUSTER}
+      NEXT_PUBLIC_PUSHER_KEY: ${NEXT_PUBLIC_PUSHER_KEY}
+      NEXT_PUBLIC_PUSHER_CLUSTER: ${NEXT_PUBLIC_PUSHER_CLUSTER}
+      
+      # Node
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - socialx-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ============================================
+  # Prisma Studio (Opcional - para desarrollo)
+  # ============================================
+  prisma-studio:
+    image: node:20-alpine
+    container_name: socialx-prisma-studio
+    working_dir: /app
+    command: sh -c "corepack enable && corepack prepare pnpm@9 --activate && pnpm install && pnpm prisma studio"
+    ports:
+      - "5555:5555"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/socialx?schema=public
+    volumes:
+      - ./prisma:/app/prisma
+      - ./package.json:/app/package.json
+      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - socialx-network
+    profiles:
+      - dev
+
+# ============================================
+# Volumes
+# ============================================
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+# ============================================
+# Networks
+# ============================================
+networks:
+  socialx-network:
+    driver: bridge

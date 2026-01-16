@@ -2,6 +2,9 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
+// ⚡ Force Node.js runtime for Prisma compatibility
+export const runtime = 'nodejs';
+
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
@@ -16,8 +19,6 @@ export async function GET(request: Request) {
         { status: 401 }
       );
     }
-
-
 
     if (!query) {
       return NextResponse.json(
@@ -106,7 +107,7 @@ export async function GET(request: Request) {
         posts,
       });
     }
-  } catch  {
+  } catch {
     return NextResponse.json(
       {
         message: "Failed to retrieve data",

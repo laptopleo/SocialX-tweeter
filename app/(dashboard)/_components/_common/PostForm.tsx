@@ -11,12 +11,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import useUploadcare from "@/hooks/useUploadcare";
 import { Button } from "@/components/ui/button";
-import DraftEditor from "@/components/draft-editor";
+import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { BASE_URL } from "@/lib/base-url";
 import { toast } from "@/hooks/use-toast";
 import { addComment } from "../../../actions/comment.action";
-import { EditorState } from "draft-js";
 
 import useUploadcareVideo from "@/hooks/useUploadcareVideo";
 import Image from "next/image";
@@ -24,6 +23,7 @@ import UploadMediaButton from "@/components/upload-button";
 import GifButton from "@/components/gif";
 
 import useTenorGifsCare from "@/hooks/useTenorGifs";
+import { UserType } from "@/types/user.type";
 
 interface PropsType {
   placeholder: string;
@@ -61,9 +61,6 @@ const PostForm: React.FC<PropsType> = ({
   const queryClient = useQueryClient();
 
   const [loading, setLoading] = React.useState(false);
-  const [editorState, setEditorState] = React.useState(
-    EditorState.createEmpty()
-  );
 
   const currentUser = data?.currentUser ?? ({} as UserType);
 
@@ -117,7 +114,6 @@ const PostForm: React.FC<PropsType> = ({
             queryKey: ["posts", "allposts"],
           });
         }
-        setEditorState(EditorState.createEmpty());
         form.reset();
         clearGif(); // 🎯 Limpia el estado del GIF
         clearFile();
@@ -175,7 +171,7 @@ const PostForm: React.FC<PropsType> = ({
     <div
       className="border-b-[1px]
     dark:border-[rgb(47,51,54)]
-    py-2  lg:w-full   text-white overflow-hidden break-words line-clamp-6
+    py-2  max-w-2xl   text-white overflow-hidden break-words line-clamp-6
       "
     >
       <FormProvider {...form}>
@@ -212,25 +208,11 @@ const PostForm: React.FC<PropsType> = ({
                   </div>
                 )}
 
-                <div
-                  className="min-h-6 !max-h-80 
-                                    overflow-auto overflow-x-hidden mb-3"
-                >
-                  <DraftEditor
+                <div className="mb-3">
+                  <Textarea
                     placeholder={placeholder}
-                    wrapperClassName="!min-h-6 !max-h-80 
-                      !border-none w-full"
-                    editorClassName="placeholder:text-muted-foreground 
-                      outline-0 px-0 
-                      focus-visible:outline-none 
-                      text-[18px] resize-none 
-                      !py-0 w-full 
-                      focus:border-0 !border-none "
-                    editorState={editorState}
-                    setEditorState={setEditorState}
-                    onChange={(html) => {
-                      form.setValue("body", html);
-                    }}
+                    className="min-h-[3rem] max-h-80 resize-y text-[18px]"
+                    {...form.register("body")}
                   />
                 </div>
                 {/* IMAGENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN */}

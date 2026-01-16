@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 import { useDebounce } from "@/hooks/useDebounce";
