@@ -8,7 +8,10 @@ export const pusherClient = new PusherClient(
   process.env.NEXT_PUBLIC_PUSHER_KEY,
   {
     cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER,
-    // Add any other client-side options here, e.g., authEndpoint for private channels
-    // authEndpoint: "/api/pusher/auth",
+    // Deshabilitar transports que requieren acceso a red local
+    forceTLS: true, // Forzar conexión segura
+    disableStats: true, // Deshabilitar estadísticas
+    enabledTransports: ['ws', 'wss'], // Solo WebSockets seguros
+    // authEndpoint: "/api/pusher/auth", // Para canales privados
   }
 );
