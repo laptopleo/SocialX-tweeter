@@ -3,12 +3,13 @@ import BirthDayModal from "@/components/birthday-modal";
 import ProModal from "@/components/pro-modal";
 import FeaturesModal from "@/components/features-modal";
 import AboutModal from "@/components/about-modal";
-import React, { useEffect } from "react";
+import React from "react";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = React.useState(false);
 
-  useEffect(() => {
+  // Use useLayoutEffect pattern for mounting
+  React.useLayoutEffect(() => {
     setIsMounted(true);
   }, []);
 

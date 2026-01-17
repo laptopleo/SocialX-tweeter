@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTheme } from "next-themes";
 
 import { cn } from "@/lib/utils";
@@ -12,7 +12,8 @@ const DarkModetoggle = () => {
   const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
+  // Use useLayoutEffect pattern for mounting
+  React.useLayoutEffect(() => {
     setMounted(true);
   }, []);
 

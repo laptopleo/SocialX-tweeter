@@ -48,14 +48,14 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
   const goToUser = useCallback(
     (event: { stopPropagation: () => void }) => {
       event.stopPropagation();
-      router.push(`/${post?.user?.username}`);
+      router.push(`/${post.user?.username}`);
     },
-    [router, post?.user?.username]
+    [router, post.user?.username]
   );
 
   const goToPost = useCallback(() => {
-    router.push(`/${post?.user?.username}/post/${post.id}`);
-  }, [router, post?.user?.username, post?.id]);
+    router.push(`/${post.user?.username}/post/${post.id}`);
+  }, [router, post.user?.username, post.id]);
 
   const onLike = useCallback(
     (event: { stopPropagation: () => void }) => {
@@ -89,7 +89,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
     }
 
     return formattedTime;
-  }, [post?.createdAt]);
+  }, [post.createdAt]); // Remover el ? del objeto post
 
   return (
     <div

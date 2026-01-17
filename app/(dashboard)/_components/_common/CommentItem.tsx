@@ -23,7 +23,7 @@ const CommentItem: React.FC<PropsType> = ({ comment }) => {
       event.stopPropagation();
       router.push(`/${comment?.user?.username}`);
     },
-    [router, comment?.user?.username]
+    [router, comment.user?.username] // Remover el ? del objeto comment
   );
 
   const createdAt = useMemo(() => {
@@ -48,7 +48,7 @@ const CommentItem: React.FC<PropsType> = ({ comment }) => {
     }
 
     return formattedTime;
-  }, [comment?.createdAt]);
+  }, [comment.createdAt]); // Remover el ? del objeto comment
 
   return (
     <div

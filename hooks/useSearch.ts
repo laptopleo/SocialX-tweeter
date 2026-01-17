@@ -42,19 +42,26 @@ function useSearch({ query, filter }: PropsType) {
     staleTime: 1000 * 60 * 5, // 5 minutes for search results
   };
 
+  // User search query
+  const userSearchQuery = useQuery<UserSearchResults, Error>({
+    ...commonQueryOptions,
+    queryFn: () => fetcher<UserSearchResults>(url!),
+    enabled: !!url && filter === "user",
+  });
+
+  // Post search query (default)
+  const postSearchQuery = useQuery<PostSearchResults, Error>({
+    ...commonQueryOptions,
+    queryFn: () => fetcher<PostSearchResults>(url!),
+    enabled: !!url && filter !== "user",
+  });
+
+  // Return the appropriate query based on filter
   if (filter === "user") {
-    // Return useQuery for user results
-    return useQuery<UserSearchResults, Error>({
-      ...commonQueryOptions,
-      queryFn: () => fetcher<UserSearchResults>(url!),
-    });
-  } else {
-    // Return useQuery for post results (default)
-    return useQuery<PostSearchResults, Error>({
-      ...commonQueryOptions,
-      queryFn: () => fetcher<PostSearchResults>(url!),
-    });
+    return userSearchQuery;
   }
+  
+  return postSearchQuery;
 }
 
 export default useSearch;

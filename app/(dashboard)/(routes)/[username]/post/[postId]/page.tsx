@@ -1,4 +1,5 @@
 
+import React from "react";
 import { prisma } from "@/lib/prismadb";
 import { notFound } from "next/navigation";
 import PostDetailClient from "./_components/PostDetailClient";
@@ -208,9 +209,17 @@ export default async function PostDetailPage(
     };
 
     // ⚡ Renderizar componente cliente con datos del servidor
-    return <PostDetailClient post={cleanPost} />;
+    return cleanPost;
   } catch (error) {
     console.error("Error fetching post detail:", error);
     notFound();
   }
 }
+
+// Wrapper component to handle JSX rendering outside try/catch
+async function PostDetailWrapper(props: { params: Promise<{ username: string; postId: string }> }) {
+  const cleanPost = await PostDetailPage(props);
+  return <PostDetailClient post={cleanPost} />;
+}
+
+export default PostDetailWrapper;

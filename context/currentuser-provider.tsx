@@ -45,7 +45,7 @@ export const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = ({
     if (data?.currentUser && !data?.currentUser?.dateOfBirth) {
       onOpenBirthDayModal();
     }
-  }, [data]);
+  }, [data, onOpenBirthDayModal]);
 
   return (
     <CurrentUserContext.Provider
