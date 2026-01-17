@@ -22,7 +22,7 @@ export default function PostNotFound() {
         <div className="space-y-2">
           <h1 className="text-3xl font-bold">Post Not Found</h1>
           <p className="text-muted-foreground">
-            This post doesn't exist, has been deleted, or you don't have permission to view it.
+            This post does not exist, has been deleted, or you do not have permission to view it.
           </p>
         </div>
 

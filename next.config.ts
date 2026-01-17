@@ -32,62 +32,62 @@ const nextConfig: NextConfig = {
   
   experimental: {
     optimizePackageImports: ['lucide-react', '@mui/material', '@mui/icons-material', 'ui-library'],
-    // ⚡ DESHABILITADO: workerThreads causa problemas con webpack config personalizado
-    // workerThreads: true,
-    // cpus: 1,
-    // memoryBasedWorkersCount: true, 
+  },
+  
+  // Silenciar warnings de dependencias obsoletas
+  logging: {
+    fetches: {
+      fullUrl: false,
+    },
   },
   
   productionBrowserSourceMaps: false,
   
-  // ⚡ Next.js 15 permite controlar el caching de las páginas
   onDemandEntries: {
     maxInactiveAge: 15 * 1000,
     pagesBufferLength: 2,
   },
 
   webpack(config, { isServer, dev }) {
-    if (!dev) {
-      // SVG loader
-      config.module.rules.push({
-        test: /\.svg$/,
-        use: ["@svgr/webpack"],
-      });
-      
-      // Optimización de chunks solo en cliente
-      if (!isServer) {
-        config.optimization = {
-          ...config.optimization,
-          splitChunks: {
-            chunks: 'all',
-            maxInitialRequests: 5,
-            cacheGroups: {
-              default: false,
-              vendors: false,
-              vendor: {
-                name: 'vendor',
-                chunks: 'all',
-                test: /node_modules/,
-                priority: 20,
-                reuseExistingChunk: true,
-              },
-              mui: {
-                name: 'mui',
-                test: /[\\/]node_modules[\\/]@mui[\\/]/,
-                chunks: 'all',
-                priority: 30,
-              },
-              common: {
-                name: 'common',
-                minChunks: 2,
-                chunks: 'all',
-                priority: 10,
-                reuseExistingChunk: true,
-              },
+    // SVG loader
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+    
+    // Optimización de chunks solo en cliente y en producción
+    if (!isServer && !dev) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          maxInitialRequests: 5,
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            vendor: {
+              name: 'vendor',
+              chunks: 'all',
+              test: /node_modules/,
+              priority: 20,
+              reuseExistingChunk: true,
+            },
+            mui: {
+              name: 'mui',
+              test: /[\\/]node_modules[\\/]@mui[\\/]/,
+              chunks: 'all',
+              priority: 30,
+            },
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              priority: 10,
+              reuseExistingChunk: true,
             },
           },
-        };
-      }
+        },
+      };
     }
     
     // Caché de memoria en desarrollo
@@ -95,6 +95,17 @@ const nextConfig: NextConfig = {
       config.cache = {
         type: 'memory',
         maxGenerations: 1,
+      };
+    }
+    
+    // Resolver fallback para módulos nativos de Node (solo cliente)
+    if (!isServer) {
+      config.resolve = config.resolve || {};
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        os: false,
       };
     }
     

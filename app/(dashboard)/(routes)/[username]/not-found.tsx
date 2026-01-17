@@ -21,7 +21,7 @@ export default function UserNotFound() {
         <div className="space-y-2">
           <h1 className="text-3xl font-bold">User Not Found</h1>
           <p className="text-muted-foreground">
-            This account doesn't exist or has been deleted.
+            This account does not exist or has been deleted.
           </p>
         </div>
 

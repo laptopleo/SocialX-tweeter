@@ -23,7 +23,7 @@ export async function checkUserSubscription() {
       },
     });
 
-    console.log(userSubscription);
+    // console.log(userSubscription); // Removido para producción
 
     if (!userSubscription || !userSubscription.plan) {
       return PLAN_TYPE.FREE;
