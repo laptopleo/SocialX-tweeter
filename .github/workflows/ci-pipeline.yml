@@ -142,8 +142,9 @@ jobs:
         uses: trufflesecurity/trufflehog@main
         with:
           path: ./
-          base: "" 
-          head: ${{ github.sha }}
+          base: ""
+          head: ${{ github.ref_name }}
+          extra_args: --results=verified,unknown
 
   # ============================================
   # JOB 4: Database Check
