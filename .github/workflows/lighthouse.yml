@@ -47,6 +47,12 @@ jobs:
           PUSHER_CLUSTER: ${{ secrets.PUSHER_CLUSTER }}
           NEXT_PUBLIC_PUSHER_KEY: ${{ secrets.NEXT_PUBLIC_PUSHER_KEY }}
           NEXT_PUBLIC_PUSHER_CLUSTER: ${{ secrets.NEXT_PUBLIC_PUSHER_CLUSTER }}
+          # Otros servicios
+          STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          NEXT_PUBLIC_TENOR_API_KEY: ${{ secrets.NEXT_PUBLIC_TENOR_API_KEY }}
+          NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY }}
 
       - name: 🚀 Start production server
         run: |
