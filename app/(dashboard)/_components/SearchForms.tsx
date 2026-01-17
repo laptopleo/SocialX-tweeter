@@ -22,31 +22,14 @@ const SearchForm = () => {
   };
   return (
     <div className="w-full">
-      <form
-        className="w-full"
-        action="#"
-        role="search"
-        onSubmit={handleSubmit}
-      >
-        <div
-          className="relative flex flex-row
-               items-center h-11 bg-[#eee]
-               dark:bg-black rounded-full"
-        >
-          <div
-            className="shrink-0 w-8 flex 
-                  items-center !justify-end
-                  text-muted-foreground
-                  "
-          >
+      <form className="w-full" action="#" role="search" onSubmit={handleSubmit}>
+        <div className="relative flex h-11 flex-row items-center rounded-full bg-[#eee] dark:bg-black">
+          <div className="flex w-8 shrink-0 items-center !justify-end text-muted-foreground">
             <SearchIcon size="20px" />
           </div>
           <div className="flex-1">
             <Input
-              className="rounded-full
-                     w-full h-full border-0 
-                     !outline-none !ring-0
-                          "
+              className="h-full w-full rounded-full border-0 !outline-none !ring-0"
               type="text"
               placeholder="Search"
               value={searchTerm}

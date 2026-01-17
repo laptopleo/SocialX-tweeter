@@ -1,4 +1,4 @@
-import { prisma } from './prismadb';
+import { prisma } from "./prismadb";
 
 export async function withRetry<T>(
   operation: () => Promise<T>,
@@ -14,16 +14,15 @@ export async function withRetry<T>(
       lastError = error;
 
       // Códigos de error de conexión de Prisma
-      const isConnectionError =
-        ['P1001', 'P1002', 'P1008', 'P1017'].includes(error.code);
+      const isConnectionError = ["P1001", "P1002", "P1008", "P1017"].includes(error.code);
 
       if (!isConnectionError || attempt === maxRetries) throw error;
 
       console.warn(`⚠️ DB Error (intento ${attempt}/${maxRetries}). Reintentando...`);
-      
+
       await new Promise((resolve) => setTimeout(resolve, delay));
-      delay *= 2; 
-      
+      delay *= 2;
+
       // ⚡ CAMBIO CLAVE: Eliminamos el $disconnect y $connect manual.
       // Prisma manejará la reconexión solo al ejecutar la 'operation' de nuevo.
     }

@@ -30,7 +30,7 @@ const DarkModetoggle = () => {
       <div className="mt-4 w-full">
         <div className="flex flex-col items-start gap-5 sm:flex-row">
           {/* System Mode */}
-          <div className="w-full sm:w-1/3 lg:w-1/2 h-fit">
+          <div className="h-fit w-full sm:w-1/3 lg:w-1/2">
             <div
               role="button"
               className={cn(
@@ -45,7 +45,7 @@ const DarkModetoggle = () => {
           </div>
 
           {/* Light Mode */}
-          <div className="w-full sm:w-1/3 lg:w-1/2 h-fit">
+          <div className="h-fit w-full sm:w-1/3 lg:w-1/2">
             <div
               role="button"
               className={cn(
@@ -60,7 +60,7 @@ const DarkModetoggle = () => {
           </div>
 
           {/* Dark Mode */}
-          <div className="w-full sm:w-1/3 lg:w-1/2 h-fit">
+          <div className="h-fit w-full sm:w-1/3 lg:w-1/2">
             <div
               role="button"
               className={cn(

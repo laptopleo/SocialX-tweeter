@@ -4,16 +4,13 @@ import { NextResponse } from "next/server";
 import { withCache } from "@/lib/redis-cache";
 
 // ⚡ Force Node.js runtime for Prisma compatibility
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 export async function GET() {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json(
-        { message: "Not authenticated", status: "error" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Not authenticated", status: "error" }, { status: 401 });
     }
 
     const currentUserId = +session.user.id;
@@ -48,9 +45,7 @@ export async function GET() {
           },
         });
         const t1 = Date.now();
-        console.log(
-          `⚡ Prisma query time: ${t1 - t0}ms (rows: ${result.length})`
-        );
+        console.log(`⚡ Prisma query time: ${t1 - t0}ms (rows: ${result.length})`);
         return result;
       },
       300 // Cache por 5 minutos - usuarios cambian poco

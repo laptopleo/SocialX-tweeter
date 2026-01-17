@@ -21,19 +21,14 @@ const FollowButton: React.FC<PropsType> = ({ userId, username }) => {
       title={isFollowing ? "unfollow" : "Follow"}
       disabled={loading}
       onClick={toggleFollow}
-      className={cn("!font-semibold gap-1", {
-        "hover:!border-red-500 hover:!text-red-500 text-sm hover:bg-red-500/10":
-          isFollowing,
+      className={cn("gap-1 !font-semibold", {
+        "text-sm hover:!border-red-500 hover:bg-red-500/10 hover:!text-red-500": isFollowing,
       })}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {loading && <Spinner />}
-      {isHovered && isFollowing
-        ? "Unfollow"
-        : isFollowing
-        ? "Following"
-        : "Follow"}
+      {isHovered && isFollowing ? "Unfollow" : isFollowing ? "Following" : "Follow"}
     </Button>
   );
 };

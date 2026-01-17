@@ -9,12 +9,12 @@ import { FileX, Home, ArrowLeft } from "lucide-react";
  */
 export default function PostNotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
-      <div className="text-center space-y-6 max-w-md">
+    <div className="flex min-h-[60vh] flex-col items-center justify-center px-4">
+      <div className="max-w-md space-y-6 text-center">
         {/* Icon */}
         <div className="flex justify-center">
-          <div className="p-4 rounded-full bg-muted">
-            <FileX className="w-12 h-12 text-muted-foreground" />
+          <div className="rounded-full bg-muted p-4">
+            <FileX className="h-12 w-12 text-muted-foreground" />
           </div>
         </div>
 
@@ -27,16 +27,16 @@ export default function PostNotFound() {
         </div>
 
         {/* Actions */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild variant="default">
             <Link href="/home">
-              <Home className="w-4 h-4 mr-2" />
+              <Home className="mr-2 h-4 w-4" />
               Go to Home
             </Link>
           </Button>
           <Button asChild variant="outline" onClick={() => window.history.back()}>
             <span className="cursor-pointer">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <ArrowLeft className="mr-2 h-4 w-4" />
               Go Back
             </span>
           </Button>

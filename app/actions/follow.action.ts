@@ -28,9 +28,7 @@ export async function followUser(userId: number) {
     let updatedFollowingIds = [...(user.followingIds || [])];
 
     if (updatedFollowingIds.includes(userId)) {
-      updatedFollowingIds = updatedFollowingIds.filter(
-        (followingId) => followingId !== userId
-      );
+      updatedFollowingIds = updatedFollowingIds.filter((followingId) => followingId !== userId);
     } else {
       updatedFollowingIds.push(userId);
       try {
@@ -65,11 +63,9 @@ export async function followUser(userId: number) {
       isFollowing,
       updatedUser,
     };
-  } 
-  catch {
+  } catch {
     return {
       message: "Failed to follow user",
     };
   }
-  
 }

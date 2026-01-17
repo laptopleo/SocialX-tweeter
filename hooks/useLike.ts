@@ -39,7 +39,7 @@ const useLike = (postId: number, likedIds: number[]) => {
         if (!oldData) {
           return { pages: [], pageParams: [] };
         }
-        
+
         return {
           ...oldData,
           pages: oldData.pages.map((page) => ({

@@ -5,16 +5,13 @@ import { withCache, invalidatePattern } from "@/lib/redis-cache";
 import { pusherServer } from "@/lib/pusher"; // Import pusherServer
 
 // ⚡ Force Node.js runtime for Prisma compatibility
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
     const session = await auth(); // Obtiene la sesión del usuario
     if (!session?.user?.id) {
-      return NextResponse.json(
-        { message: "Not authenticated", status: "error" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Not authenticated", status: "error" }, { status: 401 });
     }
 
     const userId = +session?.user?.id; // Convierte el id del usuario a número
@@ -37,7 +34,8 @@ export async function POST(request: Request) {
         postGif: postGif, // GIF del post (si aplica)
         userId: userId, // Id del usuario que creó el post
       },
-      include: { // Include user information to send in Pusher event
+      include: {
+        // Include user information to send in Pusher event
         user: {
           select: {
             id: true,
@@ -141,9 +139,7 @@ export async function GET(request: Request) {
           },
         });
         const t1 = Date.now();
-        console.log(
-          `⚡ Prisma query time: ${t1 - t0}ms (rows: ${result.length})`
-        );
+        console.log(`⚡ Prisma query time: ${t1 - t0}ms (rows: ${result.length})`);
         return result;
       },
       180 // Cache por 3 minutos - posts nuevos no son urgentes

@@ -23,8 +23,6 @@ export const ProModal = dynamic(() => import("@/components/pro-modal"), {
 
 // ⚡ GIF Picker (pesado)
 export const GifPicker = dynamic(() => import("@/components/gif"), {
-  loading: () => (
-    <div className="h-20 animate-pulse bg-gray-200 dark:bg-gray-800 rounded-md" />
-  ),
+  loading: () => <div className="h-20 animate-pulse rounded-md bg-gray-200 dark:bg-gray-800" />,
   ssr: false,
 });

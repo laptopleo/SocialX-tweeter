@@ -8,7 +8,7 @@ import SearchForm from "../../_components/SearchForms";
 const Search = () => {
   return (
     <Fragment>
-      <Header label="Search" showBackArrow ={true} >
+      <Header label="Search" showBackArrow={true}>
         <Suspense fallback={<div>Loading search form...</div>}>
           <SearchForm />
         </Suspense>

@@ -1,8 +1,7 @@
 import React, { ChangeEvent } from "react";
 import { Button } from "../ui/button";
-import {  ImageIcon } from "lucide-react"; // Asegúrate de importar VideoIcon
+import { ImageIcon } from "lucide-react"; // Asegúrate de importar VideoIcon
 import { toast } from "@/hooks/use-toast";
-
 
 interface PropsType {
   accept?: Record<string, string[]>;
@@ -42,16 +41,11 @@ const UploadMediaButton: React.FC<PropsType> = ({
   };
 
   return (
-    <label
-      className="relative 
-    inline-block cursor-pointer"
-    >
+    <label className="relative inline-block cursor-pointer">
       <input
         type="file"
         accept={Object.keys(accept).join(", ")}
-        className="absolute inset-0
-         w-full h-full appearance-none
-          opacity-0 !cursor-pointer"
+        className="absolute inset-0 h-full w-full !cursor-pointer appearance-none opacity-0"
         style={{ cursor: "pointer !important" }}
         onChange={handleFileChange}
       />
@@ -59,14 +53,9 @@ const UploadMediaButton: React.FC<PropsType> = ({
         type="button"
         variant="ghost"
         disabled={disabled}
-        className="!text-primary
-               !p-0 gap-1
-         !bg-transparent"
+        className="gap-1 !bg-transparent !p-0 !text-primary"
       >
         <ImageIcon color="rgb(29,155,240)" width={24} height={24} className="shrink-0" />
-     
-       
-       
       </Button>
     </label>
   );

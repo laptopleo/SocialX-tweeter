@@ -4,14 +4,14 @@ import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { rateLimit, getIdentifier, RATE_LIMITS } from "@/lib/rate-limit";
 
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
     // ⚡ Rate limiting estricto para registro
     const identifier = getIdentifier(request);
     const { success } = await rateLimit(identifier, RATE_LIMITS.AUTH);
-    
+
     if (!success) {
       return NextResponse.json(
         { message: "Too many registration attempts. Please try again later.", status: "error" },
@@ -20,8 +20,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { name, email, username, password, dateOfBirth } =
-      await signupSchema.parseAsync(body);
+    const { name, email, username, password, dateOfBirth } = await signupSchema.parseAsync(body);
 
     const parsedDateOfBirth = new Date(dateOfBirth);
     const isUserEmailExist = await prisma.user.findUnique({
@@ -57,9 +56,9 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-  console.error('Registration error:', error);
-}
+    if (process.env.NODE_ENV === "development") {
+      console.error("Registration error:", error);
+    }
     return NextResponse.json(
       {
         message: "Registration failed",

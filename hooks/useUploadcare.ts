@@ -17,7 +17,11 @@ const useUploadcare = () => {
 
       const result = await uploadFileAction(formData);
       if (!result?.uploadedUrl) {
-        toast({ title: "Error", description: result?.message || "Upload failed", variant: "destructive" });
+        toast({
+          title: "Error",
+          description: result?.message || "Upload failed",
+          variant: "destructive",
+        });
         return null;
       }
 
@@ -25,7 +29,11 @@ const useUploadcare = () => {
       toast({ title: "Success", description: "Upload successfully", variant: "default" });
       return result.uploadedUrl;
     } catch (e) {
-      toast({ title: "Error", description: e instanceof Error ? e.message : "Upload failed", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: e instanceof Error ? e.message : "Upload failed",
+        variant: "destructive",
+      });
       return null;
     } finally {
       setUploading(false);

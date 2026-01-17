@@ -6,27 +6,26 @@ export async function POST(request: Request) {
 
     // 1. Validación de entrada
     if (!query || typeof query !== "string") {
-      return NextResponse.json(
-        { error: "Query inválida" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Query inválida" }, { status: 400 });
     }
 
     console.log("Enviando solicitud a Gemini con query:", query);
 
     // 2. Configuración mejorada del fetch con el endpoint de Gemini
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, 
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json",
         },
         body: JSON.stringify({
-          contents: [{
-            parts: [{ text: query.substring(0, 500) }] // Limita caracteres
-          }]
+          contents: [
+            {
+              parts: [{ text: query.substring(0, 500) }], // Limita caracteres
+            },
+          ],
         }),
       }
     );
@@ -52,8 +51,6 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ response: String(data.candidates[0].content.parts[0].text) });
-
-
   } catch (error: unknown) {
     console.error("Error interno:", error);
     return NextResponse.json(

@@ -30,15 +30,13 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
         `https://tenor.googleapis.com/v2/search?q=funny&key=${TENOR_API_KEY}&limit=100`
       );
       const data = await response.json();
-      
+
       const mp4Urls = data.results
-        .map((gif: TenorResult) => 
-          gif.media_formats.mp4?.url || gif.media_formats.gif.url
-        )
+        .map((gif: TenorResult) => gif.media_formats.mp4?.url || gif.media_formats.gif.url)
         .filter((url: string | undefined): url is string => !!url);
 
       setGifs(mp4Urls);
-    } catch  {
+    } catch {
       console.error("Error fetching GIFs:");
       toast({
         title: "Error",
@@ -57,7 +55,7 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
       const file = new File([blob], "post-gif.gif", { type: blob.type });
       onFileSelect(file);
       setModalOpen(false);
-    } catch  {
+    } catch {
       toast({
         title: "Error",
         description: "No se pudo cargar el GIF",
@@ -66,14 +64,13 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
     }
   };
 
-
   return (
     <>
       <Button
         type="button"
         variant="ghost"
         disabled={disabled}
-        className="!text-primary !p-0 gap-1 !bg-transparent"
+        className="gap-1 !bg-transparent !p-0 !text-primary"
         onClick={() => {
           setModalOpen(true);
           fetchGifs();
@@ -83,11 +80,11 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
       </Button>
 
       {modalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-background p-6 rounded-lg w-[90%] max-w-2xl max-h-[80vh]">
-            <div className="flex justify-between items-center mb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="max-h-[80vh] w-[90%] max-w-2xl rounded-lg bg-background p-6">
+            <div className="mb-4 flex items-center justify-between">
               <h2 className="text-xl font-bold">Seleccionar GIF</h2>
-              <button 
+              <button
                 onClick={() => setModalOpen(false)}
                 className="text-foreground/50 hover:text-foreground"
               >
@@ -98,43 +95,41 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
             {loading ? (
               <p className="text-center">Cargando GIFs...</p>
             ) : (
-                <div className="bg-background p-6 rounded-lg w-full max-w-2xl max-h-[80vh] overflow-auto scroll-smooth scrollbar-thin">
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 overflow-auto">
-                      {gifs.map((gifUrl) => (
-                        <div 
-                          key={gifUrl}
-                          className="relative group cursor-pointer"
-                          onClick={() => handleSelectGif(gifUrl)}
-                        >
-                          <video
-                            src={gifUrl}
-                            muted
-                            loop
-                            autoPlay
-                            playsInline
-                            disablePictureInPicture
-                            controls={false}
-                            className="w-full h-32 object-cover rounded-lg transition-opacity group-hover:opacity-90"
-                            style={{
-                              objectFit: 'cover',
-                              backgroundColor: 'transparent',
-                            }}
-                            controlsList="nodownload nofullscreen noremoteplayback"
-                            preload="auto"
-                            onMouseEnter={(e) => e.currentTarget.play()}
-                            onMouseLeave={(e) => e.currentTarget.pause()}
-                          />
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="bg-black/50 text-white px-2 py-1 rounded text-sm">
-                              Seleccionar
-                            </span>
-                          </div>
-                        </div>
-                      ))}
+              <div className="max-h-[80vh] w-full max-w-2xl overflow-auto scroll-smooth rounded-lg bg-background p-6 scrollbar-thin">
+                <div className="grid grid-cols-2 gap-3 overflow-auto md:grid-cols-3">
+                  {gifs.map((gifUrl) => (
+                    <div
+                      key={gifUrl}
+                      className="group relative cursor-pointer"
+                      onClick={() => handleSelectGif(gifUrl)}
+                    >
+                      <video
+                        src={gifUrl}
+                        muted
+                        loop
+                        autoPlay
+                        playsInline
+                        disablePictureInPicture
+                        controls={false}
+                        className="h-32 w-full rounded-lg object-cover transition-opacity group-hover:opacity-90"
+                        style={{
+                          objectFit: "cover",
+                          backgroundColor: "transparent",
+                        }}
+                        controlsList="nodownload nofullscreen noremoteplayback"
+                        preload="auto"
+                        onMouseEnter={(e) => e.currentTarget.play()}
+                        onMouseLeave={(e) => e.currentTarget.pause()}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                        <span className="rounded bg-black/50 px-2 py-1 text-sm text-white">
+                          Seleccionar
+                        </span>
+                      </div>
                     </div>
-                    
+                  ))}
                 </div>
+              </div>
             )}
           </div>
         </div>

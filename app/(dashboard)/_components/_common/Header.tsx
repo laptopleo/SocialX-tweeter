@@ -11,12 +11,7 @@ interface PropsType {
   children?: React.ReactNode;
 }
 
-const Header: React.FC<PropsType> = ({
-  label,
-  children,
-  showBackArrow,
-  showBorder = true,
-}) => {
+const Header: React.FC<PropsType> = ({ label, children, showBackArrow, showBorder = true }) => {
   const router = useRouter();
   const handleBack = useCallback(() => {
     router.back();
@@ -24,7 +19,7 @@ const Header: React.FC<PropsType> = ({
   return (
     <div
       className={cn(
-        "flex justify-center p-4 sticky top-0 z-30 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/60 w-full text-black dark:text-white",
+        "sticky top-0 z-30 flex w-full justify-center bg-background/90 p-4 text-black backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:text-white",
         {
           "border-b-[1px] dark:border-[rgb(29,111,173)]": showBorder,
         }
@@ -36,15 +31,10 @@ const Header: React.FC<PropsType> = ({
             onClick={handleBack}
             color="currentColor"
             size={20}
-            className="cursor-pointer
-             hover:opacity-70 transition"
+            className="cursor-pointer transition hover:opacity-70"
           />
         )}
-        {label ? (
-          <h1 className="text-xl font-semibold">{label}</h1>
-        ) : (
-          <>{children}</>
-        )}
+        {label ? <h1 className="text-xl font-semibold">{label}</h1> : <>{children}</>}
       </div>
     </div>
   );

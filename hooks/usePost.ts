@@ -33,9 +33,7 @@ function usePost({
   const infinitePostsQuery = useInfiniteQuery<PostListResponse, Error>({
     queryKey: ["posts", "infinite", { userId }],
     queryFn: async ({ pageParam = 1 }) => {
-      const url = userId
-        ? `${BASE_URL}/api/posts?userId=${userId}`
-        : `${BASE_URL}/api/posts`;
+      const url = userId ? `${BASE_URL}/api/posts?userId=${userId}` : `${BASE_URL}/api/posts`;
       const separator = url.includes("?") ? "&" : "?";
       const paginatedUrl = `${url}${separator}page=${pageParam}&limit=10`;
       return fetcher<PostListResponse>(paginatedUrl);
@@ -56,12 +54,8 @@ function usePost({
   const regularPostsQuery = useQuery<PostListResponse, Error>({
     queryKey: ["posts", { userId }],
     queryFn: () => {
-      const url = userId
-        ? `${BASE_URL}/api/posts?userId=${userId}`
-        : `${BASE_URL}/api/posts`;
-      const fetchUrl = url.includes("?")
-        ? `${url}&limit=5`
-        : `${url}?limit=5`;
+      const url = userId ? `${BASE_URL}/api/posts?userId=${userId}` : `${BASE_URL}/api/posts`;
+      const fetchUrl = url.includes("?") ? `${url}&limit=5` : `${url}?limit=5`;
       return fetcher<PostListResponse>(fetchUrl);
     },
     enabled: !isInfinite && !postId,
@@ -73,11 +67,11 @@ function usePost({
   if (postId) {
     return singlePostQuery;
   }
-  
+
   if (isInfinite) {
     return infinitePostsQuery;
   }
-  
+
   return regularPostsQuery;
 }
 

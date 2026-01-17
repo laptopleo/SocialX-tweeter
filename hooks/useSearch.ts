@@ -32,9 +32,7 @@ function useSearch(
 
 // --- Hook Implementation ---
 function useSearch({ query, filter }: PropsType) {
-  const url = query
-    ? `${BASE_URL}/api/search?q=${query}&f=${filter || ""}`
-    : null;
+  const url = query ? `${BASE_URL}/api/search?q=${query}&f=${filter || ""}` : null;
 
   const commonQueryOptions = {
     queryKey: ["search", query, filter],
@@ -60,7 +58,7 @@ function useSearch({ query, filter }: PropsType) {
   if (filter === "user") {
     return userSearchQuery;
   }
-  
+
   return postSearchQuery;
 }
 

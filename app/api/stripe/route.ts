@@ -5,7 +5,7 @@ import { absoluteUrl } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 // ⚡ Force Node.js runtime for Prisma compatibility
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 const settingsUrl = absoluteUrl("/settings");
 
@@ -13,18 +13,15 @@ export async function GET() {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json(
-        { message: "Not authenticated", status: "error" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Not authenticated", status: "error" }, { status: 401 });
     }
 
     const currentUserId = +session.user.id;
 
     const user = await prisma.user.findUnique({
-        where: { id: currentUserId },
-        select: { id: true, email: true }, // Solo seleccionar campos necesarios
-      });
+      where: { id: currentUserId },
+      select: { id: true, email: true }, // Solo seleccionar campos necesarios
+    });
 
     if (!user) {
       return new NextResponse("User not found", { status: 404 });

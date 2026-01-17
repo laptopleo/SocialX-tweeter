@@ -14,7 +14,10 @@ const useUploadcareVideo = () => {
       formData.append("UPLOADCARE_STORE", "1");
       formData.append("file", file);
 
-      const response = await fetch("https://upload.uploadcare.com/base/", { method: "POST", body: formData });
+      const response = await fetch("https://upload.uploadcare.com/base/", {
+        method: "POST",
+        body: formData,
+      });
       const result = await response.json();
 
       if (!result.file) {
@@ -27,7 +30,11 @@ const useUploadcareVideo = () => {
       toast({ title: "Success", description: "Video uploaded successfully", variant: "default" });
       return videoUrl;
     } catch (e) {
-      toast({ title: "Error", description: e instanceof Error ? e.message : "Video upload failed", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: e instanceof Error ? e.message : "Video upload failed",
+        variant: "destructive",
+      });
       return null;
     } finally {
       setUploading(false);

@@ -8,9 +8,6 @@ export async function addComment(data: {
   commentImage?: string;
   commentVideo?: string;
   commentGif?: string;
-
-
-
 }) {
   const { postId, body, commentImage, commentVideo, commentGif } = data;
   const session = await auth();

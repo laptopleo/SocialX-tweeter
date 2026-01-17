@@ -12,9 +12,8 @@ import { Spinner } from "@/components/spinner";
 import { doCredentialLogin } from "@/app/actions/auth.action";
 import { useRouter } from "next/navigation";
 
-
 const LoginForm = () => {
-    const router = useRouter();
+  const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
   const formSchema = z.object({
@@ -44,9 +43,8 @@ const LoginForm = () => {
         description: "Login successful",
         variant: "default",
       });
-        router.push("/home");
-    } catch  {
-      
+      router.push("/home");
+    } catch {
       toast({
         title: "Error",
         description: "Failed to login",
@@ -60,9 +58,7 @@ const LoginForm = () => {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex h-full w-full flex-col items-center
-           justify-center space-y-3
-              "
+        className="flex h-full w-full flex-col items-center justify-center space-y-3"
       >
         <FormField
           control={form.control}
@@ -73,9 +69,7 @@ const LoginForm = () => {
                 <Input
                   placeholder="Email"
                   disabled={isLoading}
-                  className="form--input focus:boder-0
-                   dark:border-[rgba(255,255,255,.5)]
-                          "
+                  className="form--input focus:boder-0 dark:border-[rgba(255,255,255,.5)]"
                   {...field}
                 />
               </FormControl>
@@ -92,9 +86,7 @@ const LoginForm = () => {
                 <Input
                   placeholder="Password"
                   disabled={isLoading}
-                  className="form--input focus:boder-0
-                   dark:border-[rgba(255,255,255,.5)]
-                          "
+                  className="form--input focus:boder-0 dark:border-[rgba(255,255,255,.5)]"
                   {...field}
                 />
               </FormControl>

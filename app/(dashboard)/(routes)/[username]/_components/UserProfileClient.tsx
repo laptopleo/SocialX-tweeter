@@ -23,7 +23,7 @@ const UserProfileClient: React.FC<UserProfileClientProps> = ({ user }) => {
       <UserHero user={user} />
       <UserBio user={user} />
       {/* ⚡ Deshabilitar polling en perfil (no necesita real-time) */}
-                  <PostFeed userId={Number(user.id)} />      <CommentFeed comments={user.comments} />
+      <PostFeed userId={Number(user.id)} /> <CommentFeed comments={user.comments} />
     </Fragment>
   );
 };

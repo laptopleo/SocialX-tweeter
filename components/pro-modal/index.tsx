@@ -63,13 +63,13 @@ const ProModal = () => {
       isOpen={isProModalOpen}
       onClose={handleClose}
       body={
-        <div className="w-full px-2 md:px-4 pb-6">
+        <div className="w-full px-2 pb-6 md:px-4">
           {/* Toggle Annual/Monthly */}
-          <div className="flex items-center justify-center gap-2 md:gap-3 mb-6 md:mb-8">
+          <div className="mb-6 flex items-center justify-center gap-2 md:mb-8 md:gap-3">
             <button
               onClick={() => setIsAnnual(false)}
               className={cn(
-                "px-4 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200",
+                "rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-200 md:px-6 md:py-2 md:text-sm",
                 !isAnnual
                   ? "bg-primary text-white"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
@@ -80,21 +80,21 @@ const ProModal = () => {
             <button
               onClick={() => setIsAnnual(true)}
               className={cn(
-                "px-4 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 relative",
+                "relative rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-200 md:px-6 md:py-2 md:text-sm",
                 isAnnual
                   ? "bg-primary text-white"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
               )}
             >
               Annual
-              <span className="absolute -top-2 -right-2 bg-green-500 text-white text-[10px] md:text-xs px-1.5 md:px-2 py-0.5 rounded-full whitespace-nowrap">
+              <span className="absolute -right-2 -top-2 whitespace-nowrap rounded-full bg-green-500 px-1.5 py-0.5 text-[10px] text-white md:px-2 md:text-xs">
                 Best Value
               </span>
             </button>
           </div>
 
           {/* Desktop: 3 Cards Side by Side */}
-          <div className="hidden md:grid md:grid-cols-3 gap-4 max-w-[950px] mx-auto">
+          <div className="mx-auto hidden max-w-[950px] gap-4 md:grid md:grid-cols-3">
             {PRICING_CARDS.map((plan, index) => (
               <PricingCard
                 key={plan.planType}
@@ -107,7 +107,7 @@ const ProModal = () => {
           </div>
 
           {/* Mobile: Carousel with Chevrons */}
-          <div className="md:hidden relative max-w-[340px] mx-auto">
+          <div className="relative mx-auto max-w-[340px] md:hidden">
             <div className="overflow-hidden px-8">
               <div
                 className="flex transition-transform duration-300 ease-in-out"
@@ -130,25 +130,21 @@ const ProModal = () => {
             {/* Chevron Navigation */}
             <button
               onClick={prevCard}
-              className="absolute left-0 top-1/2 -translate-y-1/2 
-                bg-background/90 backdrop-blur-sm border border-border rounded-full p-2 shadow-lg
-                hover:bg-muted transition-colors z-10"
+              className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/90 p-2 shadow-lg backdrop-blur-sm transition-colors hover:bg-muted"
               aria-label="Previous plan"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={nextCard}
-              className="absolute right-0 top-1/2 -translate-y-1/2 
-                bg-background/90 backdrop-blur-sm border border-border rounded-full p-2 shadow-lg
-                hover:bg-muted transition-colors z-10"
+              className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/90 p-2 shadow-lg backdrop-blur-sm transition-colors hover:bg-muted"
               aria-label="Next plan"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="h-5 w-5" />
             </button>
 
             {/* Dots Indicator */}
-            <div className="flex justify-center gap-2 mt-6">
+            <div className="mt-6 flex justify-center gap-2">
               {PRICING_CARDS.map((_, index) => (
                 <button
                   key={index}
@@ -156,8 +152,8 @@ const ProModal = () => {
                   className={cn(
                     "h-2 rounded-full transition-all duration-200",
                     currentCardIndex === index
-                      ? "bg-primary w-6"
-                      : "bg-muted hover:bg-muted-foreground/50 w-2"
+                      ? "w-6 bg-primary"
+                      : "w-2 bg-muted hover:bg-muted-foreground/50"
                   )}
                   aria-label={`Go to plan ${index + 1}`}
                 />
@@ -179,14 +175,20 @@ interface PricingCardProps {
   isMobile?: boolean;
 }
 
-const PricingCard: React.FC<PricingCardProps> = ({ plan, isAnnual, loading, onSubscribe, isMobile = false }) => {
+const PricingCard: React.FC<PricingCardProps> = ({
+  plan,
+  isAnnual,
+  loading,
+  onSubscribe,
+  isMobile = false,
+}) => {
   const price = isAnnual ? plan.priceAnnual : plan.priceMonthly;
   const period = isAnnual ? "/year" : "/month";
 
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 border rounded-2xl relative transition-all duration-200 h-full",
+        "relative flex h-full flex-col gap-3 rounded-2xl border transition-all duration-200",
         isMobile ? "p-4" : "p-6",
         plan.isPopular
           ? "border-primary shadow-lg shadow-primary/20 md:scale-105"
@@ -195,8 +197,8 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, isAnnual, loading, onSu
     >
       {/* Popular Badge */}
       {plan.isPopular && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs px-3 py-1 rounded-full flex items-center gap-1">
-          <Check className="w-3 h-3" />
+        <div className="absolute -top-3 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs text-white">
+          <Check className="h-3 w-3" />
           <span>Best Value</span>
         </div>
       )}
@@ -205,7 +207,7 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, isAnnual, loading, onSu
       <div>
         <h3 className={cn("font-semibold", isMobile ? "text-lg" : "text-xl")}>{plan.typeName}</h3>
         {isAnnual && plan.savePercent !== "0%" && (
-          <span className="text-xs text-green-500 font-medium">SAVE {plan.savePercent}</span>
+          <span className="text-xs font-medium text-green-500">SAVE {plan.savePercent}</span>
         )}
       </div>
 
@@ -216,17 +218,29 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, isAnnual, loading, onSu
       </div>
 
       {/* Description */}
-      <p className={cn("text-muted-foreground", isMobile ? "text-xs" : "text-sm")}>{plan.description}</p>
+      <p className={cn("text-muted-foreground", isMobile ? "text-xs" : "text-sm")}>
+        {plan.description}
+      </p>
 
       {/* Features */}
       <div className="flex-1">
         {plan.highlightFeature && (
-          <p className={cn("font-medium mb-2", isMobile ? "text-xs" : "text-sm")}>{plan.highlightFeature}</p>
+          <p className={cn("mb-2 font-medium", isMobile ? "text-xs" : "text-sm")}>
+            {plan.highlightFeature}
+          </p>
         )}
         <ul className={cn("space-y-1.5", isMobile && "space-y-1")}>
           {plan.features.map((feature: string, index: number) => (
-            <li key={index} className={cn("flex gap-2 items-start", isMobile ? "text-xs" : "text-sm")}>
-              <Check className={cn("text-primary mt-0.5 flex-shrink-0", isMobile ? "w-3 h-3" : "w-4 h-4")} />
+            <li
+              key={index}
+              className={cn("flex items-start gap-2", isMobile ? "text-xs" : "text-sm")}
+            >
+              <Check
+                className={cn(
+                  "mt-0.5 flex-shrink-0 text-primary",
+                  isMobile ? "h-3 w-3" : "h-4 w-4"
+                )}
+              />
               <span>{feature}</span>
             </li>
           ))}
@@ -234,15 +248,22 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, isAnnual, loading, onSu
 
         {/* Badge Features (Premium+) */}
         {plan.badge && (
-          <div className={cn("mt-3 rounded-lg bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20", isMobile ? "p-2" : "p-3")}>
-            <div className="flex items-center gap-2 mb-1.5">
-              <Sparkles className={cn("text-purple-500", isMobile ? "w-3 h-3" : "w-4 h-4")} />
-              <span className={cn("font-semibold", isMobile ? "text-xs" : "text-sm")}>{plan.badge}</span>
+          <div
+            className={cn(
+              "mt-3 rounded-lg border border-purple-500/20 bg-gradient-to-r from-purple-500/10 to-blue-500/10",
+              isMobile ? "p-2" : "p-3"
+            )}
+          >
+            <div className="mb-1.5 flex items-center gap-2">
+              <Sparkles className={cn("text-purple-500", isMobile ? "h-3 w-3" : "h-4 w-4")} />
+              <span className={cn("font-semibold", isMobile ? "text-xs" : "text-sm")}>
+                {plan.badge}
+              </span>
             </div>
             <ul className="space-y-1">
               {plan.badgeFeatures.map((feature: string, index: number) => (
-                <li key={index} className="flex gap-2 items-start text-xs text-muted-foreground">
-                  <Check className="w-3 h-3 text-purple-500 mt-0.5 flex-shrink-0" />
+                <li key={index} className="flex items-start gap-2 text-xs text-muted-foreground">
+                  <Check className="mt-0.5 h-3 w-3 flex-shrink-0 text-purple-500" />
                   <span>{feature}</span>
                 </li>
               ))}
@@ -254,7 +275,7 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, isAnnual, loading, onSu
       {/* Subscribe Button */}
       <Button
         variant={plan.isPopular ? "brandPrimary" : "outline"}
-        className="w-full mt-2"
+        className="mt-2 w-full"
         size={isMobile ? "sm" : "default"}
         disabled={loading}
         onClick={() => onSubscribe(plan.typeName)}

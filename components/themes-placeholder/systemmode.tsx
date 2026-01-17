@@ -33,10 +33,7 @@ export const SystemMode = () => {
       <rect x="44" y="88" width="61" height="17" rx="3" fill="#D9D9D9" />
       <rect x="44" y="110" width="61" height="17" rx="3" fill="#D9D9D9" />
       <rect x="44" y="132" width="61" height="17" rx="3" fill="#D9D9D9" />
-      <path
-        d="M137 27H242C250.284 27 257 33.7157 257 42V193H137V27Z"
-        fill="#202020"
-      />
+      <path d="M137 27H242C250.284 27 257 33.7157 257 42V193H137V27Z" fill="#202020" />
       <path
         d="M137 67H238C241.314 67 244 69.6863 244 73V188C244 190.761 241.761 193 239 193H137V67Z"
         fill="#404040"

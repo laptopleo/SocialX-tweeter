@@ -1,9 +1,8 @@
-
 import React from "react";
 import { prisma } from "@/lib/prismadb";
 import { notFound } from "next/navigation";
 import PostDetailClient from "./_components/PostDetailClient";
-// Eliminamos tipos personalizados de props para alinear con Next 15
+import { withCache } from "@/lib/cache"; // ⚡ Importa tu sistema de caché
 import type { Metadata } from "next";
 
 // ⚡ ISR: Revalida cada 60 segundos
@@ -36,11 +35,13 @@ export async function generateStaticParams() {
 // ⚡ Metadata para SEO y compartir en redes sociales
 export async function generateMetadata({
   params,
-}: { params: Promise<{ username: string; postId: string }> }): Promise<Metadata> {
+}: {
+  params: Promise<{ username: string; postId: string }>;
+}): Promise<Metadata> {
   try {
     const { username, postId: postIdStr } = await params;
     const postId = parseInt(postIdStr);
-    
+
     if (isNaN(postId)) {
       return {
         title: "Post Not Found - SocialX",
@@ -77,9 +78,7 @@ export async function generateMetadata({
     }
 
     // ⚡ Truncar body para meta description
-    const truncatedBody = post.body.length > 160 
-      ? `${post.body.slice(0, 157)}...` 
-      : post.body;
+    const truncatedBody = post.body.length > 160 ? `${post.body.slice(0, 157)}...` : post.body;
 
     const title = `${post.user.name} on SocialX: "${post.body.slice(0, 50)}${post.body.length > 50 ? "..." : ""}"`;
     const description = truncatedBody;
@@ -112,15 +111,10 @@ export async function generateMetadata({
 }
 
 /**
- * ⚡ Server Component con ISR
- * - Pre-renderiza posts estáticos
- * - Revalida cada 60 segundos
- * - SEO perfecto para compartir
- * - Cacheable por CDN
+ * ⚡ Helper function: Solo obtiene y prepara los datos
+ * NO es el componente exportado por defecto
  */
-export default async function PostDetailPage(
-  props: { params: Promise<{ username: string; postId: string }> }
-) {
+async function getPostData(props: { params: Promise<{ username: string; postId: string }> }) {
   try {
     const { username, postId: postIdStr } = await props.params;
     const postId = parseInt(postIdStr);
@@ -186,7 +180,7 @@ export default async function PostDetailPage(
         username: post.user.username,
         profileImage: post.user.profileImage,
       },
-      comments: post.comments.map(comment => ({
+      comments: post.comments.map((comment) => ({
         id: comment.id,
         body: comment.body,
         userId: comment.userId,
@@ -208,7 +202,6 @@ export default async function PostDetailPage(
       },
     };
 
-    // ⚡ Renderizar componente cliente con datos del servidor
     return cleanPost;
   } catch (error) {
     console.error("Error fetching post detail:", error);
@@ -216,9 +209,25 @@ export default async function PostDetailPage(
   }
 }
 
-// Wrapper component to handle JSX rendering outside try/catch
+/**
+ * ⚡ Componente principal de la página con CACHÉ INTEGRADO
+ * ÚNICO export default del archivo
+ */
 async function PostDetailWrapper(props: { params: Promise<{ username: string; postId: string }> }) {
-  const cleanPost = await PostDetailPage(props);
+  const { username, postId } = await props.params;
+
+  // ⚡ CLAVE DE CACHÉ única para este post
+  const cacheKey = `post:detail:${username}:${postId}`;
+
+  // ⚡ Usar withCache: si hay HIT, devuelve instantáneamente; si hay MISS, ejecuta getPostData
+  const cleanPost = await withCache(
+    cacheKey,
+    async () => {
+      return await getPostData(props);
+    },
+    300
+  ); // ⚡ TTL de 5 minutos (300 segundos) para detalles de post
+
   return <PostDetailClient post={cleanPost} />;
 }
 

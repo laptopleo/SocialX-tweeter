@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 // ⚡ Force Node.js runtime for Prisma compatibility
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -33,9 +33,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ isAvailable: false });
   } catch (error) {
     console.error("Error checking username availability:", error);
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }

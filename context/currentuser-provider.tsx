@@ -21,23 +21,18 @@ type CurrentUserContextType = {
   refetch: () => void;
 };
 
-const CurrentUserContext = createContext<CurrentUserContextType | undefined>(
-  undefined
-);
+const CurrentUserContext = createContext<CurrentUserContextType | undefined>(undefined);
 
-export const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const { data, error, isLoading, isFetching, refetch } =
-    useQuery<CurrentUserApiResponse>({
-      queryKey: ["currentUser"],
-      queryFn: () => fetcher(`${BASE_URL}/api/current-user`),
-      staleTime: 30000, // 30 seconds - user data doesn't change frequently
-      gcTime: 5 * 60 * 1000, // 5 minutes garbage collection time
-      refetchInterval: 60000, // 60 seconds - reduced frequency
-      refetchIntervalInBackground: false, // No polling in background
-      refetchOnWindowFocus: true, // Refresh when user returns to tab
-    });
+export const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { data, error, isLoading, isFetching, refetch } = useQuery<CurrentUserApiResponse>({
+    queryKey: ["currentUser"],
+    queryFn: () => fetcher(`${BASE_URL}/api/current-user`),
+    staleTime: 30000, // 30 seconds - user data doesn't change frequently
+    gcTime: 5 * 60 * 1000, // 5 minutes garbage collection time
+    refetchInterval: 60000, // 60 seconds - reduced frequency
+    refetchIntervalInBackground: false, // No polling in background
+    refetchOnWindowFocus: true, // Refresh when user returns to tab
+  });
 
   const { onOpenBirthDayModal } = useStore();
 
@@ -48,9 +43,7 @@ export const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [data, onOpenBirthDayModal]);
 
   return (
-    <CurrentUserContext.Provider
-      value={{ data, error, isLoading, isFetching, refetch }}
-    >
+    <CurrentUserContext.Provider value={{ data, error, isLoading, isFetching, refetch }}>
       {children}
     </CurrentUserContext.Provider>
   );
@@ -59,9 +52,7 @@ export const CurrentUserProvider: React.FC<{ children: React.ReactNode }> = ({
 export const useCurrentUserContext = () => {
   const context = useContext(CurrentUserContext);
   if (!context) {
-    throw new Error(
-      "useCurrentUserContext must be used within a CurrentUserProvider"
-    );
+    throw new Error("useCurrentUserContext must be used within a CurrentUserProvider");
   }
   return context;
 };

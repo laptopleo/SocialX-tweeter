@@ -9,10 +9,7 @@ export async function GET(
   const { postId } = await params;
 
   if (!postId) {
-    return NextResponse.json(
-      { message: "Post Id required", status: "error" },
-      { status: 400 }
-    );
+    return NextResponse.json({ message: "Post Id required", status: "error" }, { status: 400 });
   }
 
   try {
@@ -43,10 +40,7 @@ export async function GET(
     });
 
     if (!post) {
-      return NextResponse.json(
-        { message: "Post not found", status: "error" },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: "Post not found", status: "error" }, { status: 404 });
     }
 
     return NextResponse.json({

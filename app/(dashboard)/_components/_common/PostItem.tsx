@@ -40,22 +40,25 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
     };
   }, []);
 
-  const { hasLiked, loading, toggleLike } = useLike(
-    post?.id,
-    post?.likeIds
-  );
+  const { hasLiked, loading, toggleLike } = useLike(post?.id, post?.likeIds);
+
+  const username = post.user?.username;
 
   const goToUser = useCallback(
     (event: { stopPropagation: () => void }) => {
       event.stopPropagation();
-      router.push(`/${post.user?.username}`);
+      if (username) {
+        router.push(`/${username}`);
+      }
     },
-    [router, post.user?.username]
+    [router, username]
   );
 
   const goToPost = useCallback(() => {
-    router.push(`/${post.user?.username}/post/${post.id}`);
-  }, [router, post.user?.username, post.id]);
+    if (username) {
+      router.push(`/${username}/post/${post.id}`);
+    }
+  }, [router, username, post.id]);
 
   const onLike = useCallback(
     (event: { stopPropagation: () => void }) => {
@@ -95,7 +98,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
     <div
       role="button"
       onClick={goToPost}
-      className="flex-1 py-4 transition cursor-pointer border border-gray-200 dark:border-neutral-800"
+      className="flex-1 cursor-pointer border border-gray-200 py-4 transition dark:border-neutral-800"
     >
       <div className="flex gap-3">
         {/* Left padding for avatar alignment */}
@@ -103,18 +106,14 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
         {/* Avatar Section */}
         <div className="flex-shrink-0">
           <div className="relative">
-            <div
-              role="button"
-              onClick={goToUser}
-              className="cursor-pointer"
-            >
+            <div role="button" onClick={goToUser} className="cursor-pointer">
               <Avatar className="ring-2 ring-white dark:ring-black">
                 <AvatarImage
                   src={post?.user?.profileImage || ""}
                   alt={post?.user.username || ""}
                   className="object-cover"
                 />
-                <AvatarFallback className="font-bold bg-blue-500 text-white">
+                <AvatarFallback className="bg-blue-500 font-bold text-white">
                   {post?.user?.name?.[0]}
                 </AvatarFallback>
               </Avatar>
@@ -123,12 +122,12 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
         </div>
 
         {/* Content Section */}
-        <div className="flex-1 min-w-0 pr-4">
+        <div className="min-w-0 flex-1 pr-4">
           {/* User Info */}
-          <div className="flex flex-wrap items-center gap-1 mb-1">
+          <div className="mb-1 flex flex-wrap items-center gap-1">
             <div className="flex items-center gap-1">
               <h5
-                className="font-bold text-gray-900 dark:text-white cursor-pointer hover:underline truncate"
+                className="cursor-pointer truncate font-bold text-gray-900 hover:underline dark:text-white"
                 role="button"
                 onClick={goToUser}
               >
@@ -138,19 +137,16 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
             </div>
 
             <span
-              className="text-gray-500 dark:text-gray-400 text-sm font-normal truncate cursor-pointer hover:underline"
+              className="cursor-pointer truncate text-sm font-normal text-gray-500 hover:underline dark:text-gray-400"
               role="button"
               onClick={goToUser}
             >
               @{post?.user?.username}
             </span>
 
-            <Dot
-              className="text-gray-500 dark:text-gray-400 flex-shrink-0"
-              size={15}
-            />
+            <Dot className="flex-shrink-0 text-gray-500 dark:text-gray-400" size={15} />
 
-            <span className="text-gray-500 dark:text-gray-400 text-sm flex-shrink-0">
+            <span className="flex-shrink-0 text-sm text-gray-500 dark:text-gray-400">
               {createdAt}
             </span>
           </div>
@@ -159,14 +155,14 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
           <div className="mb-3">
             <div
               dangerouslySetInnerHTML={{ __html: post.body }}
-              className="text-gray-900 dark:text-gray-100 break-words font-normal text-[15px] leading-5 line-clamp-4 lg:line-clamp-6 overflow-hidden"
+              className="line-clamp-4 overflow-hidden break-words text-[15px] font-normal leading-5 text-gray-900 dark:text-gray-100 lg:line-clamp-6"
             />
           </div>
 
           {/* Media Content */}
           {post?.postImage && (
-            <div 
-              className="relative w-full rounded-2xl overflow-hidden mb-3 border border-gray-200 dark:border-neutral-800"
+            <div
+              className="relative mb-3 w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-neutral-800"
               onClick={stopPropagation}
             >
               <Image
@@ -174,28 +170,28 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
                 alt={post.user?.username || "Post image"}
                 width={500}
                 height={500}
-                className="w-full object-cover cursor-pointer"
+                className="w-full cursor-pointer object-cover"
               />
             </div>
           )}
 
           {post?.postVideo && (
-            <div 
-              className="relative w-full rounded-2xl overflow-hidden mb-3 border border-gray-200 dark:border-neutral-800"
+            <div
+              className="relative mb-3 w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-neutral-800"
               onClick={stopPropagation}
             >
               <video
                 ref={videoRef}
                 src={post.postVideo}
                 controls
-                className="w-full object-cover cursor-pointer"
+                className="w-full cursor-pointer object-cover"
               />
             </div>
           )}
 
           {post?.postGif && (
-            <div 
-              className="relative w-full rounded-2xl overflow-hidden mb-3 border border-gray-200 dark:border-neutral-800"
+            <div
+              className="relative mb-3 w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-neutral-800"
               onClick={stopPropagation}
             >
               <video
@@ -204,7 +200,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
                 loop
                 autoPlay
                 playsInline
-                className="w-full object-contain bg-transparent"
+                className="w-full bg-transparent object-contain"
                 controls={false}
                 disablePictureInPicture
                 disableRemotePlayback
@@ -214,13 +210,13 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
           )}
 
           {/* Actions */}
-          <div className="flex items-center gap-8 mt-3 pt-1">
+          <div className="mt-3 flex items-center gap-8 pt-1">
             <button
               type="button"
               onClick={stopPropagation}
-              className="flex items-center group gap-1 text-gray-500 hover:text-blue-500 transition-colors"
+              className="group flex items-center gap-1 text-gray-500 transition-colors hover:text-blue-500"
             >
-              <div className="p-2 rounded-full group-hover:bg-blue-500/10 transition-colors">
+              <div className="rounded-full p-2 transition-colors group-hover:bg-blue-500/10">
                 <MessageCircle size={18} />
               </div>
               <span className="text-sm">{post?.comments?.length || 0}</span>
@@ -230,17 +226,12 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
               type="button"
               onClick={onLike}
               disabled={loading}
-              className={`flex items-center group gap-1 text-gray-500 hover:text-red-500 transition-colors ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
+              className={`group flex items-center gap-1 text-gray-500 transition-colors hover:text-red-500 ${
+                loading ? "cursor-not-allowed opacity-50" : ""
               }`}
             >
-              <div className="p-2 rounded-full group-hover:bg-red-500/10 transition-colors">
-                
-                  <Heart
-                    size={18}
-                    className={hasLiked ? "fill-red-500 stroke-red-500" : ""}
-                  />
-              
+              <div className="rounded-full p-2 transition-colors group-hover:bg-red-500/10">
+                <Heart size={18} className={hasLiked ? "fill-red-500 stroke-red-500" : ""} />
               </div>
               <span className="text-sm">{post?.likeIds?.length || 0}</span>
             </button>

@@ -10,15 +10,15 @@ const Logo = (props: {
   onClick?: () => void;
 }) => {
   const { className, onClick, size, width, height } = props;
-  
+
   // Usar size si está definido, de lo contrario usar width/height
   const logoWidth = size !== undefined ? `${size}px` : width;
   const logoHeight = size !== undefined ? `${size}px` : height;
-  
+
   const handleClick = () => {
     onClick?.();
   };
-  
+
   return (
     <div
       role="button"
@@ -28,18 +28,11 @@ const Logo = (props: {
         height: logoHeight,
       }}
       className={cn(
-        `flex items-center justify-center
-         hover:bg-opacity-10 transition 
-         cursor-pointer`,
+        `flex cursor-pointer items-center justify-center transition hover:bg-opacity-10`,
         className
       )}
     >
-      <svg
-        viewBox="0 0 24 24"
-        aria-label="X"
-        role="img"
-        className="w-full h-full fill-current"
-      >
+      <svg viewBox="0 0 24 24" aria-label="X" role="img" className="h-full w-full fill-current">
         <g>
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
         </g>

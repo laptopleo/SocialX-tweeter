@@ -7,8 +7,7 @@ const useUser = (username: string) => {
   const url = username ? `${BASE_URL}/api/users/${username}` : null;
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: ["user", username],
-    queryFn: () =>
-      url ? fetcher(url) : Promise.reject("No username provided"),
+    queryFn: () => (url ? fetcher(url) : Promise.reject("No username provided")),
     enabled: !!url,
   });
   return {

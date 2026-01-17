@@ -12,11 +12,7 @@ interface PropsType {
   onChange: (image: string) => void;
 }
 
-const CoverImageUpload: React.FC<PropsType> = ({
-  value,
-  onChange,
-  onRemove,
-}) => {
+const CoverImageUpload: React.FC<PropsType> = ({ value, onChange, onRemove }) => {
   const [base64, setBase64] = React.useState(value);
 
   // Se asume que onChange es estable, por lo que no es necesario incluirlo en el array de dependencias
@@ -24,9 +20,8 @@ const CoverImageUpload: React.FC<PropsType> = ({
     (image: string) => {
       onChange(image);
     },
-    [onChange]  // Aquí agregamos onChange como dependencia
+    [onChange] // Aquí agregamos onChange como dependencia
   );
-  
 
   // Nota: en handleRemove no se utiliza onChange, por lo que se elimina del array de dependencias.
   const handleRemove = useCallback(
@@ -73,30 +68,30 @@ const CoverImageUpload: React.FC<PropsType> = ({
               accept=".png, .jpg, .jpeg"
               {...getInputProps()}
             />
-            <div className="w-full h-44 relative">
+            <div className="relative h-44 w-full">
               {base64 && (
-                <div className="w-full h-full overflow-hidden">
+                <div className="h-full w-full overflow-hidden">
                   <Image
                     src={base64}
                     alt=""
                     fill
-                    className="w-full h-full object-cover object-center rounded-md"
+                    className="h-full w-full rounded-md object-cover object-center"
                   />
                 </div>
               )}
-              <div className="absolute inset-0 w-full h-full bg-gray-950/10 flex items-center justify-start rounded-md">
-                <div className="w-full flex justify-center gap-3 items-center">
+              <div className="absolute inset-0 flex h-full w-full items-center justify-start rounded-md bg-gray-950/10">
+                <div className="flex w-full items-center justify-center gap-3">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="rounded-full shadow w-10 h-10 p-2 bg-background dark:bg-black/80 hover:bg-opacity-60"
+                    className="h-10 w-10 rounded-full bg-background p-2 shadow hover:bg-opacity-60 dark:bg-black/80"
                   >
                     <Camera size={18} />
                   </Button>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="rounded-full shadow w-10 h-10 p-2 bg-background dark:bg-black/80 hover:bg-opacity-60"
+                    className="h-10 w-10 rounded-full bg-background p-2 shadow hover:bg-opacity-60 dark:bg-black/80"
                     onClick={handleRemove}
                   >
                     <X size={18} />

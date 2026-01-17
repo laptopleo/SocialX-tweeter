@@ -58,29 +58,16 @@ const ProfileImageUpload: React.FC<PropsType> = ({ value, name, onChange }) => {
               {...getInputProps()}
             />
 
-            <div
-              className="relative bg-neutral-400 dark:bg-neutral-800 !w-[141px]
-                   !h-[141px] rounded-full
-                        p-[2px] border-2 overflow-hidden
-                  "
-            >
-              <Avatar className="!w-full !h-full hover:opacity-90">
+            <div className="relative !h-[141px] !w-[141px] overflow-hidden rounded-full border-2 bg-neutral-400 p-[2px] dark:bg-neutral-800">
+              <Avatar className="!h-full !w-full hover:opacity-90">
                 <AvatarImage
                   src={value || value || ""}
                   alt={name || ""}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                 />
-                <AvatarFallback className="font-bold text-[60px]">
-                  {name?.[0]}
-                </AvatarFallback>
+                <AvatarFallback className="text-[60px] font-bold">{name?.[0]}</AvatarFallback>
               </Avatar>
-              <div
-                className="absolute inset-0
-                          w-full h-full bg-gray-950/10  dark:bg-gray-950/30 
-                          flex items-center
-                          justify-center
-                          "
-              >
+              <div className="absolute inset-0 flex h-full w-full items-center justify-center bg-gray-950/10 dark:bg-gray-950/30">
                 {uploading ? (
                   <Spinner size="icon" />
                 ) : (
@@ -88,7 +75,7 @@ const ProfileImageUpload: React.FC<PropsType> = ({ value, name, onChange }) => {
                     variant="ghost"
                     size="icon"
                     disabled={uploading}
-                    className="rounded-full shadow w-10 h-10 p-2 bg-[#eee]/50 dark:bg-black/50 transition-colors hover:bg-opacity-60"
+                    className="h-10 w-10 rounded-full bg-[#eee]/50 p-2 shadow transition-colors hover:bg-opacity-60 dark:bg-black/50"
                   >
                     <Camera size={18} />
                   </Button>

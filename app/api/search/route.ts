@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 // ⚡ Force Node.js runtime for Prisma compatibility
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 export async function GET(request: Request) {
   try {
@@ -14,10 +14,7 @@ export async function GET(request: Request) {
 
     const session = await auth();
     if (!session?.user?.email) {
-      return NextResponse.json(
-        { message: "Not authenticated", status: "error" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Not authenticated", status: "error" }, { status: 401 });
     }
 
     if (!query) {

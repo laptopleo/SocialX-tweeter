@@ -4,12 +4,7 @@ import { z } from "zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Modal from "../modal";
 import { Button } from "../ui/button";
@@ -76,8 +71,7 @@ const BirthDayModal = () => {
         <FormProvider {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex min-h-[200px] w-full flex-col
-             items-start justify-between space-y-2"
+            className="flex min-h-[200px] w-full flex-col items-start justify-between space-y-2"
           >
             <FormField
               control={form.control}
@@ -90,9 +84,7 @@ const BirthDayModal = () => {
                       placeholder="Enter Dob"
                       type="date"
                       disabled={false}
-                      className="form--input focus:boder-0
-                   dark:border-[rgba(255,255,255,.5)]
-                          "
+                      className="form--input focus:boder-0 dark:border-[rgba(255,255,255,.5)]"
                       {...field}
                     />
                   </FormControl>

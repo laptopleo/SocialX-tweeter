@@ -2,7 +2,6 @@
 
 import { auth } from "@/lib/auth";
 
-
 export async function uploadFileAction(formData: FormData) {
   try {
     const session = await auth();

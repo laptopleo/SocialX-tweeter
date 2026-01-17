@@ -30,16 +30,9 @@ interface PropsType {
   isComment?: boolean;
   postUsername?: string;
   postId?: number;
- 
 }
 
-const PostForm: React.FC<PropsType> = ({
-  placeholder,
-  isComment,
-  postUsername,
-  postId,
- 
-}) => {
+const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, postId }) => {
   // 🔴 Añade estos nuevos estados para GIFs
   const {
     uploadGif,
@@ -168,22 +161,16 @@ const PostForm: React.FC<PropsType> = ({
   );
 
   return (
-    <div
-      className="border-b-[1px]
-    dark:border-[rgb(47,51,54)]
-    py-2  max-w-2xl   text-white overflow-hidden break-words line-clamp-6
-      "
-    >
+    <div className="line-clamp-6 max-w-2xl overflow-hidden break-words border-b-[1px] py-2 text-white dark:border-[rgb(47,51,54)]">
       <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex h-full w-full 
-            flex-col items-center justify-center px-3"
+          className="flex h-full w-full flex-col items-center justify-center px-3"
         >
           {isLoading ? (
             <Spinner size="lg" />
           ) : (
-            <div className="w-full px-4 flex pb-11 gap-4">
+            <div className="flex w-full gap-4 px-4 pb-11">
               <div className="shrink-0">
                 <Avatar>
                   <AvatarImage
@@ -191,15 +178,13 @@ const PostForm: React.FC<PropsType> = ({
                     alt={currentUser?.username || ""}
                     className="object-cover"
                   />
-                  <AvatarFallback className="font-bold">
-                    {currentUser?.name?.[0]}
-                  </AvatarFallback>
+                  <AvatarFallback className="font-bold">{currentUser?.name?.[0]}</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="flex flex-col gap-1 flex-1 lg:w-full  p-2 text-white overflow-hidden break-words line-clamp-6">
+              <div className="line-clamp-6 flex flex-1 flex-col gap-1 overflow-hidden break-words p-2 text-white lg:w-full">
                 {isComment && (
                   <div className="flex items-center">
-                    <p className="!text-[#959fa8] text-sm font-normal">
+                    <p className="text-sm font-normal !text-[#959fa8]">
                       Replying to{" "}
                       <Link className="!text-primary" href={`/${postUsername}`}>
                         @{postUsername}
@@ -211,18 +196,18 @@ const PostForm: React.FC<PropsType> = ({
                 <div className="mb-3">
                   <Textarea
                     placeholder={placeholder}
-                    className="min-h-[3rem] max-h-80 resize-y text-[18px]"
+                    className="max-h-80 min-h-[3rem] resize-y text-[18px]"
                     {...form.register("body")}
                   />
                 </div>
                 {/* IMAGENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN */}
                 <div className="flex items-center">
                   {uploadedUrl && (
-                    <div className="w-[20em] h-[20em] relative rounded-md border overflow-hidden">
+                    <div className="relative h-[20em] w-[20em] overflow-hidden rounded-md border">
                       <button
                         type="button"
                         onClick={clearFile}
-                        className="absolute top-0 right-0 z-10 bg-gray-800/80 hover:bg-gray-700/90 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90"
                       >
                         ×
                       </button>
@@ -231,10 +216,10 @@ const PostForm: React.FC<PropsType> = ({
                         width={400}
                         height={400}
                         alt=""
-                        className="w-full h-full rounded-md object-cover"
+                        className="h-full w-full rounded-md object-cover"
                       />
                       {uploading && (
-                        <div className="absolute inset-0 w-full h-full bg-gray-950/10 dark:bg-gray-950/30 flex items-center justify-center">
+                        <div className="absolute inset-0 flex h-full w-full items-center justify-center bg-gray-950/10 dark:bg-gray-950/30">
                           <Spinner size="lg" />
                         </div>
                       )}
@@ -242,11 +227,11 @@ const PostForm: React.FC<PropsType> = ({
                   )}
 
                   {uploadedVideoUrl && (
-                    <div className="w-[20em] h-[20em] relative rounded-md border overflow-hidden">
+                    <div className="relative h-[20em] w-[20em] overflow-hidden rounded-md border">
                       <button
                         type="button"
                         onClick={clearFile}
-                        className="absolute top-0 right-0 z-10 bg-gray-800/80 hover:bg-gray-700/90 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90"
                       >
                         ×
                       </button>
@@ -255,10 +240,10 @@ const PostForm: React.FC<PropsType> = ({
                         width={44}
                         height={44}
                         controls
-                        className="w-full h-full rounded-md object-cover"
+                        className="h-full w-full rounded-md object-cover"
                       />
                       {uploadingVideo && (
-                        <div className="absolute inset-0 w-full h-full bg-gray-950/10 dark:bg-gray-950/30 flex items-center justify-center">
+                        <div className="absolute inset-0 flex h-full w-full items-center justify-center bg-gray-950/10 dark:bg-gray-950/30">
                           <Spinner size="lg" />
                         </div>
                       )}
@@ -266,11 +251,11 @@ const PostForm: React.FC<PropsType> = ({
                   )}
                   {/* 🎯 Añade visualización de GIF */}
                   {gifUploadedUrls && (
-                    <div className="w-[20em] h-[20em] relative rounded-md border overflow-hidden">
+                    <div className="relative h-[20em] w-[20em] overflow-hidden rounded-md border">
                       <button
                         type="button"
                         onClick={clearGif}
-                        className="absolute top-0 right-0 z-10 bg-gray-800/80 hover:bg-gray-700/90 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90"
                       >
                         ×
                       </button>
@@ -284,7 +269,7 @@ const PostForm: React.FC<PropsType> = ({
                         disablePictureInPicture
                         disableRemotePlayback
                         controls={false}
-                        className="w-full h-full object-cover rounded-lg transition-opacity group-hover:opacity-90"
+                        className="h-full w-full rounded-lg object-cover transition-opacity group-hover:opacity-90"
                         style={{
                           objectFit: "cover",
                           backgroundColor: "transparent",
@@ -293,25 +278,18 @@ const PostForm: React.FC<PropsType> = ({
                       />
 
                       {uploading && (
-                        <div className="absolute inset-0 bg-gray-950/10 dark:bg-gray-950/30 flex items-center justify-center">
+                        <div className="absolute inset-0 flex items-center justify-center bg-gray-950/10 dark:bg-gray-950/30">
                           <Spinner size="lg" />
                         </div>
                       )}
                     </div>
                   )}
                 </div>
-                <hr
-                  className="px-3  h-[0.5px] w-full opacity-0
-                 dark:border-[rgb(34,37,40)] mb-1 transition
-                "
-                />
-                <div
-                  className="w-full flex items-center
-                                     justify-between"
-                >
-                  <div className="flex items-center flex-1">
+                <hr className="mb-1 h-[0.5px] w-full px-3 opacity-0 transition dark:border-[rgb(34,37,40)]" />
+                <div className="flex w-full items-center justify-between">
+                  <div className="flex flex-1 items-center">
                     <UploadMediaButton
-                      disabled={uploading || uploadingVideo }
+                      disabled={uploading || uploadingVideo}
                       onFileSelect={(file) => {
                         if (file.type.startsWith("image/")) {
                           handleUploadFile(file);
@@ -343,20 +321,9 @@ const PostForm: React.FC<PropsType> = ({
                       uploadingGif ||
                       !form?.getValues()?.body
                     }
-                    className="
-                          !h-auto
-                          !text-white
-                          cursor-pointer
-                          font-semibold
-                          text-base"
+                    className="!h-auto cursor-pointer text-base font-semibold !text-white"
                   >
-                    {loading ? (
-                      <Spinner size="default" />
-                    ) : isComment ? (
-                      "Reply"
-                    ) : (
-                      "Post"
-                    )}
+                    {loading ? <Spinner size="default" /> : isComment ? "Reply" : "Post"}
                   </Button>
                 </div>
               </div>

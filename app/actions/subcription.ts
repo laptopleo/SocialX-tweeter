@@ -33,8 +33,7 @@ export async function checkUserSubscription() {
       userSubscription.plan === PLAN_TYPE.PRO &&
       userSubscription.stripePriceId &&
       userSubscription.stripeCurrentPeriodEnd &&
-      userSubscription.stripeCurrentPeriodEnd.getTime() + DAY_IN_MS >
-        Date.now();
+      userSubscription.stripeCurrentPeriodEnd.getTime() + DAY_IN_MS > Date.now();
     return isProPlanValid ? PLAN_TYPE.PRO : PLAN_TYPE.FREE;
   } catch (error) {
     return PLAN_TYPE.FREE;

@@ -4,14 +4,14 @@ import { NextResponse } from "next/server";
 import { rateLimit, getIdentifier, RATE_LIMITS } from "@/lib/rate-limit";
 
 // ⚡ Force Node.js runtime for Prisma compatibility
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 export async function PATCH(request: Request) {
   try {
     // ⚡ Rate limiting
     const identifier = getIdentifier(request);
     const { success } = await rateLimit(identifier, RATE_LIMITS.WRITE);
-    
+
     if (!success) {
       return NextResponse.json(
         { message: "Too many requests. Please try again later.", status: "error" },
@@ -22,15 +22,11 @@ export async function PATCH(request: Request) {
     // ✅ Autenticación
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json(
-        { message: "Not authenticated", status: "error" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Not authenticated", status: "error" }, { status: 401 });
     }
 
-    const { userId, name, username, bio, profileImage, coverImage } =
-      await request.json();
-    
+    const { userId, name, username, bio, profileImage, coverImage } = await request.json();
+
     if (!name || !username) {
       return NextResponse.json(
         { message: "Missing Field: name,username", status: "error" },
@@ -39,7 +35,7 @@ export async function PATCH(request: Request) {
     }
 
     const sessionUserId = +session.user.id;
-    
+
     // ✅ Autorización: Verificar que el usuario solo edite su propio perfil
     if (userId && userId !== sessionUserId) {
       return NextResponse.json(
@@ -53,7 +49,7 @@ export async function PATCH(request: Request) {
       const existingUser = await prisma.user.findUnique({
         where: { username },
       });
-      
+
       if (existingUser && existingUser.id !== sessionUserId) {
         return NextResponse.json(
           { message: "Username already taken", status: "error" },
@@ -74,7 +70,7 @@ export async function PATCH(request: Request) {
         coverImage,
       },
     });
-    
+
     return NextResponse.json(
       {
         message: "Update user successfully",

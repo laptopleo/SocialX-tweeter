@@ -1,11 +1,6 @@
 "use client";
 import React, { Fragment, useCallback } from "react";
-import {
-  Dialog,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
+import { Dialog, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { DialogContent } from "../ui/dialog";
 import Logo from "../logo";
 import { cn } from "@/lib/utils";
@@ -44,25 +39,16 @@ const Modal: React.FC<PropsType> = ({
       <div>{children}</div>
 
       <Dialog modal open={isOpen} onOpenChange={handleClose}>
-        <DialogContent
-          className="min-h-[350px] max-h-[90vh] !max-w-[95vw] md:!max-w-[1000px]
-                pt-5 pb-10 !rounded-2xl overflow-y-auto
-                scrollbar-hide
-              "
-        >
-          <DialogHeader
-            className="dialog_top_header
-                   !p-0 w-full
-                  "
-          >
+        <DialogContent className="max-h-[90vh] min-h-[350px] !max-w-[95vw] overflow-y-auto !rounded-2xl pb-10 pt-5 scrollbar-hide md:!max-w-[1000px]">
+          <DialogHeader className="dialog_top_header w-full !p-0">
             {showLogo && (
-              <div className="w-full h-[40px] flex items-center justify-center">
+              <div className="flex h-[40px] w-full items-center justify-center">
                 <Logo width="40px" height="40px" />
               </div>
             )}
-            <div className="pt-2 pb-0 px-5">
+            <div className="px-5 pb-0 pt-2">
               <DialogTitle
-                className={cn("leading-9 !p-0 font-bold text-[31px]", {
+                className={cn("!p-0 text-[31px] font-bold leading-9", {
                   "text-center": isCentered,
                 })}
               >
@@ -70,21 +56,16 @@ const Modal: React.FC<PropsType> = ({
               </DialogTitle>
               {subTitle && (
                 <DialogDescription
-                  className={cn(
-                    "text-[14px] !mt-0 !p-0 text-muted-foreground",
-                    {
-                      "text-center w-full block max-w-sm mx-auto": isCentered,
-                    }
-                  )}
+                  className={cn("!mt-0 !p-0 text-[14px] text-muted-foreground", {
+                    "mx-auto block w-full max-w-sm text-center": isCentered,
+                  })}
                 >
                   {subTitle}
                 </DialogDescription>
               )}
             </div>
           </DialogHeader>
-          <div className="flex w-full flex-col items-center justify-start">
-            {body}
-          </div>
+          <div className="flex w-full flex-col items-center justify-start">{body}</div>
         </DialogContent>
       </Dialog>
     </Fragment>

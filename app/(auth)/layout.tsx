@@ -13,7 +13,7 @@ async function AuthLayout({
   }
   return (
     <div className="h-screen w-full">
-      <div className="h-full mx-auto">{children}</div>
+      <div className="mx-auto h-full">{children}</div>
     </div>
   );
 }

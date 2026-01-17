@@ -6,12 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { BASE_URL } from "@/lib/base-url";
 import { toast } from "@/hooks/use-toast";
@@ -91,9 +86,7 @@ const RegisterFormModal = () => {
         <FormProvider {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex h-full w-full flex-col items-center
-           justify-center space-y-3
-              "
+            className="flex h-full w-full flex-col items-center justify-center space-y-3"
           >
             <FormField
               control={form.control}
@@ -105,9 +98,7 @@ const RegisterFormModal = () => {
                     <Input
                       placeholder="Email"
                       disabled={false}
-                      className="form--input focus:boder-0
-                   dark:border-[rgba(255,255,255,.5)]
-                          "
+                      className="form--input focus:boder-0 dark:border-[rgba(255,255,255,.5)]"
                       {...field}
                     />
                   </FormControl>
@@ -125,9 +116,7 @@ const RegisterFormModal = () => {
                     <Input
                       placeholder="Name"
                       disabled={false}
-                      className="form--input focus:boder-0
-                   dark:border-[rgba(255,255,255,.5)]
-                          "
+                      className="form--input focus:boder-0 dark:border-[rgba(255,255,255,.5)]"
                       {...field}
                     />
                   </FormControl>
@@ -159,9 +148,7 @@ const RegisterFormModal = () => {
                       placeholder="Enter Dob"
                       type="date"
                       disabled={false}
-                      className="form--input focus:boder-0
-                   dark:border-[rgba(255,255,255,.5)]
-                          "
+                      className="form--input focus:boder-0 dark:border-[rgba(255,255,255,.5)]"
                       {...field}
                     />
                   </FormControl>
@@ -180,9 +167,7 @@ const RegisterFormModal = () => {
                       type="password"
                       placeholder="Enter password"
                       disabled={false}
-                      className="form--input focus:boder-0
-                   dark:border-[rgba(255,255,255,.5)]
-                          "
+                      className="form--input focus:boder-0 dark:border-[rgba(255,255,255,.5)]"
                       {...field}
                     />
                   </FormControl>

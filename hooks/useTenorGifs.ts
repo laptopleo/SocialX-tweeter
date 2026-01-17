@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import { toast } from "./use-toast";
 import { uploadFileAction } from "@/app/actions/upload.action";
 
-
 const useTenorGifsCare = () => {
   const [gifUploadedUrls, setGifUploadedUrls] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
@@ -18,7 +17,11 @@ const useTenorGifsCare = () => {
 
       const result = await uploadFileAction(formData);
       if (!result?.uploadedUrl) {
-        toast({ title: "Error", description: result?.message || "Upload failed", variant: "destructive" });
+        toast({
+          title: "Error",
+          description: result?.message || "Upload failed",
+          variant: "destructive",
+        });
         return null;
       }
 
@@ -26,7 +29,11 @@ const useTenorGifsCare = () => {
       toast({ title: "Success", description: "Upload successfully", variant: "default" });
       return result.uploadedUrl;
     } catch (e) {
-      toast({ title: "Error", description: e instanceof Error ? e.message : "Upload failed", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: e instanceof Error ? e.message : "Upload failed",
+        variant: "destructive",
+      });
       return null;
     } finally {
       setLoading(false);
@@ -35,7 +42,7 @@ const useTenorGifsCare = () => {
 
   const clearFile = useCallback(() => setGifUploadedUrls(null), []);
 
-  return { uploadGif,gifUploadedUrls, loading, clearFile };
+  return { uploadGif, gifUploadedUrls, loading, clearFile };
 };
 
 export default useTenorGifsCare;

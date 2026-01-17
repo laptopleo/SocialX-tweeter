@@ -18,24 +18,29 @@ interface PostDetailClientProps {
  */
 const PostDetailClient: React.FC<PostDetailClientProps> = ({ post }) => {
   // ⚡ Deserializar fechas de string a Date
-  const deserializedPost: PostType = useMemo(() => ({
-    ...post,
-    createdAt: new Date(post.createdAt),
-    updatedAt: new Date(post.updatedAt),
-    comments: post.comments.map(comment => ({
-      ...comment,
-      createdAt: new Date(comment.createdAt),
-      updatedAt: new Date(comment.updatedAt),
-    })),
-  }), [post]);
+  const deserializedPost: PostType = useMemo(
+    () => ({
+      ...post,
+      createdAt: new Date(post.createdAt),
+      updatedAt: new Date(post.updatedAt),
+      comments: post.comments.map((comment) => ({
+        ...comment,
+        createdAt: new Date(comment.createdAt),
+        updatedAt: new Date(comment.updatedAt),
+      })),
+    }),
+    [post]
+  );
 
-  const deserializedComments: CommentType[] = useMemo(() => 
-    post.comments.map(comment => ({
-      ...comment,
-      createdAt: new Date(comment.createdAt),
-      updatedAt: new Date(comment.updatedAt),
-    })),
-  [post.comments]);
+  const deserializedComments: CommentType[] = useMemo(
+    () =>
+      post.comments.map((comment) => ({
+        ...comment,
+        createdAt: new Date(comment.createdAt),
+        updatedAt: new Date(comment.updatedAt),
+      })),
+    [post.comments]
+  );
 
   return (
     <Fragment>
@@ -46,11 +51,9 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ post }) => {
 
       {/* ⚡ Comentarios */}
       {post.comments.length > 0 && (
-        <div className="border-t border-border mt-4">
+        <div className="mt-4 border-t border-border">
           <div className="px-4 py-3">
-            <h3 className="text-lg font-semibold">
-              Comments ({post._count.comments})
-            </h3>
+            <h3 className="text-lg font-semibold">Comments ({post._count.comments})</h3>
           </div>
           <CommentFeed comments={deserializedPost.comments} />
         </div>
@@ -58,10 +61,8 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ post }) => {
 
       {/* ⚡ Empty state para comentarios */}
       {post.comments.length === 0 && (
-        <div className="border-t border-border mt-4 px-4 py-8 text-center">
-          <p className="text-sm text-muted-foreground">
-            No comments yet. Be the first to comment!
-          </p>
+        <div className="mt-4 border-t border-border px-4 py-8 text-center">
+          <p className="text-sm text-muted-foreground">No comments yet. Be the first to comment!</p>
         </div>
       )}
     </Fragment>

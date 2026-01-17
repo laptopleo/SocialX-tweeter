@@ -9,10 +9,7 @@ const SocialLogin = () => {
       <Button
         variant="outline"
         type="submit"
-        className="shadow-sm dark:bg-white gap-2 
-        w-full h-10 text-base !text-[#3c4043]
-        font-medium p-1 rounded-full
-        "
+        className="h-10 w-full gap-2 rounded-full p-1 text-base font-medium !text-[#3c4043] shadow-sm dark:bg-white"
         name="action"
         value="google"
       >

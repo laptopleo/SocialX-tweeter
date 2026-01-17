@@ -12,7 +12,6 @@ import { CommentType } from "@/types/comment.type";
 
 interface PropsType {
   comment: CommentType;
-  
 }
 
 const CommentItem: React.FC<PropsType> = ({ comment }) => {
@@ -29,9 +28,7 @@ const CommentItem: React.FC<PropsType> = ({ comment }) => {
   const createdAt = useMemo(() => {
     if (!comment.createdAt) return null;
 
-    const timeDifference = formatDistanceToNowStrict(
-      new Date(comment.createdAt)
-    );
+    const timeDifference = formatDistanceToNowStrict(new Date(comment.createdAt));
     const timeParts = timeDifference.split(" ");
     let formattedTime;
 
@@ -51,41 +48,23 @@ const CommentItem: React.FC<PropsType> = ({ comment }) => {
   }, [comment.createdAt]); // Remover el ? del objeto comment
 
   return (
-    <div
-      className="
-          w-full h-auto border-b-[1px]
-          dark:border-[rgb(47,51,54)]
-          p-5 transition
-          "
-    >
-      <div
-        className="flex flex-row 
-          items-start  gap-3"
-      >
-        <div
-          role="button"
-          onClick={goToUser}
-          className="cursor-pointer"
-        >
+    <div className="h-auto w-full border-b-[1px] p-5 transition dark:border-[rgb(47,51,54)]">
+      <div className="flex flex-row items-start gap-3">
+        <div role="button" onClick={goToUser} className="cursor-pointer">
           <Avatar>
             <AvatarImage
               src={comment?.user?.profileImage || ""}
               alt={comment?.user?.username || ""}
               className="object-cover"
             />
-            <AvatarFallback className="font-bold">
-              {comment?.user?.name?.[0]}
-            </AvatarFallback>
+            <AvatarFallback className="font-bold">{comment?.user?.name?.[0]}</AvatarFallback>
           </Avatar>
         </div>
         <div className="w-[90%] lg:w-[91.25%]">
           <div className="flex items-center gap-[4px]">
             <div className="flex flex-row gap-[2px]">
               <h5
-                className="
-              font-bold cursor-pointer
-              hover:underline
-              "
+                className="cursor-pointer font-bold hover:underline"
                 role="button"
                 onClick={goToUser}
               >
@@ -94,66 +73,48 @@ const CommentItem: React.FC<PropsType> = ({ comment }) => {
               {comment?.user?.subscription?.plan === PLAN_TYPE.PRO && <Badge />}
             </div>
             <span
-              className="!text-[#959fa8] 
-              text-sm inline-block truncate 
-              font-normal"
+              className="inline-block truncate text-sm font-normal !text-[#959fa8]"
               role="button"
               onClick={goToUser}
             >
               @{comment?.user?.username}
             </span>
             <div className="flex items-center">
-              <span
-                className="!text-[#959fa8]
-               text-sm"
-              >
+              <span className="text-sm !text-[#959fa8]">
                 <Dot size="15px" />
               </span>
-              <span
-                className="!text-[#959fa8] 
-              text-sm"
-              >
-                {createdAt}
-              </span>
+              <span className="text-sm !text-[#959fa8]">{createdAt}</span>
             </div>
           </div>
 
-          <div className="mt-1 w-full flex ">
+          <div className="mt-1 flex w-full">
             <div
               dangerouslySetInnerHTML={{ __html: comment.body }}
-              className="lg:h-24 text-white overflow-hidden break-words line-clamp-6"
+              className="line-clamp-6 overflow-hidden break-words text-white lg:h-24"
             />
           </div>
           {comment?.commentImage && (
-            <div
-              className="relative w-full
-             my-3 h-80 overflow-hidden rounded-md
-             bg-[#eee] dark:bg-gray-600"
-            >
+            <div className="relative my-3 h-80 w-full overflow-hidden rounded-md bg-[#eee] dark:bg-gray-600">
               <Image
                 src={comment?.commentImage}
                 alt={comment?.user?.username || "Image"}
                 fill
                 loading="lazy"
-                className="object-cover rounded-md"
+                className="rounded-md object-cover"
               />
             </div>
           )}
           {comment?.commentVideo && (
-            <div className="relative w-full my-3 h-80 overflow-hidden rounded-md bg-[#eee] dark:bg-gray-600">
+            <div className="relative my-3 h-80 w-full overflow-hidden rounded-md bg-[#eee] dark:bg-gray-600">
               <video
                 src={comment?.commentVideo}
                 controls
-                className="w-full h-full object-cover rounded-md"
+                className="h-full w-full rounded-md object-cover"
               />
             </div>
           )}
           {comment?.commentGif && (
-            <div
-              className="relative w-full
-             my-3 h-80 overflow-hidden rounded-md
-             bg-[#eee] bg-transparent"
-            >
+            <div className="relative my-3 h-80 w-full overflow-hidden rounded-md bg-[#eee] bg-transparent">
               <video
                 src={comment?.commentGif}
                 muted
@@ -163,7 +124,7 @@ const CommentItem: React.FC<PropsType> = ({ comment }) => {
                 disablePictureInPicture
                 disableRemotePlayback
                 controls={false}
-                className="w-[10em] lg:w-full h-full object-cover rounded-2xl transition-opacity group-hover:opacity-90 bg-purple-700"
+                className="h-full w-[10em] rounded-2xl bg-purple-700 object-cover transition-opacity group-hover:opacity-90 lg:w-full"
                 style={{
                   backgroundColor: "transparent",
                   objectFit: "contain",

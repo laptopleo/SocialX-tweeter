@@ -51,7 +51,8 @@ function MainLayout({
     const channel = pusherClient.subscribe("posts");
 
     // Bind to the 'new-post' event
-    const handleNewPost = (data: any) => { // Using 'any' to fix possible type mismatch
+    const handleNewPost = (data: any) => {
+      // Using 'any' to fix possible type mismatch
       // Invalidate the 'posts' infinite query to trigger a refetch
       // React Query will handle fetching the latest data
       queryClient.invalidateQueries({ queryKey: ["posts", "infinite"] });
@@ -76,16 +77,16 @@ function MainLayout({
 
       <MobileSidebar {...{ isPro }} />
 
-      <div className="flex flex-col lg:flex-row mx-auto max-w-[1300px] overflow-y-auto scrollbar-hide relative ">
-        <aside className="hidden lg:block w-[275px] h-full sticky top-0">
-          <div className="h-screen overflow-y-auto no-scrollbar">
+      <div className="relative mx-auto flex max-w-[1300px] flex-col overflow-y-auto scrollbar-hide lg:flex-row">
+        <aside className="sticky top-0 hidden h-full w-[275px] lg:block">
+          <div className="no-scrollbar h-screen overflow-y-auto">
             <Sidebar {...{ isPro }} />
           </div>
         </aside>
-        <main className="flex-1 min-h-screen-dynamic border-x border-gray-200 dark:border-gray-800 md:w-[600px] md:mr-4">
+        <main className="min-h-screen-dynamic flex-1 border-x border-gray-200 dark:border-gray-800 md:mr-4 md:w-[600px]">
           <div className="h-full">{children}</div>
         </main>
-        <aside className="w-[350px] h-full  hidden lg:block sticky top-0 overflow-hidden pb-8  overflow-y-auto no-scrollbar pt-2 space-y-4">
+        <aside className="no-scrollbar sticky top-0 hidden h-full w-[350px] space-y-4 overflow-hidden overflow-y-auto pb-8 pt-2 lg:block">
           <Rightbar {...{ isPro }} />
         </aside>
       </div>

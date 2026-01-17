@@ -16,7 +16,7 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       // Aquí puedes añadir lógica de autorización extra si lo deseas
-      return true; 
+      return true;
     },
   },
 } satisfies NextAuthConfig;

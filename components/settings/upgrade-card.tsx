@@ -10,20 +10,14 @@ const UpgradeCard = () => {
   return (
     <Card
       role="button"
-      className="
-            border-dashed border-gray-400
-            w-full max-w-[350px] cursor-pointer h-[220px]
-            flex items-center justify-center
-        "
+      className="flex h-[220px] w-full max-w-[350px] cursor-pointer items-center justify-center border-dashed border-gray-400"
       onClick={onOpenProModal}
     >
-      <CardContent className="flex gap-2 items-center">
+      <CardContent className="flex items-center gap-2">
         <div className="rounded-full border-2 p-1">
           <Plus className="text-gray-400" />
         </div>
-        <CardDescription className="font-semibold">
-          Upgrade Plan
-        </CardDescription>
+        <CardDescription className="font-semibold">Upgrade Plan</CardDescription>
       </CardContent>
     </Card>
   );

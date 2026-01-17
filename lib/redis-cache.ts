@@ -1,6 +1,6 @@
 /**
  * ⚡ REDIS CACHE - Ultra rápido
- * 
+ *
  * Cache de queries para evitar ir a la DB constantemente
  */
 
@@ -15,7 +15,7 @@ export const cache = {
       console.log(`✅ Cache HIT: ${key}`);
       return cached.data as T;
     }
-    
+
     console.log(`❌ Cache MISS: ${key}`);
     return null;
   },
@@ -55,10 +55,10 @@ export async function withCache<T>(
 
   // Si no está en cache, ejecutar función
   const result = await fn();
-  
+
   // Guardar en cache
   await cache.set(key, result, ttl);
-  
+
   return result;
 }
 
@@ -68,10 +68,10 @@ export async function withCache<T>(
 export async function invalidatePattern(pattern: string): Promise<void> {
   const keys = Array.from(memoryCache.keys());
   const toDelete = keys.filter((key) => key.includes(pattern));
-  
+
   for (const key of toDelete) {
     await cache.del(key);
   }
-  
+
   console.log(`🗑️  Invalidated ${toDelete.length} keys matching: ${pattern}`);
 }

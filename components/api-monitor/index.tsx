@@ -72,14 +72,14 @@ const ApiMonitor = () => {
       <Button
         variant="outline"
         size="sm"
-        className="fixed bottom-4 right-4 z-50 bg-background border border-border"
+        className="fixed bottom-4 right-4 z-50 border border-border bg-background"
         onClick={() => setIsVisible(!isVisible)}
       >
         📊 API Stats
       </Button>
 
       {isVisible && (
-        <Card className="fixed bottom-16 right-4 z-50 w-80 bg-background border-border shadow-lg">
+        <Card className="fixed bottom-16 right-4 z-50 w-80 border-border bg-background shadow-lg">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">API Monitor</CardTitle>
           </CardHeader>
@@ -96,26 +96,20 @@ const ApiMonitor = () => {
               <span>Users API:</span>
               <span className="font-mono">{stats.usersCalls}</span>
             </div>
-            <div className="border-t pt-2 mt-2">
+            <div className="mt-2 border-t pt-2">
               <div className="flex justify-between">
                 <span>Cache Hits:</span>
-                <span className="font-mono text-green-600">
-                  {stats.cacheHits}
-                </span>
+                <span className="font-mono text-green-600">{stats.cacheHits}</span>
               </div>
               <div className="flex justify-between">
                 <span>Cache Misses:</span>
-                <span className="font-mono text-red-600">
-                  {stats.cacheMisses}
-                </span>
+                <span className="font-mono text-red-600">{stats.cacheMisses}</span>
               </div>
               <div className="flex justify-between font-medium">
                 <span>Hit Rate:</span>
                 <span className="font-mono">
                   {stats.totalRequests > 0
-                    ? `${Math.round(
-                        (stats.cacheHits / stats.totalRequests) * 100
-                      )}%`
+                    ? `${Math.round((stats.cacheHits / stats.totalRequests) * 100)}%`
                     : "0%"}
                 </span>
               </div>
@@ -123,7 +117,7 @@ const ApiMonitor = () => {
             <Button
               size="sm"
               variant="outline"
-              className="w-full mt-2"
+              className="mt-2 w-full"
               onClick={() =>
                 setStats({
                   postsCalls: 0,

@@ -8,32 +8,36 @@ const FeaturesModal = () => {
 
   const features = [
     {
-      icon: <Sparkles className="w-6 h-6 text-blue-500" />,
+      icon: <Sparkles className="h-6 w-6 text-blue-500" />,
       title: "AI-Powered Content",
-      description: "Generate engaging posts with our integrated AI assistant powered by Gemini and DeepSeek.",
+      description:
+        "Generate engaging posts with our integrated AI assistant powered by Gemini and DeepSeek.",
     },
     {
-      icon: <Users className="w-6 h-6 text-green-500" />,
+      icon: <Users className="h-6 w-6 text-green-500" />,
       title: "Smart Following",
-      description: "Discover and connect with people who share your interests through intelligent recommendations.",
+      description:
+        "Discover and connect with people who share your interests through intelligent recommendations.",
     },
     {
-      icon: <Shield className="w-6 h-6 text-purple-500" />,
+      icon: <Shield className="h-6 w-6 text-purple-500" />,
       title: "Enhanced Security",
-      description: "Your data is protected with enterprise-grade encryption and secure authentication.",
+      description:
+        "Your data is protected with enterprise-grade encryption and secure authentication.",
     },
     {
-      icon: <Zap className="w-6 h-6 text-yellow-500" />,
+      icon: <Zap className="h-6 w-6 text-yellow-500" />,
       title: "Lightning Fast",
-      description: "Experience blazing-fast performance with optimized caching and database indexing.",
+      description:
+        "Experience blazing-fast performance with optimized caching and database indexing.",
     },
     {
-      icon: <Heart className="w-6 h-6 text-red-500" />,
+      icon: <Heart className="h-6 w-6 text-red-500" />,
       title: "Engagement Boost",
       description: "Increase your reach with advanced analytics and engagement tracking tools.",
     },
     {
-      icon: <TrendingUp className="w-6 h-6 text-indigo-500" />,
+      icon: <TrendingUp className="h-6 w-6 text-indigo-500" />,
       title: "Growth Analytics",
       description: "Track your growth with detailed insights and performance metrics.",
     },
@@ -48,31 +52,27 @@ const FeaturesModal = () => {
       onClose={onCloseFeaturesModal}
       body={
         <div className="w-full px-6 pb-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[550px] mx-auto">
+          <div className="mx-auto grid max-w-[550px] grid-cols-1 gap-6 md:grid-cols-2">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="flex flex-col gap-3 p-4 rounded-xl border border-border
-                  hover:border-primary/50 transition-all duration-200
-                  hover:shadow-lg hover:scale-[1.02]"
+                className="flex flex-col gap-3 rounded-xl border border-border p-4 transition-all duration-200 hover:scale-[1.02] hover:border-primary/50 hover:shadow-lg"
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    {feature.icon}
-                  </div>
-                  <h3 className="font-semibold text-lg">{feature.title}</h3>
+                  <div className="rounded-lg bg-primary/10 p-2">{feature.icon}</div>
+                  <h3 className="text-lg font-semibold">{feature.title}</h3>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm leading-relaxed text-muted-foreground">
                   {feature.description}
                 </p>
               </div>
             ))}
           </div>
-          
-          <div className="mt-8 p-4 rounded-xl bg-primary/5 border border-primary/20 max-w-[550px] mx-auto">
+
+          <div className="mx-auto mt-8 max-w-[550px] rounded-xl border border-primary/20 bg-primary/5 p-4">
             <p className="text-center text-sm text-muted-foreground">
-              <span className="font-semibold text-primary">Pro Tip:</span> Upgrade to Premium 
-              to unlock exclusive features and boost your social presence!
+              <span className="font-semibold text-primary">Pro Tip:</span> Upgrade to Premium to
+              unlock exclusive features and boost your social presence!
             </p>
           </div>
         </div>

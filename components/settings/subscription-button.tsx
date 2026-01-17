@@ -42,7 +42,7 @@ const SubscriptionButton = () => {
       type="button"
       variant="outline"
       disabled={loading}
-      className="shadow gap-1"
+      className="gap-1 shadow"
       onClick={handleClick}
     >
       <>

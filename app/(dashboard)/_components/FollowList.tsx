@@ -10,7 +10,7 @@ import { PLAN_TYPE } from "@/constants/pricing-plans";
 import useUsers from "@/hooks/useUsers";
 import type { UsersApiResponse } from "@/types/api.types";
 import FollowButton from "./_common/FollowButton";
-import { UserType } from "@/types/user.type"
+import { UserType } from "@/types/user.type";
 
 const FollowList = () => {
   const { data, isLoading } = useUsers();
@@ -18,11 +18,7 @@ const FollowList = () => {
 
   if (isLoading) {
     return (
-      <div
-        className="bg-background 
-      dark:border dark:border-[rgb(47,51,54)]
-      rounded-xl p-4 min-h-[150px]"
-      >
+      <div className="min-h-[150px] rounded-xl bg-background p-4 dark:border dark:border-[rgb(47,51,54)]">
         <div className="flex items-center justify-center">
           <Spinner size="icon" />
         </div>
@@ -35,28 +31,17 @@ const FollowList = () => {
   }
 
   return (
-    <div
-      className="bg-background border
-   dark:border-[rgb(47,51,54)] rounded-xl p-4  
-  "
-    >
+    <div className="rounded-xl border bg-background p-4 dark:border-[rgb(47,51,54)]">
       <h2 className="text-[20px] font-bold">Who to follow</h2>
 
-      <div className="w-full h-[28vh] overflow-auto scroll-smooth scrollbar-hide">
-        <ul role="list" className="flex flex-col gap-6 mt-4 pb-2">
+      <div className="h-[28vh] w-full overflow-auto scroll-smooth scrollbar-hide">
+        <ul role="list" className="mt-4 flex flex-col gap-6 pb-2">
           {users?.map((user) => (
-            <li
-              key={user?.id}
-              role="listitem"
-              className="flex flex-row gap-4 cursor-pointer"
-            >
-              <Link href={`/${user?.username}`} className="shrink-0 w-fit">
+            <li key={user?.id} role="listitem" className="flex cursor-pointer flex-row gap-4">
+              <Link href={`/${user?.username}`} className="w-fit shrink-0">
                 <Avatar className="cursor-pointer hover:opacity-90">
-                  <AvatarImage
-                    src={user?.profileImage || ""}
-                    className="object-cover"
-                  />
-                  <AvatarFallback className="font-bold text-[18px]">
+                  <AvatarImage src={user?.profileImage || ""} className="object-cover" />
+                  <AvatarFallback className="text-[18px] font-bold">
                     {user?.name?.[0]}
                   </AvatarFallback>
                 </Avatar>
@@ -64,29 +49,21 @@ const FollowList = () => {
               <div className="flex flex-1 items-center justify-between">
                 <div className="flex flex-col">
                   <Link href={`/${user?.username}`} className="hover:underline">
-                    <div className="flex gap1">
-                      <h5 className="font-semibold text-[15.5px] transition">
-                        {user?.name}
-                      </h5>
+                    <div className="gap1 flex">
+                      <h5 className="text-[15.5px] font-semibold transition">{user?.name}</h5>
                       {user?.subscription?.plan === PLAN_TYPE.PRO && <Badge />}
                     </div>
                   </Link>
-                  <div className="w-full block">
+                  <div className="block w-full">
                     <Link href={`/${user?.username}`}>
-                      <p
-                        className="!text-[#959fa8] text-sm block 
-                    truncate font-medium"
-                      >
+                      <p className="block truncate text-sm font-medium !text-[#959fa8]">
                         @{user.username}
                       </p>
                     </Link>
                   </div>
                 </div>
                 <div className="shrink">
-                  <FollowButton
-                    userId={Number(user?.id)}
-                    username={user?.username as string}
-                  />
+                  <FollowButton userId={Number(user?.id)} username={user?.username as string} />
                 </div>
               </div>
             </li>

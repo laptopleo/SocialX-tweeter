@@ -2,12 +2,12 @@ import React from "react";
 
 const Badge = () => {
   return (
-    <div className=" text-[rgb(29,155,240)] flex-shrink-0 w-fit">
+    <div className="w-fit flex-shrink-0 text-[rgb(29,155,240)]">
       <svg
         viewBox="0 0 22 22"
         aria-label="Verified account"
         role="img"
-        className="w-5 h-5 fill-current"
+        className="h-5 w-5 fill-current"
         data-testid="icon-verified"
       >
         <g>

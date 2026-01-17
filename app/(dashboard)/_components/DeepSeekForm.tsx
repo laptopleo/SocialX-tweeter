@@ -33,12 +33,8 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
       const aiResponse = await onGenerate(prompt);
       setResponses((prev) => [{ text: aiResponse, type: "ai" }, ...prev]);
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Error desconocido";
-      setResponses((prev) => [
-        { text: `❌ Error: ${errorMessage}`, type: "error" },
-        ...prev,
-      ]);
+      const errorMessage = error instanceof Error ? error.message : "Error desconocido";
+      setResponses((prev) => [{ text: `❌ Error: ${errorMessage}`, type: "error" }, ...prev]);
     } finally {
       setIsLoading(false);
     }
@@ -53,9 +49,7 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
       if (file) {
         setResponses((prev) => [
           {
-            text: `${type === "file" ? "Archivo" : "Imagen"} subido: ${
-              file.name
-            }`,
+            text: `${type === "file" ? "Archivo" : "Imagen"} subido: ${file.name}`,
             type: "user",
             content: file,
           },
@@ -100,24 +94,17 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
       })
       .catch((error) => {
         console.error("Error al acceder a la cámara:", error);
-        setResponses((prev) => [
-          { text: "Error al tomar foto", type: "error" },
-          ...prev,
-        ]);
+        setResponses((prev) => [{ text: "Error al tomar foto", type: "error" }, ...prev]);
       });
   };
 
-  const renderMessageContent = (msg: {
-    text: string;
-    type: string;
-    content?: Blob | File;
-  }) => {
+  const renderMessageContent = (msg: { text: string; type: string; content?: Blob | File }) => {
     if (msg.content) {
       const url = URL.createObjectURL(msg.content);
       return (
         <div className="mt-2">
           <p>{msg.text}</p>
-          <div className="relative w-full h-48 mt-2">
+          <div className="relative mt-2 h-48 w-full">
             <Image
               src={url}
               alt="User content"
@@ -133,25 +120,23 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center p-4">
-      <div className="w-full max-w-3xl flex flex-col items-center space-y-6">
+    <div className="flex min-h-screen flex-col items-center bg-black p-4 text-white">
+      <div className="flex w-full max-w-3xl flex-col items-center space-y-6">
         <Header label="Grok 3" showBackArrow />
 
-        <div className="w-full h-96 overflow-y-auto flex flex-col-reverse space-y-4 space-y-reverse scrollbar-hide p-2">
+        <div className="flex h-96 w-full flex-col-reverse space-y-4 space-y-reverse overflow-y-auto p-2 scrollbar-hide">
           {responses.map((msg, index) => (
             <div key={index} className="flex w-full">
               <div
-                className={`flex items-center w-1/2 ${
-                  msg.type === "user" ? "mr-auto" : "ml-auto"
-                }`}
+                className={`flex w-1/2 items-center ${msg.type === "user" ? "mr-auto" : "ml-auto"}`}
               >
                 <div
-                  className={`p-4 rounded-lg shadow-lg ${
+                  className={`rounded-lg p-4 shadow-lg ${
                     msg.type === "user"
                       ? "bg-gray-700"
                       : msg.type === "error"
-                      ? "bg-red-900"
-                      : "bg-gray-800"
+                        ? "bg-red-900"
+                        : "bg-gray-800"
                   }`}
                 >
                   {renderMessageContent(msg)}
@@ -161,13 +146,13 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
           ))}
         </div>
 
-        <form onSubmit={handleGenerate} className="w-full ">
-          <div className="relative bg-gray-800  rounded-xl flex items-center w-full flex-col p-8">
+        <form onSubmit={handleGenerate} className="w-full">
+          <div className="relative flex w-full flex-col items-center rounded-xl bg-gray-800 p-8">
             <Input
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Ask anything..."
-              className="w-full pl-4 pr-16 bg-transparent border-0 text-white placeholder-gray-500 focus:ring-0"
+              className="w-full border-0 bg-transparent pl-4 pr-16 text-white placeholder-gray-500 focus:ring-0"
               disabled={isLoading}
             />
             <Button
@@ -175,7 +160,7 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
               variant="ghost"
               size="icon"
               disabled={isLoading}
-              className="absolute right-8  text-gray-400 hover:bg-gray-800 hover:text-white"
+              className="absolute right-8 text-gray-400 hover:bg-gray-800 hover:text-white"
             >
               {isLoading ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
@@ -183,14 +168,10 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
                 <ChevronRight className="h-10 w-10 -rotate-90" />
               )}
             </Button>
-            <div className="flex justify-center space-x-2 mt-4">
+            <div className="mt-4 flex justify-center space-x-2">
               <div className="">
                 <AttachFileIcon className="h-6 w-6 rotate-45" />
-                <Button
-                  onClick={() => handleFileUpload("file")}
-                  variant="ghost"
-                  className="p-1"
-                >
+                <Button onClick={() => handleFileUpload("file")} variant="ghost" className="p-1">
                   Upload File
                 </Button>
               </div>

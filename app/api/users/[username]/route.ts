@@ -2,17 +2,11 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
-export async function GET(
-  request: Request,
-  context: { params: Promise<{ username: string }> }
-) {
+export async function GET(request: Request, context: { params: Promise<{ username: string }> }) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json(
-        { message: "Not authenticated", status: "error" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Not authenticated", status: "error" }, { status: 401 });
     }
 
     const { username } = await context.params;
@@ -57,10 +51,7 @@ export async function GET(
       select: isOwner ? ownerSelect : baseSelect,
     });
     if (!existingUser) {
-      return NextResponse.json(
-        { message: "User not found", status: "error" },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: "User not found", status: "error" }, { status: 404 });
     }
 
     const followersCount = await prisma.user.count({

@@ -3,16 +3,13 @@ import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 // ⚡ Force Node.js runtime for Prisma compatibility
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 export async function GET() {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json(
-        { message: "Not authenticated" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
     }
 
     const userId = +session.user.id;
@@ -27,7 +24,6 @@ export async function GET() {
             name: true,
             profileImage: true,
           },
-          
         },
       },
       orderBy: { createdAt: "desc" },
@@ -42,16 +38,15 @@ export async function GET() {
       { data: notifications, message: "Notifications fetched successfully" },
       { status: 200 }
     );
-
   } catch (error) {
     console.error("Error en GET /api/notifications:", error);
-    
+
     return NextResponse.json(
       {
         message: "Failed to retrieve data",
-        ...(process.env.NODE_ENV === "development" && { 
-          error: error instanceof Error ? error.message : "Unknown error" 
-        })
+        ...(process.env.NODE_ENV === "development" && {
+          error: error instanceof Error ? error.message : "Unknown error",
+        }),
       },
       { status: 500 }
     );

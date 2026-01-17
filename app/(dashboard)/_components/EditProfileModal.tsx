@@ -3,12 +3,7 @@ import React, { useEffect, useCallback } from "react";
 import { z } from "zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { SquarePen } from "lucide-react";
@@ -23,7 +18,7 @@ import axios from "axios";
 import { BASE_URL } from "@/lib/base-url";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
-import { UserType } from "@/types/user.type"
+import { UserType } from "@/types/user.type";
 
 const EditProfileModal = () => {
   const queryClient = useQueryClient();
@@ -71,37 +66,40 @@ const EditProfileModal = () => {
     currentUser?.username,
     currentUser?.coverImage,
     currentUser?.profileImage,
-    form
+    form,
   ]);
 
   // Optimizado: useCallback para onSubmit
-  const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
-    try {
-      setLoading(true);
-      await axios.patch(`${BASE_URL}/api/edit`, values);
-      
-      if (username) {
-        await queryClient.refetchQueries({
-          queryKey: ["user", username],
+  const onSubmit = useCallback(
+    async (values: z.infer<typeof formSchema>) => {
+      try {
+        setLoading(true);
+        await axios.patch(`${BASE_URL}/api/edit`, values);
+
+        if (username) {
+          await queryClient.refetchQueries({
+            queryKey: ["user", username],
+          });
+        }
+
+        toast({
+          title: "Success",
+          description: "Updated profile successfully",
+          variant: "default",
         });
+        onCloseEditModal();
+      } catch {
+        toast({
+          title: "Error",
+          description: "Failed to update profile",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
       }
-      
-      toast({
-        title: "Success",
-        description: "Updated profile successfully",
-        variant: "default",
-      });
-      onCloseEditModal();
-    } catch {
-      toast({
-        title: "Error",
-        description: "Failed to update profile",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  }, [username, queryClient, onCloseEditModal]);
+    },
+    [username, queryClient, onCloseEditModal]
+  );
 
   return (
     <Modal
@@ -109,28 +107,15 @@ const EditProfileModal = () => {
       isOpen={isEditModalOpen}
       onClose={onCloseEditModal}
       body={
-        <div
-          className="w-full flex flex-col 
-        justify-center gap-4"
-        >
-          <div
-            className="w-full bg-neutral-300 
-          dark:bg-neutral-900 h-44 relative 
-            rounded-md
-
-          "
-          >
+        <div className="flex w-full flex-col justify-center gap-4">
+          <div className="relative h-44 w-full rounded-md bg-neutral-300 dark:bg-neutral-900">
             <CoverImageUpload
               value={form?.getValues()?.coverImage}
               onChange={(image: string) => {
                 form.setValue("coverImage", image);
               }}
             />
-            <div
-              className="absolute -bottom-16
-                  left-4
-                  "
-            >
+            <div className="absolute -bottom-16 left-4">
               <ProfileImageUpload
                 value={form?.getValues()?.profileImage}
                 name={form.getValues()?.name}
@@ -141,24 +126,17 @@ const EditProfileModal = () => {
             </div>
           </div>
 
-          <div className="w-full mt-14">
+          <div className="mt-14 w-full">
             <FormProvider {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex h-full w-full flex-col items-center
-           justify-center space-y-3
-              "
+                className="flex h-full w-full flex-col items-center justify-center space-y-3"
               >
                 <div className="w-full">
-                  <div
-                    className="flex flex-row items-center
-                          gap-5 pt-4"
-                  >
+                  <div className="flex flex-row items-center gap-5 pt-4">
                     <label className="text-base">Username</label>
                     <div className="flex items-center gap-1">
-                      <span className="text-base">
-                        {form?.getValues()?.username}
-                      </span>
+                      <span className="text-base">{form?.getValues()?.username}</span>
                       <Button
                         type="button"
                         variant="ghost"
@@ -179,11 +157,9 @@ const EditProfileModal = () => {
                         <FormItem className="w-full">
                           <FormControl>
                             <Input
-                              placeholder="Username"                              
+                              placeholder="Username"
                               disabled={false}
-                              className="form--input focus:boder-0
-                   dark:border-[rgba(255,255,255,.5)]
-                          "
+                              className="form--input focus:boder-0 dark:border-[rgba(255,255,255,.5)]"
                               {...field}
                             />
                             <CheckUsername />
@@ -203,9 +179,7 @@ const EditProfileModal = () => {
                         <Input
                           placeholder="Name"
                           disabled={loading}
-                          className="form--input focus:boder-0
-                   dark:border-[rgba(255,255,255,.5)]
-                          "
+                          className="form--input focus:boder-0 dark:border-[rgba(255,255,255,.5)]"
                           {...field}
                         />
                       </FormControl>
@@ -223,10 +197,7 @@ const EditProfileModal = () => {
                         <Textarea
                           placeholder="Bio"
                           disabled={loading}
-                          className="form--input 
-                        focus:boder-0 !h-[85px]
-                   dark:border-[rgba(255,255,255,.5)]
-                          "
+                          className="form--input focus:boder-0 !h-[85px] dark:border-[rgba(255,255,255,.5)]"
                           {...field}
                         />
                       </FormControl>

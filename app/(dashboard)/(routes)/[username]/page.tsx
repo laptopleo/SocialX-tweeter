@@ -13,10 +13,7 @@ export async function generateStaticParams() {
     const users = await prisma.user.findMany({
       take: 100,
       select: { username: true },
-      orderBy: [
-        { posts: { _count: "desc" } },
-        { createdAt: "desc" },
-      ],
+      orderBy: [{ posts: { _count: "desc" } }, { createdAt: "desc" }],
     });
 
     return users.map((user) => ({
@@ -29,9 +26,9 @@ export async function generateStaticParams() {
 }
 
 // ⚡ Metadata para SEO y compartir en redes sociales
-export async function generateMetadata(
-  props: { params: Promise<{ username: string }> }
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ username: string }>;
+}): Promise<Metadata> {
   try {
     const { username } = await props.params;
     const user = await prisma.user.findUnique({
@@ -57,8 +54,7 @@ export async function generateMetadata(
     }
 
     const title = `${user.name} (@${user.username}) - SocialX`;
-    const description = user.bio || 
-      `${user.name} has ${user._count.posts} posts on SocialX.`;
+    const description = user.bio || `${user.name} has ${user._count.posts} posts on SocialX.`;
     const imageUrl = user.profileImage || "/default-avatar.png";
 
     return {
@@ -93,9 +89,7 @@ export async function generateMetadata(
  * - SEO perfecto
  * - Cacheable por CDN
  */
-export default async function UserProfilePage(
-  props: { params: Promise<{ username: string }> }
-) {
+export default async function UserProfilePage(props: { params: Promise<{ username: string }> }) {
   try {
     const { username } = await props.params;
     // ⚡ Fetch usuario con todas las relaciones necesarias
@@ -157,20 +151,22 @@ export default async function UserProfilePage(
       updatedAt: user.updatedAt.toISOString(),
       dateOfBirth: user.dateOfBirth?.toISOString() || null,
       emailVerified: user.emailVerified?.toISOString() || null,
-      posts: user.posts.map(post => ({
+      posts: user.posts.map((post) => ({
         ...post,
         createdAt: post.createdAt.toISOString(),
         updatedAt: post.updatedAt.toISOString(),
       })),
-      comments: user.comments.map(comment => ({
+      comments: user.comments.map((comment) => ({
         ...comment,
         createdAt: comment.createdAt.toISOString(),
         updatedAt: comment.updatedAt.toISOString(),
       })),
-      subscription: user.subscription ? {
-        ...user.subscription,
-        stripeCurrentPeriodEnd: user.subscription.stripeCurrentPeriodEnd?.toISOString() || null,
-      } : null,
+      subscription: user.subscription
+        ? {
+            ...user.subscription,
+            stripeCurrentPeriodEnd: user.subscription.stripeCurrentPeriodEnd?.toISOString() || null,
+          }
+        : null,
       followersCount,
     };
 

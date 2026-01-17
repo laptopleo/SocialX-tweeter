@@ -55,9 +55,7 @@ export async function likePost(postId: number) {
     let updatedLikeIds = [...(post?.likeIds || [])];
 
     if (updatedLikeIds.includes(currentUserId)) {
-      updatedLikeIds = updatedLikeIds.filter(
-        (likeId) => likeId !== currentUserId
-      );
+      updatedLikeIds = updatedLikeIds.filter((likeId) => likeId !== currentUserId);
     } else {
       updatedLikeIds.push(currentUserId);
       try {
@@ -73,9 +71,7 @@ export async function likePost(postId: number) {
             data: { hasNotification: true },
           }),
         ]);
-      } catch  {
-        
-      }
+      } catch {}
     }
 
     const updatedPost = await prisma.post.update({

@@ -6,12 +6,11 @@ import { prisma } from "@/lib/prismadb";
 import { PLAN_TYPE } from "@/constants/pricing-plans";
 
 // ⚡ Force Node.js runtime for Prisma compatibility
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = (await headers()).get("stripe-signature") as string;
-
 
   if (!signature) {
     return new NextResponse("Missing Stripe signature", { status: 400 });
@@ -19,11 +18,7 @@ export async function POST(req: Request) {
 
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
-    );
+    event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET!);
   } catch (error: any) {
     return new NextResponse(`Wbhook Error: ${error?.message}`, { status: 500 });
   }
@@ -32,9 +27,9 @@ export async function POST(req: Request) {
 
   if (event.type === "checkout.session.completed") {
     const subscription = await stripe.subscriptions.retrieve(
-  session.subscription as string,
-  { expand: ["items.data"] } // Solo expandir los campos necesarios
-);
+      session.subscription as string,
+      { expand: ["items.data"] } // Solo expandir los campos necesarios
+    );
 
     if (!session?.metadata?.userId) {
       return new NextResponse("User is required", { status: 400 });
@@ -48,9 +43,7 @@ export async function POST(req: Request) {
           stripeSubscriptionId: subscription.id,
           stripeCustomerId: subscription.customer as string,
           stripePriceId: subscription.items.data[0].price.id,
-          stripeCurrentPeriodEnd: new Date(
-            subscription.current_period_end * 1000
-          ),
+          stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
         },
       });
     } catch (error) {
@@ -61,9 +54,7 @@ export async function POST(req: Request) {
   }
 
   if (event.type === "invoice.payment_succeeded") {
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    );
+    const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
     try {
       await prisma.subscription.update({
@@ -72,9 +63,7 @@ export async function POST(req: Request) {
         },
         data: {
           stripePriceId: subscription.items.data[0].price.id,
-          stripeCurrentPeriodEnd: new Date(
-            subscription.current_period_end * 1000
-          ),
+          stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
         },
       });
     } catch (error) {

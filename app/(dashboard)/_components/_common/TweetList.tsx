@@ -13,50 +13,45 @@ const TweetList = () => {
   const router = useRouter();
 
   // Simplified data extraction for useQuery response - need to properly check the data type
-  const posts = data && 'posts' in data ? data.posts ?? [] : [];
+  const posts = data && "posts" in data ? (data.posts ?? []) : [];
 
   return (
-    <div className="bg-background border dark:border-[rgb(47,51,54)] rounded-xl p-4">
+    <div className="rounded-xl border bg-background p-4 dark:border-[rgb(47,51,54)]">
       <h2 className="text-[20px] font-bold">What is happening</h2>
 
-      <div className="w-full h-[25vh] overflow-auto scroll-smooth scrollbar-hide">
+      <div className="h-[25vh] w-full overflow-auto scroll-smooth scrollbar-hide">
         <div className="mt-4 space-y-4">
           {posts.map((post: PostType, index: number) => {
             // Eliminar etiquetas HTML del campo "body"
             const cleanBody = (post.body ?? "").replace(/<[^>]+>/g, "");
             return (
               <React.Fragment key={post.id}>
-                <div className="p-3 rounded-lg">
+                <div className="rounded-lg p-3">
                   <div className="flex items-center space-x-2">
-                    <Avatar className="w-10 h-10">
-                      <AvatarImage
-                        src={post.user.profileImage || ""}
-                        alt={post.user.name}
-                      />
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={post.user.profileImage || ""} alt={post.user.name} />
                       <AvatarFallback>{post.user.name[0]}</AvatarFallback>
                     </Avatar>
                     <div>
                       <Link href={`/${post.user.username}`}>
                         <p className="font-bold">{post.user.name}</p>
                       </Link>
-                      <p className="text-sm text-gray-500">
-                        @{post.user.username}
-                      </p>
+                      <p className="text-sm text-gray-500">@{post.user.username}</p>
                     </div>
                   </div>
-                  <p className="mt-4 text-[15px] lg:h-32 text-black dark:text-white overflow-hidden break-words line-clamp-3 font-semibold flex flex-col">
+                  <p className="mt-4 line-clamp-3 flex flex-col overflow-hidden break-words text-[15px] font-semibold text-black dark:text-white lg:h-32">
                     {cleanBody.length > 100 ? (
                       <>
                         {cleanBody.slice(0, 100)}
                         <button
                           onClick={() => router.push("/" + post.user.username)}
-                          className="text-blue-500 w-full text-start mt-2"
+                          className="mt-2 w-full text-start text-blue-500"
                         >
                           Show more
                         </button>
                       </>
                     ) : (
-                      <span className="lg:h-24 text-black dark:text-white overflow-hidden break-words line-clamp-1  font-semibold">
+                      <span className="line-clamp-1 overflow-hidden break-words font-semibold text-black dark:text-white lg:h-24">
                         {cleanBody || "No hay contenido"}
                       </span>
                     )}

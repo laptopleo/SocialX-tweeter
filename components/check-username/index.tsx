@@ -8,11 +8,17 @@ import { BASE_URL } from "@/lib/base-url";
 import { generateBaseUsername } from "@/lib/helper";
 import { Spinner } from "../spinner";
 
-const CheckUsername = ({ value, onChange }: { value?: string; onChange?: (value: string) => void }) => {
+const CheckUsername = ({
+  value,
+  onChange,
+}: {
+  value?: string;
+  onChange?: (value: string) => void;
+}) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isAvailable, setIsAvailable] = React.useState<boolean | null>(null);
   const [suggestions, setSuggestions] = React.useState<string[]>([]);
-  const {  watch, setError, setValue, clearErrors } = useFormContext();
+  const { watch, setError, setValue, clearErrors } = useFormContext();
   const username = watch("username");
 
   const debouncedUsername = useDebounce(username, 500);
@@ -21,15 +27,13 @@ const CheckUsername = ({ value, onChange }: { value?: string; onChange?: (value:
     async (username: string) => {
       try {
         setIsLoading(true);
-        const response = await fetch(
-          `${BASE_URL}/api/check-username?username=${username}`
-        );
+        const response = await fetch(`${BASE_URL}/api/check-username?username=${username}`);
         const data = await response.json();
-        
+
         setIsAvailable(data.isAvailable);
         setSuggestions([]);
         clearErrors("username");
-        
+
         if (!data.isAvailable) {
           const generatedSuggestions = Array(4)
             .fill(null)
@@ -59,17 +63,13 @@ const CheckUsername = ({ value, onChange }: { value?: string; onChange?: (value:
   };
 
   return (
-    <div className="w-full relative">
-     <Input
-      placeholder="Username"
-      value={value}
-      onChange={(e) => onChange?.(e.target.value)}
-      />
-      
+    <div className="relative w-full">
+      <Input placeholder="Username" value={value} onChange={(e) => onChange?.(e.target.value)} />
+
       {/* Loader and validation icons */}
       <div className="absolute right-3 top-2">
         {isLoading ? (
-          <Spinner className="text-gray-600 !size-[20px]" />
+          <Spinner className="!size-[20px] text-gray-600" />
         ) : isAvailable === true ? (
           <CheckCircle className="text-green-500" size={20} />
         ) : isAvailable === false ? (
@@ -81,13 +81,9 @@ const CheckUsername = ({ value, onChange }: { value?: string; onChange?: (value:
       {isAvailable === false && suggestions.length > 0 && (
         <div className="mt-2 text-sm">
           <p className="mb-1">Suggestions</p>
-          <ul className="flex flex-row gap-3 flex-wrap ml-[1px] text-base text-primary">
+          <ul className="ml-[1px] flex flex-row flex-wrap gap-3 text-base text-primary">
             {suggestions?.map((suggestion) => (
-              <li
-                role="button"
-                key={suggestion}
-                onClick={() => handleSuggestionClick(suggestion)}
-              >
+              <li role="button" key={suggestion} onClick={() => handleSuggestionClick(suggestion)}>
                 {suggestion}
               </li>
             ))}

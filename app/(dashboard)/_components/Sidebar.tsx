@@ -87,40 +87,42 @@ const Sidebar = (props: { isPro: boolean }) => {
     },
   ];
   // Antes: 14 líneas de apertura/cierre innecesarias
-// Después: 8 líneas, mismo resultado, mejor semántica
+  // Después: 8 líneas, mismo resultado, mejor semántica
 
-return (
-  <aside className=" overflow-y-auto overflow-x-hidden scrollbar-invisible rounded-lg border border-black/20 dark:border-gray-800 p-4  top-14 ">
-    
-    {/* SECCIÓN 1: Logo + Menú principal */}
-    <div className="flex flex-col gap-3 text-black dark:text-white px-3 py-4">
-      <Logo
-        className="h-1 w-8 md:h-12 md:w-12 cursor-pointer pl-2"
-        onClick={() => router.push("/home")}
-      />
-      
-      <nav aria-label="Menú principal"> {/* ✅ Añadido semántica */}
-        {MENU_LIST.map((item) => (
-          <SidebarItem
-            key={item.href}
-            {...item} // ✅ Spread operator para limpieza
-          />
-        ))}
-      </nav>
-    </div>
+  return (
+    <aside className="scrollbar-invisible top-14 overflow-y-auto overflow-x-hidden rounded-lg border border-black/20 p-4 dark:border-gray-800">
+      {/* SECCIÓN 1: Logo + Menú principal */}
+      <div className="flex flex-col gap-3 px-3 py-4 text-black dark:text-white">
+        <Logo
+          className="h-1 w-8 cursor-pointer pl-2 md:h-12 md:w-12"
+          onClick={() => router.push("/home")}
+        />
 
-    {/* SECCIÓN 2: Botón de Post */}
-    <div className="mt-4 px-3"> {/* ✅ Contenedor con propósito claro */}
-      <Button
-        onClick={() => setIsModalOpen(true)}
-        variant="brandPrimary"
-        className="min-w-56 hidden lg:flex items-center justify-center py-7 font-semibold text-lg text-white transition hover:opacity-80"
-      >
-        Post
-      </Button>
-      
-      {/* Versión móvil (icono) */}
-      {/* <Button
+        <nav aria-label="Menú principal">
+          {" "}
+          {/* ✅ Añadido semántica */}
+          {MENU_LIST.map((item) => (
+            <SidebarItem
+              key={item.href}
+              {...item} // ✅ Spread operator para limpieza
+            />
+          ))}
+        </nav>
+      </div>
+
+      {/* SECCIÓN 2: Botón de Post */}
+      <div className="mt-4 px-3">
+        {" "}
+        {/* ✅ Contenedor con propósito claro */}
+        <Button
+          onClick={() => setIsModalOpen(true)}
+          variant="brandPrimary"
+          className="hidden min-w-56 items-center justify-center py-7 text-lg font-semibold text-white transition hover:opacity-80 lg:flex"
+        >
+          Post
+        </Button>
+        {/* Versión móvil (icono) */}
+        {/* <Button
         onClick={() => setIsModalOpen(true)}
         variant="brandPrimary"
         size="icon"
@@ -129,24 +131,30 @@ return (
         <Feather size={24} className="text-white" />
       </Button>
        */}
-      <PostFormModal
-        open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        placeholder="What is happening"
-      />
-    </div>
+        <PostFormModal
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          placeholder="What is happening"
+        />
+      </div>
 
-    {/* SECCIÓN 3: Perfil de usuario */}
-    <footer className="mt-auto"> {/* ✅ Semánticamente es footer del aside */}
-      {isLoading ? (
-        <Spinner size="lg" className="mx-auto" />
-      ) : (
-        <UserDropdown username={fetchedUser.username} name={fetchedUser.name} profileImage={fetchedUser.profileImage  } onLogout={doLogout} />
-      )}
-    </footer>
-    
-  </aside>
-);
+      {/* SECCIÓN 3: Perfil de usuario */}
+      <footer className="mt-auto">
+        {" "}
+        {/* ✅ Semánticamente es footer del aside */}
+        {isLoading ? (
+          <Spinner size="lg" className="mx-auto" />
+        ) : (
+          <UserDropdown
+            username={fetchedUser.username}
+            name={fetchedUser.name}
+            profileImage={fetchedUser.profileImage}
+            onLogout={doLogout}
+          />
+        )}
+      </footer>
+    </aside>
+  );
 };
 
 export default Sidebar;
