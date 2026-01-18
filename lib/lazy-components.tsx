@@ -1,7 +1,7 @@
 /**
  * ⚡ LAZY LOADING DE COMPONENTES PESADOS
  *
- * Importa componentes pesados de forma lazy para mejorar el tiempo de carga inicial
+
  */
 
 import dynamic from "next/dynamic";
