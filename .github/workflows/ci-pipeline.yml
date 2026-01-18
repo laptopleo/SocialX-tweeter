@@ -41,11 +41,14 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: 🗄️ Generate Prisma Client
+        run: pnpm generate
 
       - name: 🔍 Run ESLint
         run: pnpm lint
@@ -134,7 +137,7 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: 📚 Install dependencies
@@ -185,7 +188,7 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: 🔍 Run npm audit
@@ -225,11 +228,14 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: 🗄️ Generate Prisma Client
+        run: pnpm generate
 
       - name: 🔍 Validate Prisma schema
         run: npx prisma validate

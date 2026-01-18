@@ -38,7 +38,8 @@
     "docker:deploy": "bash scripts/docker-deploy.sh",
     "test": "echo 'No tests specified yet'",
     "test:ci": "echo 'No tests specified yet'",
-    "postinstall": "prisma generate",
+    "postinstall": "echo \"✅ Dependencies installed. Prisma generate will run in CI step.\"",
+    "generate": "prisma generate",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {}\""
   },
   "dependencies": {
@@ -110,5 +111,9 @@
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.0.0 <23.0.0",
+    "pnpm": ">=9.0.0"
   }
 }

@@ -11,7 +11,7 @@ const Page = () => {
         <div className="flex h-full w-full flex-col-reverse items-center lg:flex-row-reverse">
           <div className="flex h-full flex-1 flex-shrink flex-col p-4 lg:min-w-[437px] lg:max-w-[760px]">
             <div className="mb-6 mt-4">
-              <h1 className="text-[68px] font-black leading-[84px]">Happing now</h1>
+              <h1 className="text-[68px] font-black leading-[84px]">Haapping now</h1>
             </div>
             <div className="mb-8">
               <h5 className="text-[31px] font-extrabold leading-9">Sign in to X</h5>

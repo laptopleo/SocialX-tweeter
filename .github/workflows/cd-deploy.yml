@@ -90,11 +90,14 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: 🗄️ Generate Prisma Client
+        run: pnpm generate
 
       - name: 🔷 TypeScript check
         run: npx tsc --noEmit
@@ -129,11 +132,14 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: 🗄️ Generate Prisma Client
+        run: pnpm generate
 
       - name: 🗄️ Create backup
         run: |
@@ -174,11 +180,14 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: 🗄️ Generate Prisma Client
+        run: pnpm generate
 
       - name: 🗄️ Run database migrations
         run: npx prisma migrate deploy

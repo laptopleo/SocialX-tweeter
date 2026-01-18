@@ -160,14 +160,14 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: 🗄️ Generate Prisma Client
-        run: npx prisma generate
+        run: pnpm generate
 
       - name: 🏗️ Build
         run: pnpm build
@@ -205,7 +205,7 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
 
       - name: 🔍 Check for duplicate dependencies
