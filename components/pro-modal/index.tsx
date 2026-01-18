@@ -73,8 +73,7 @@ const ProModal = () => {
                 !isAnnual
                   ? "bg-primary text-white"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
-              )}
-            >
+              )}>
               Monthly
             </button>
             <button
@@ -84,8 +83,7 @@ const ProModal = () => {
                 isAnnual
                   ? "bg-primary text-white"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
-              )}
-            >
+              )}>
               Annual
               <span className="absolute -right-2 -top-2 whitespace-nowrap rounded-full bg-green-500 px-1.5 py-0.5 text-[10px] text-white md:px-2 md:text-xs">
                 Best Value
@@ -111,8 +109,7 @@ const ProModal = () => {
             <div className="overflow-hidden px-8">
               <div
                 className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${currentCardIndex * 100}%)` }}
-              >
+                style={{ transform: `translateX(-${currentCardIndex * 100}%)` }}>
                 {PRICING_CARDS.map((plan) => (
                   <div key={plan.planType} className="w-full flex-shrink-0">
                     <PricingCard
@@ -131,15 +128,13 @@ const ProModal = () => {
             <button
               onClick={prevCard}
               className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/90 p-2 shadow-lg backdrop-blur-sm transition-colors hover:bg-muted"
-              aria-label="Previous plan"
-            >
+              aria-label="Previous plan">
               <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={nextCard}
               className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/90 p-2 shadow-lg backdrop-blur-sm transition-colors hover:bg-muted"
-              aria-label="Next plan"
-            >
+              aria-label="Next plan">
               <ChevronRight className="h-5 w-5" />
             </button>
 
@@ -193,8 +188,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
         plan.isPopular
           ? "border-primary shadow-lg shadow-primary/20 md:scale-105"
           : "border-border hover:border-primary/50"
-      )}
-    >
+      )}>
       {/* Popular Badge */}
       {plan.isPopular && (
         <div className="absolute -top-3 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs text-white">
@@ -233,8 +227,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
           {plan.features.map((feature: string, index: number) => (
             <li
               key={index}
-              className={cn("flex items-start gap-2", isMobile ? "text-xs" : "text-sm")}
-            >
+              className={cn("flex items-start gap-2", isMobile ? "text-xs" : "text-sm")}>
               <Check
                 className={cn(
                   "mt-0.5 flex-shrink-0 text-primary",
@@ -252,8 +245,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
             className={cn(
               "mt-3 rounded-lg border border-purple-500/20 bg-gradient-to-r from-purple-500/10 to-blue-500/10",
               isMobile ? "p-2" : "p-3"
-            )}
-          >
+            )}>
             <div className="mb-1.5 flex items-center gap-2">
               <Sparkles className={cn("text-purple-500", isMobile ? "h-3 w-3" : "h-4 w-4")} />
               <span className={cn("font-semibold", isMobile ? "text-xs" : "text-sm")}>
@@ -278,8 +270,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
         className="mt-2 w-full"
         size={isMobile ? "sm" : "default"}
         disabled={loading}
-        onClick={() => onSubscribe(plan.typeName)}
-      >
+        onClick={() => onSubscribe(plan.typeName)}>
         {loading && <Spinner size="default" />}
         Subscribe & Pay
       </Button>

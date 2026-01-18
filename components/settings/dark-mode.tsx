@@ -37,8 +37,7 @@ const DarkModetoggle = () => {
                 "cursor-pointer overflow-hidden rounded-2xl border-4 border-transparent",
                 mounted && theme === "system" && "border-primary"
               )}
-              onClick={() => setTheme("system")}
-            >
+              onClick={() => setTheme("system")}>
               <SystemMode />
             </div>
             <p className="mt-2 text-center">System mode</p>
@@ -52,8 +51,7 @@ const DarkModetoggle = () => {
                 "cursor-pointer overflow-hidden rounded-2xl border-4 border-transparent",
                 mounted && theme === "light" && "border-primary"
               )}
-              onClick={() => setTheme("light")}
-            >
+              onClick={() => setTheme("light")}>
               <LightMode />
             </div>
             <p className="mt-2 text-center">Light mode</p>
@@ -67,8 +65,7 @@ const DarkModetoggle = () => {
                 "cursor-pointer overflow-hidden rounded-2xl border-4 border-transparent",
                 mounted && theme === "dark" && "border-primary"
               )}
-              onClick={() => setTheme("dark")}
-            >
+              onClick={() => setTheme("dark")}>
               <DarkMode />
             </div>
             <p className="mt-2 text-center">Dark mode</p>

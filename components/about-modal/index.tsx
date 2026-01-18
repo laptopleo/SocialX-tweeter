@@ -51,8 +51,7 @@ const AboutModal = () => {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center gap-2 rounded-xl border border-border bg-card p-4 transition-all duration-200 hover:border-primary/50"
-              >
+                className="flex flex-col items-center gap-2 rounded-xl border border-border bg-card p-4 transition-all duration-200 hover:border-primary/50">
                 <div className="text-primary">{stat.icon}</div>
                 <div className="text-2xl font-bold text-primary">{stat.value}</div>
                 <div className="text-center text-xs text-muted-foreground">{stat.label}</div>
@@ -70,8 +69,7 @@ const AboutModal = () => {
               {techStack.map((tech, index) => (
                 <span
                   key={index}
-                  className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-sm text-primary transition-colors duration-200 hover:bg-primary/20"
-                >
+                  className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-sm text-primary transition-colors duration-200 hover:bg-primary/20">
                   {tech}
                 </span>
               ))}

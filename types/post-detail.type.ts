@@ -1,37 +1,65 @@
 // ⚡ Tipos para página de post individual con ISR
-import { Post, User, Comment } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
-// Tipo para datos de post con relaciones (fechas como Date)
-export type PostWithRelations = Post & {
-  user: Pick<User, "id" | "name" | "username" | "profileImage">;
-  comments: Array<
-    Comment & {
-      user: Pick<User, "id" | "name" | "username" | "profileImage">;
-    }
-  >;
-  _count: {
-    comments: number;
+// 1. Define el 'include' para las relaciones del post
+const postWithRelationsArgs = Prisma.validator()({
+  include: {
+    user: {
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        profileImage: true,
+      },
+    },
+    comments: {
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            username: true,
+            profileImage: true,
+          },
+        },
+      },
+    },
+    _count: {
+      select: {
+        comments: true,
+      },
+    },
+  },
+});
+
+// 2. Genera el tipo 'PostWithRelations' usando Prisma.PostGetPayload
+export type PostWithRelations = Prisma.PostGetPayload<typeof postWithRelationsArgs>;
+
+// 3. Define un tipo para los comentarios con su usuario
+type CommentWithUser = Prisma.CommentGetPayload<{
+  include: {
+    user: {
+      select: {
+        id: true;
+        name: true;
+        username: true;
+        profileImage: true;
+      };
+    };
   };
-};
+}>;
 
-// Tipo para datos de post serializados (fechas como string para SSR)
+// 4. Tipo para datos de post serializados (fechas como string para SSR)
 export type SerializedPostWithRelations = Omit<
   PostWithRelations,
   "createdAt" | "updatedAt" | "comments"
 > & {
   createdAt: string;
   updatedAt: string;
-  comments: Array<
-    Omit<
-      Comment & {
-        user: Pick<User, "id" | "name" | "username" | "profileImage">;
-      },
-      "createdAt" | "updatedAt"
-    > & {
-      createdAt: string;
-      updatedAt: string;
-    }
-  >;
+  comments: (Omit<CommentWithUser, "createdAt" | "updatedAt"> & {
+    createdAt: string;
+    updatedAt: string;
+  })[];
 };
 
 export interface PostDetailPageProps {

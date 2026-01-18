@@ -58,8 +58,7 @@ const CoverImageUpload: React.FC<PropsType> = ({ value, onChange, onRemove }) =>
         }}
         onDrop={(acceptedFiles) => {
           handleDrop(acceptedFiles);
-        }}
-      >
+        }}>
         {({ getRootProps, getInputProps }) => (
           <div {...getRootProps()}>
             <input
@@ -84,16 +83,14 @@ const CoverImageUpload: React.FC<PropsType> = ({ value, onChange, onRemove }) =>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-10 w-10 rounded-full bg-background p-2 shadow hover:bg-opacity-60 dark:bg-black/80"
-                  >
+                    className="h-10 w-10 rounded-full bg-background p-2 shadow hover:bg-opacity-60 dark:bg-black/80">
                     <Camera size={18} />
                   </Button>
                   <Button
                     variant="ghost"
                     size="icon"
                     className="h-10 w-10 rounded-full bg-background p-2 shadow hover:bg-opacity-60 dark:bg-black/80"
-                    onClick={handleRemove}
-                  >
+                    onClick={handleRemove}>
                     <X size={18} />
                   </Button>
                 </div>

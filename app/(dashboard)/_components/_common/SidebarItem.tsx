@@ -76,8 +76,7 @@ const SidebarItem: React.FC<PropsType> = ({
         "group mt-4 flex cursor-pointer items-center rounded-lg transition-all duration-100 md:w-44 lg:p-2",
         "hover:dark:bg-black hover:dark:shadow-sm md:border md:border-transparent md:hover:dark:border-primary",
         activePath ? "bg-primary/10" : "dark:text-white hover:dark:text-indigo-900"
-      )}
-    >
+      )}>
       {/* Versión móvil: se oculta en pantallas grandes */}
       <div className="flex items-center justify-center p-1 lg:hidden">
         {isUser && userInfo ? (

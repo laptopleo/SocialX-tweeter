@@ -1,20 +1,31 @@
 // ⚡ Tipos para perfil de usuario con ISR
-import { User, Post, Comment, Subscription } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
-export type UserWithRelations = User & {
-  posts: Post[];
-  comments: Array<
-    Comment & {
-      user: Pick<User, "id" | "name" | "username" | "profileImage"> & {
-        subscription?: Subscription | null;
-      };
-    }
-  >;
-  subscription: Subscription | null;
-  _count: {
-    posts: number;
-    comments: number;
-  };
+// 1. Define los 'includes' para las relaciones del usuario
+const userWithRelationsArgs = Prisma.validator()({
+  include: {
+    posts: true,
+    comments: {
+      include: {
+        user: {
+          include: {
+            subscription: true,
+          },
+        },
+      },
+    },
+    subscription: true,
+    _count: {
+      select: {
+        posts: true,
+        comments: true,
+      },
+    },
+  },
+});
+
+// 2. Genera el tipo 'UserWithRelations' usando Prisma.UserGetPayload
+export type UserWithRelations = Prisma.UserGetPayload<typeof userWithRelationsArgs> & {
   // Campo derivado para compatibilidad con componentes del perfil
   followersCount?: number;
 };

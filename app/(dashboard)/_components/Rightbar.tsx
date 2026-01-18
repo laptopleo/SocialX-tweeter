@@ -16,8 +16,7 @@ const Rightbar = (props: { isPro: boolean }) => {
           <Suspense
             fallback={
               <div className="flex h-12 w-full items-center justify-center">Loading search...</div>
-            }
-          >
+            }>
             <SearchForm />
           </Suspense>
         </div>

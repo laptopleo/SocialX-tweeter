@@ -73,8 +73,7 @@ const ApiMonitor = () => {
         variant="outline"
         size="sm"
         className="fixed bottom-4 right-4 z-50 border border-border bg-background"
-        onClick={() => setIsVisible(!isVisible)}
-      >
+        onClick={() => setIsVisible(!isVisible)}>
         📊 API Stats
       </Button>
 
@@ -127,8 +126,7 @@ const ApiMonitor = () => {
                   cacheMisses: 0,
                   totalRequests: 0,
                 })
-              }
-            >
+              }>
               Reset Counters
             </Button>
           </CardContent>

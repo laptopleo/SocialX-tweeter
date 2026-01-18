@@ -53,8 +53,7 @@ const UploadMediaButton: React.FC<PropsType> = ({
         type="button"
         variant="ghost"
         disabled={disabled}
-        className="gap-1 !bg-transparent !p-0 !text-primary"
-      >
+        className="gap-1 !bg-transparent !p-0 !text-primary">
         <ImageIcon color="rgb(29,155,240)" width={24} height={24} className="shrink-0" />
       </Button>
     </label>

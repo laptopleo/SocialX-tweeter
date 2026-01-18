@@ -20,8 +20,7 @@ const QuickActions = () => {
         <Button
           variant="outline"
           className="w-full justify-start gap-2 transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
-          onClick={onOpenFeaturesModal}
-        >
+          onClick={onOpenFeaturesModal}>
           <Sparkles className="h-4 w-4" />
           <span>Platform Features</span>
         </Button>
@@ -29,8 +28,7 @@ const QuickActions = () => {
         <Button
           variant="outline"
           className="w-full justify-start gap-2 transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
-          onClick={onOpenAboutModal}
-        >
+          onClick={onOpenAboutModal}>
           <Info className="h-4 w-4" />
           <span>About SocialX</span>
         </Button>

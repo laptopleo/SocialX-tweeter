@@ -112,8 +112,7 @@ const MobileSidebar = (props: { isPro: boolean }) => {
         size="icon"
         className="fixed left-0 top-0 z-50 h-10 w-10 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 lg:hidden"
         aria-label={isOpen ? "Cerrar menú" : "Abrir menú"} // ✅ Accesibilidad
-        aria-expanded={isOpen}
-      >
+        aria-expanded={isOpen}>
         {isOpen ? <X size={24} /> : <Menu size={34} />}
       </Button>
 
@@ -128,8 +127,7 @@ const MobileSidebar = (props: { isPro: boolean }) => {
 
       {/* Drawer - Simplificado: eliminé el wrapper div innecesario */}
       <aside
-        className={`// // // // fixed left-0 top-0 z-50 h-screen w-20 transform bg-white shadow-lg transition-transform duration-300 ease-in-out dark:bg-red-400 lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"} // // flex flex-col overflow-y-auto border-r border-gray-200 dark:border-gray-800`}
-      >
+        className={`// // // // fixed left-0 top-0 z-50 h-screen w-20 transform bg-white shadow-lg transition-transform duration-300 ease-in-out dark:bg-red-400 lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"} // // flex flex-col overflow-y-auto border-r border-gray-200 dark:border-gray-800`}>
         {/* Header - Semántico y sin wrapper div */}
         <header className="border-b border-gray-200 dark:border-gray-900 md:p-3">
           <Logo
@@ -161,8 +159,7 @@ const MobileSidebar = (props: { isPro: boolean }) => {
             }}
             variant="brandPrimary"
             className="mx-auto flex h-14 w-14 items-center rounded-full"
-            aria-label="Crear post"
-          >
+            aria-label="Crear post">
             <PostIcon className="" /> {/* ✅ Icono como componente */}
           </Button>
         </div>

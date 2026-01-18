@@ -11,8 +11,7 @@ const SocialLogin = () => {
         type="submit"
         className="h-10 w-full gap-2 rounded-full p-1 text-base font-medium !text-[#3c4043] shadow-sm dark:bg-white"
         name="action"
-        value="google"
-      >
+        value="google">
         <GoogleLogo />
         Sign in with Google
       </Button>

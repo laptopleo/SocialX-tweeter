@@ -23,8 +23,7 @@ const Header: React.FC<PropsType> = ({ label, children, showBackArrow, showBorde
         {
           "border-b-[1px] dark:border-[rgb(29,111,173)]": showBorder,
         }
-      )}
-    >
+      )}>
       <div className="flex flex-row items-center gap-5">
         {showBackArrow && (
           <ArrowLeft

@@ -58,8 +58,7 @@ const LoginForm = () => {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex h-full w-full flex-col items-center justify-center space-y-3"
-      >
+        className="flex h-full w-full flex-col items-center justify-center space-y-3">
         <FormField
           control={form.control}
           name="email"
@@ -99,8 +98,7 @@ const LoginForm = () => {
           size="brandsm"
           type="submit"
           className="!mt-5 gap-1"
-          disabled={isLoading}
-        >
+          disabled={isLoading}>
           {isLoading && <Spinner size="default" />}
           Sign In
         </Button>

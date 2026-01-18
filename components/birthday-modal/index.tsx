@@ -71,8 +71,7 @@ const BirthDayModal = () => {
         <FormProvider {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex min-h-[200px] w-full flex-col items-start justify-between space-y-2"
-          >
+            className="flex min-h-[200px] w-full flex-col items-start justify-between space-y-2">
             <FormField
               control={form.control}
               name="dateOfBirth"
@@ -97,8 +96,7 @@ const BirthDayModal = () => {
               type="submit"
               size="brandsm"
               className="!mt-5 gap-1"
-              disabled={isLoading || !form?.getValues().dateOfBirth}
-            >
+              disabled={isLoading || !form?.getValues().dateOfBirth}>
               {isLoading && <Spinner size="default" />}
               Save
             </Button>

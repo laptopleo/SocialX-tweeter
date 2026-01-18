@@ -45,8 +45,7 @@ const NotificationFeed = () => {
         <div
           key={notification.id}
           onClick={() => router.push("/" + notification.user.username)}
-          className="group flex w-full cursor-pointer flex-row items-center justify-between gap-4 border-b p-6 hover:bg-gray-100 dark:hover:bg-gray-800"
-        >
+          className="group flex w-full cursor-pointer flex-row items-center justify-between gap-4 border-b p-6 hover:bg-gray-100 dark:hover:bg-gray-800">
           <div className="flex items-center gap-4">
             <Logo className="!size-5" />
             <p className="dark:text-white">{notification.body}</p>
@@ -56,8 +55,7 @@ const NotificationFeed = () => {
               e.stopPropagation(); // Evita la redirección si se clickea el botón
               deleteNotification(notification.id);
             }}
-            className="text-red-500 opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-600"
-          >
+            className="text-red-500 opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-600">
             <Trash size={20} />
           </button>
         </div>

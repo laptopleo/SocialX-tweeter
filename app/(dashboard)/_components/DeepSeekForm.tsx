@@ -128,8 +128,7 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
           {responses.map((msg, index) => (
             <div key={index} className="flex w-full">
               <div
-                className={`flex w-1/2 items-center ${msg.type === "user" ? "mr-auto" : "ml-auto"}`}
-              >
+                className={`flex w-1/2 items-center ${msg.type === "user" ? "mr-auto" : "ml-auto"}`}>
                 <div
                   className={`rounded-lg p-4 shadow-lg ${
                     msg.type === "user"
@@ -137,8 +136,7 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
                       : msg.type === "error"
                         ? "bg-red-900"
                         : "bg-gray-800"
-                  }`}
-                >
+                  }`}>
                   {renderMessageContent(msg)}
                 </div>
               </div>
@@ -160,8 +158,7 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
               variant="ghost"
               size="icon"
               disabled={isLoading}
-              className="absolute right-8 text-gray-400 hover:bg-gray-800 hover:text-white"
-            >
+              className="absolute right-8 text-gray-400 hover:bg-gray-800 hover:text-white">
               {isLoading ? (
                 <Loader2 className="h-5 w-5 animate-spin" />
               ) : (

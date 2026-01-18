@@ -98,8 +98,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
     <div
       role="button"
       onClick={goToPost}
-      className="flex-1 cursor-pointer border border-gray-200 py-4 transition dark:border-neutral-800"
-    >
+      className="flex-1 cursor-pointer border border-gray-200 py-4 transition dark:border-neutral-800">
       <div className="flex gap-3">
         {/* Left padding for avatar alignment */}
         <div className="w-1"></div>
@@ -129,8 +128,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
               <h5
                 className="cursor-pointer truncate font-bold text-gray-900 hover:underline dark:text-white"
                 role="button"
-                onClick={goToUser}
-              >
+                onClick={goToUser}>
                 {post?.user?.name}
               </h5>
               {post?.user?.subscription?.plan === PLAN_TYPE.PRO && <Badge />}
@@ -139,8 +137,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
             <span
               className="cursor-pointer truncate text-sm font-normal text-gray-500 hover:underline dark:text-gray-400"
               role="button"
-              onClick={goToUser}
-            >
+              onClick={goToUser}>
               @{post?.user?.username}
             </span>
 
@@ -163,8 +160,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
           {post?.postImage && (
             <div
               className="relative mb-3 w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-neutral-800"
-              onClick={stopPropagation}
-            >
+              onClick={stopPropagation}>
               <Image
                 src={post.postImage}
                 alt={post.user?.username || "Post image"}
@@ -178,8 +174,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
           {post?.postVideo && (
             <div
               className="relative mb-3 w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-neutral-800"
-              onClick={stopPropagation}
-            >
+              onClick={stopPropagation}>
               <video
                 ref={videoRef}
                 src={post.postVideo}
@@ -192,8 +187,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
           {post?.postGif && (
             <div
               className="relative mb-3 w-full overflow-hidden rounded-2xl border border-gray-200 dark:border-neutral-800"
-              onClick={stopPropagation}
-            >
+              onClick={stopPropagation}>
               <video
                 src={post.postGif}
                 muted
@@ -214,8 +208,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
             <button
               type="button"
               onClick={stopPropagation}
-              className="group flex items-center gap-1 text-gray-500 transition-colors hover:text-blue-500"
-            >
+              className="group flex items-center gap-1 text-gray-500 transition-colors hover:text-blue-500">
               <div className="rounded-full p-2 transition-colors group-hover:bg-blue-500/10">
                 <MessageCircle size={18} />
               </div>
@@ -228,8 +221,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
               disabled={loading}
               className={`group flex items-center gap-1 text-gray-500 transition-colors hover:text-red-500 ${
                 loading ? "cursor-not-allowed opacity-50" : ""
-              }`}
-            >
+              }`}>
               <div className="rounded-full p-2 transition-colors group-hover:bg-red-500/10">
                 <Heart size={18} className={hasLiked ? "fill-red-500 stroke-red-500" : ""} />
               </div>

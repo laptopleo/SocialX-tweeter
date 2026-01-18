@@ -50,16 +50,14 @@ const Modal: React.FC<PropsType> = ({
               <DialogTitle
                 className={cn("!p-0 text-[31px] font-bold leading-9", {
                   "text-center": isCentered,
-                })}
-              >
+                })}>
                 {title}
               </DialogTitle>
               {subTitle && (
                 <DialogDescription
                   className={cn("!mt-0 !p-0 text-[14px] text-muted-foreground", {
                     "mx-auto block w-full max-w-sm text-center": isCentered,
-                  })}
-                >
+                  })}>
                   {subTitle}
                 </DialogDescription>
               )}

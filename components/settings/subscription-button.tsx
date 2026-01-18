@@ -43,8 +43,7 @@ const SubscriptionButton = () => {
       variant="outline"
       disabled={loading}
       className="gap-1 shadow"
-      onClick={handleClick}
-    >
+      onClick={handleClick}>
       <>
         <Lock size="17px" />
         Manage Subscription

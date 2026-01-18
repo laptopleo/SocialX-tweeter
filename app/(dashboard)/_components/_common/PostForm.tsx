@@ -165,8 +165,7 @@ const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, p
       <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex h-full w-full flex-col items-center justify-center px-3"
-        >
+          className="flex h-full w-full flex-col items-center justify-center px-3">
           {isLoading ? (
             <Spinner size="lg" />
           ) : (
@@ -207,8 +206,7 @@ const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, p
                       <button
                         type="button"
                         onClick={clearFile}
-                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90"
-                      >
+                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
                         ×
                       </button>
                       <Image
@@ -231,8 +229,7 @@ const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, p
                       <button
                         type="button"
                         onClick={clearFile}
-                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90"
-                      >
+                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
                         ×
                       </button>
                       <video
@@ -255,8 +252,7 @@ const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, p
                       <button
                         type="button"
                         onClick={clearGif}
-                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90"
-                      >
+                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
                         ×
                       </button>
 
@@ -321,8 +317,7 @@ const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, p
                       uploadingGif ||
                       !form?.getValues()?.body
                     }
-                    className="!h-auto cursor-pointer text-base font-semibold !text-white"
-                  >
+                    className="!h-auto cursor-pointer text-base font-semibold !text-white">
                     {loading ? <Spinner size="default" /> : isComment ? "Reply" : "Post"}
                   </Button>
                 </div>

@@ -35,8 +35,7 @@ const DeepSeek = () => {
         <div className="flex min-h-screen items-center justify-center bg-black text-white">
           Loading...
         </div>
-      }
-    >
+      }>
       <DeepSeekForm onGenerate={handleGenerate} />
     </Suspense>
   );

@@ -117,8 +117,7 @@ const Sidebar = (props: { isPro: boolean }) => {
         <Button
           onClick={() => setIsModalOpen(true)}
           variant="brandPrimary"
-          className="hidden min-w-56 items-center justify-center py-7 text-lg font-semibold text-white transition hover:opacity-80 lg:flex"
-        >
+          className="hidden min-w-56 items-center justify-center py-7 text-lg font-semibold text-white transition hover:opacity-80 lg:flex">
           Post
         </Button>
         {/* Versión móvil (icono) */}

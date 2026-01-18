@@ -66,8 +66,7 @@ const CommentItem: React.FC<PropsType> = ({ comment }) => {
               <h5
                 className="cursor-pointer font-bold hover:underline"
                 role="button"
-                onClick={goToUser}
-              >
+                onClick={goToUser}>
                 {comment?.user?.name}
               </h5>
               {comment?.user?.subscription?.plan === PLAN_TYPE.PRO && <Badge />}
@@ -75,8 +74,7 @@ const CommentItem: React.FC<PropsType> = ({ comment }) => {
             <span
               className="inline-block truncate text-sm font-normal !text-[#959fa8]"
               role="button"
-              onClick={goToUser}
-            >
+              onClick={goToUser}>
               @{comment?.user?.username}
             </span>
             <div className="flex items-center">

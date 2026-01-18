@@ -42,7 +42,7 @@
     "prepare": "node -e \"try { require('husky').install() } catch (e) {}\""
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^2.7.4",
+    "@auth/prisma-adapter": "^2.11.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "4.1.0",

@@ -50,8 +50,7 @@ export const UserDropdown = ({ username, name, profileImage, onLogout }: UserDro
         <DropdownMenuContent className="w-56 bg-secondary" align="end">
           <DropdownMenuItem
             className="cursor-pointer border dark:hover:border-primary"
-            onClick={() => router.push(`/${username}`)}
-          >
+            onClick={() => router.push(`/${username}`)}>
             <User className="mr-2 h-4 w-4" />
             Profile
           </DropdownMenuItem>

@@ -20,8 +20,7 @@ const SubscribeAds = () => {
             variant="brandPrimary"
             size="brandsm"
             className="!h-auto text-base font-semibold !text-white"
-            onClick={onOpenProModal}
-          >
+            onClick={onOpenProModal}>
             Subscribe
           </Button>
         </div>

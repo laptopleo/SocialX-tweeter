@@ -4,17 +4,18 @@ import bcrypt from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { signInSchema } from "./validation/auth-validate";
-import { prisma } from "./prismadb";
 import { generateBaseUsername } from "./helper";
 import { ensureUniqueUsername } from "@/app/actions/auth.action";
-import { authConfig } from "./auth.config"; // <--- Importamos la base
+import { authConfig } from "./auth.config";
+
+import { prisma } from "./prismadb";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  ...authConfig, // <--- Extendemos la configuración
-  adapter: PrismaAdapter(prisma),
+  ...authConfig,
+  adapter: PrismaAdapter(prisma as any), // ✅ CORREGIDO: usa la instancia 'prisma'
   session: { strategy: "jwt" },
   providers: [
-    ...authConfig.providers, // Trae Google
+    ...authConfig.providers,
     CredentialsProvider({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
@@ -40,7 +41,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user, trigger, profile }) {
-      // Lógica de creación de usuario para Google
       if (trigger === "signUp" && profile) {
         const baseUsername = generateBaseUsername(profile.name || "user", profile.email || "");
         const uniqueUsername = await ensureUniqueUsername(baseUsername);

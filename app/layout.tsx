@@ -44,8 +44,7 @@ export default function RootLayout({
               attribute="class"
               defaultTheme="dark"
               enableSystem
-              disableTransitionOnChange
-            >
+              disableTransitionOnChange>
               <div className="flex h-screen-dynamic">{children}</div>
               <Toaster />
             </ThemeProvider>

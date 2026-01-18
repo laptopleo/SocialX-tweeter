@@ -54,8 +54,7 @@ const SearchFeed = () => {
         <TabsTrigger
           value="people"
           className="!text-base active:font-bold"
-          onClick={handlePeopleQuery}
-        >
+          onClick={handlePeopleQuery}>
           People
         </TabsTrigger>
       </TabsList>

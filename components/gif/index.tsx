@@ -74,8 +74,7 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
         onClick={() => {
           setModalOpen(true);
           fetchGifs();
-        }}
-      >
+        }}>
         <Image src="/icons/gif.svg" alt="GIF Icon" width={24} height={24} />
       </Button>
 
@@ -86,8 +85,7 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
               <h2 className="text-xl font-bold">Seleccionar GIF</h2>
               <button
                 onClick={() => setModalOpen(false)}
-                className="text-foreground/50 hover:text-foreground"
-              >
+                className="text-foreground/50 hover:text-foreground">
                 ✕
               </button>
             </div>
@@ -101,8 +99,7 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
                     <div
                       key={gifUrl}
                       className="group relative cursor-pointer"
-                      onClick={() => handleSelectGif(gifUrl)}
-                    >
+                      onClick={() => handleSelectGif(gifUrl)}>
                       <video
                         src={gifUrl}
                         muted

@@ -12,6 +12,7 @@ const eslintConfig = defineConfig([
     'next-env.d.ts',
     'node_modules/**',
     '*.config.*',
+    'prisma/generated/**', // 👈 AGREGADO - Esto soluciona tu problema
   ]),
   // Reglas personalizadas (opcional)
   {

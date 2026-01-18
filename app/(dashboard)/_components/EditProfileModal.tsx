@@ -130,8 +130,7 @@ const EditProfileModal = () => {
             <FormProvider {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex h-full w-full flex-col items-center justify-center space-y-3"
-              >
+                className="flex h-full w-full flex-col items-center justify-center space-y-3">
                 <div className="w-full">
                   <div className="flex flex-row items-center gap-5 pt-4">
                     <label className="text-base">Username</label>
@@ -142,8 +141,7 @@ const EditProfileModal = () => {
                         variant="ghost"
                         size="icon"
                         disabled={loading}
-                        onClick={() => setEditUsername(!editUsername)}
-                      >
+                        onClick={() => setEditUsername(!editUsername)}>
                         <SquarePen size="17px" />
                       </Button>
                     </div>
@@ -211,8 +209,7 @@ const EditProfileModal = () => {
                   type="submit"
                   size="brandsm"
                   className="!mt-5 gap-1"
-                  disabled={loading}
-                >
+                  disabled={loading}>
                   Update
                 </Button>
               </form>

@@ -45,8 +45,7 @@ const TweetList = () => {
                         {cleanBody.slice(0, 100)}
                         <button
                           onClick={() => router.push("/" + post.user.username)}
-                          className="mt-2 w-full text-start text-blue-500"
-                        >
+                          className="mt-2 w-full text-start text-blue-500">
                           Show more
                         </button>
                       </>

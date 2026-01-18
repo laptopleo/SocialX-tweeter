@@ -56,8 +56,7 @@ const FeaturesModal = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="flex flex-col gap-3 rounded-xl border border-border p-4 transition-all duration-200 hover:scale-[1.02] hover:border-primary/50 hover:shadow-lg"
-              >
+                className="flex flex-col gap-3 rounded-xl border border-border p-4 transition-all duration-200 hover:scale-[1.02] hover:border-primary/50 hover:shadow-lg">
                 <div className="flex items-center gap-3">
                   <div className="rounded-lg bg-primary/10 p-2">{feature.icon}</div>
                   <h3 className="text-lg font-semibold">{feature.title}</h3>

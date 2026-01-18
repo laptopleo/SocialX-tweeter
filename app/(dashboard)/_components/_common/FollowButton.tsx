@@ -25,8 +25,7 @@ const FollowButton: React.FC<PropsType> = ({ userId, username }) => {
         "text-sm hover:!border-red-500 hover:bg-red-500/10 hover:!text-red-500": isFollowing,
       })}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+      onMouseLeave={() => setIsHovered(false)}>
       {loading && <Spinner />}
       {isHovered && isFollowing ? "Unfollow" : isFollowing ? "Following" : "Follow"}
     </Button>
