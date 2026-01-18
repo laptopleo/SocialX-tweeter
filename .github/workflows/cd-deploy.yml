@@ -19,10 +19,68 @@ jobs:
     name: 🔍 Pre-Deploy Validation
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
+      AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+      NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+      NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+      # Pusher
+      PUSHER_APP_ID: ${{ secrets.PUSHER_APP_ID }}
+      PUSHER_KEY: ${{ secrets.PUSHER_KEY }}
+      PUSHER_SECRET: ${{ secrets.PUSHER_SECRET }}
+      PUSHER_CLUSTER: ${{ secrets.PUSHER_CLUSTER }}
+      NEXT_PUBLIC_PUSHER_KEY: ${{ secrets.NEXT_PUBLIC_PUSHER_KEY }}
+      NEXT_PUBLIC_PUSHER_CLUSTER: ${{ secrets.NEXT_PUBLIC_PUSHER_CLUSTER }}
+      # Otros servicios
+      STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
+      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      NEXT_PUBLIC_TENOR_API_KEY: ${{ secrets.NEXT_PUBLIC_TENOR_API_KEY }}
+      NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY }}
 
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
+
+      - name: 🛡️ Verify Required Secrets
+        run: |
+          REQUIRED_SECRETS=(
+            "DATABASE_URL"
+            "DIRECT_DATABASE_URL"
+            "AUTH_SECRET"
+            "NEXT_PUBLIC_APP_URL"
+            "NEXT_PUBLIC_BASE_URL"
+            "PUSHER_APP_ID"
+            "PUSHER_KEY"
+            "PUSHER_SECRET"
+            "PUSHER_CLUSTER"
+            "NEXT_PUBLIC_PUSHER_KEY"
+            "NEXT_PUBLIC_PUSHER_CLUSTER"
+            "STRIPE_API_KEY"
+            "STRIPE_WEBHOOK_SECRET"
+            "GEMINI_API_KEY"
+            "NEXT_PUBLIC_TENOR_API_KEY"
+            "NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY"
+          )
+
+          MISSING_SECRETS=()
+          for SECRET in "${REQUIRED_SECRETS[@]}"; do
+            if [ -z "${!SECRET}" ]; then
+              MISSING_SECRETS+=("$SECRET")
+            fi
+          done
+
+          if [ ${#MISSING_SECRETS[@]} -ne 0 ]; then
+            echo "❌ Error: Faltan los siguientes secretos requeridos:"
+            for SECRET in "${MISSING_SECRETS[@]}"; do
+              echo "  - $SECRET"
+            done
+            exit 1
+          else
+            echo "✅ Todos los secretos requeridos están presentes."
+          fi
+
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v4
@@ -49,25 +107,6 @@ jobs:
 
       - name: 🏗️ Build test
         run: pnpm build
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
-          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
-          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
-          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
-          # Pusher
-          PUSHER_APP_ID: ${{ secrets.PUSHER_APP_ID }}
-          PUSHER_KEY: ${{ secrets.PUSHER_KEY }}
-          PUSHER_SECRET: ${{ secrets.PUSHER_SECRET }}
-          PUSHER_CLUSTER: ${{ secrets.PUSHER_CLUSTER }}
-          NEXT_PUBLIC_PUSHER_KEY: ${{ secrets.NEXT_PUBLIC_PUSHER_KEY }}
-          NEXT_PUBLIC_PUSHER_CLUSTER: ${{ secrets.NEXT_PUBLIC_PUSHER_CLUSTER }}
-          # Otros servicios
-          STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          NEXT_PUBLIC_TENOR_API_KEY: ${{ secrets.NEXT_PUBLIC_TENOR_API_KEY }}
-          NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY }}
 
   # ============================================
   # Database Backup
