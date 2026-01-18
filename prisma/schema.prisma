@@ -5,16 +5,14 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "./generated/prisma" // 👈 Prisma Client se generará aquí, no en node_modules
 }
 
 datasource db {
   provider = "postgresql"
+
 }
-// datasource db {
-//   provider = "sqlite"
-//   url      = "file:./dev.db"
-// }
 
 enum Plans {
   FREE
