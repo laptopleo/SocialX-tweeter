@@ -127,7 +127,7 @@ const MobileSidebar = (props: { isPro: boolean }) => {
 
       {/* Drawer - Simplificado: eliminé el wrapper div innecesario */}
       <aside
-        className={`// // // // fixed left-0 top-0 z-50 h-screen w-20 transform bg-white shadow-lg transition-transform duration-300 ease-in-out dark:bg-red-400 lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"} // // flex flex-col overflow-y-auto border-r border-gray-200 dark:border-gray-800`}>
+        className={`// // // // fixed left-0 top-0 z-50 h-screen w-20 transform bg-white shadow-lg transition-transform duration-300 ease-in-out dark:bg-gray-950 lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"} // // flex flex-col overflow-y-auto border-r border-gray-200 dark:border-gray-800`}>
         {/* Header - Semántico y sin wrapper div */}
         <header className="border-b border-gray-200 dark:border-gray-900 md:p-3">
           <Logo
