@@ -119,6 +119,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: pre-deploy
     timeout-minutes: 10
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
 
     steps:
       - name: 📥 Checkout code

@@ -97,11 +97,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 🔍 TruffleHog Secret Scan
+      - name: 🛡️ Check for secrets in code
         uses: trufflesecurity/trufflehog@main
         continue-on-error: true
         with:
           path: ./
+          base: ${{ github.event.before }}
+          head: ${{ github.event.after }}
           extra_args: --only-verified
 
   # ============================================
