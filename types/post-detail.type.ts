@@ -36,7 +36,7 @@ const postWithRelationsArgs = Prisma.validator()({
 export type PostWithRelations = Prisma.PostGetPayload<typeof postWithRelationsArgs>;
 
 // 3. Define un tipo para los comentarios con su usuario
-type CommentWithUser = Prisma.CommentGetPayload<{
+export type CommentWithUser = Prisma.CommentGetPayload<{
   include: {
     user: {
       select: {

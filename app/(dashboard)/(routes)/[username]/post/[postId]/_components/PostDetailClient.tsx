@@ -1,7 +1,9 @@
 "use client";
-import type { SerializedPostWithRelations } from "@/types/post-detail.type";
-import type { PostType } from "@/types/post.type";
-import type { CommentType } from "@/types/comment.type";
+import type { 
+  SerializedPostWithRelations, 
+  PostWithRelations,
+  CommentWithUser 
+} from "@/types/post-detail.type"; // 👈 Cambia este import
 import React, { Fragment, useMemo } from "react";
 import Header from "../../../../../_components/_common/Header";
 import PostItem from "../../../../../_components/_common/PostItem";
@@ -17,8 +19,8 @@ interface PostDetailClientProps {
  * El Server Component padre maneja el fetching y SEO
  */
 const PostDetailClient: React.FC<PostDetailClientProps> = ({ post }) => {
-  // ⚡ Deserializar fechas de string a Date
-  const deserializedPost: PostType = useMemo(
+  // ⚡ Deserializar fechas de string a Date usando los tipos CORRECTOS
+  const deserializedPost: PostWithRelations = useMemo(
     () => ({
       ...post,
       createdAt: new Date(post.createdAt),
@@ -27,18 +29,22 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ post }) => {
         ...comment,
         createdAt: new Date(comment.createdAt),
         updatedAt: new Date(comment.updatedAt),
+        user: comment.user, // 👈 Mantiene la relación de usuario
       })),
-    }),
+      user: post.user, // 👈 Asegura que el usuario esté incluido
+      _count: post._count, // 👈 Asegura que los counts estén incluidos
+    }) as PostWithRelations, // 👈 Type assertion para asegurar compatibilidad
     [post]
   );
 
-  const deserializedComments: CommentType[] = useMemo(
+  const deserializedComments: CommentWithUser[] = useMemo(
     () =>
       post.comments.map((comment) => ({
         ...comment,
         createdAt: new Date(comment.createdAt),
         updatedAt: new Date(comment.updatedAt),
-      })),
+        user: comment.user, // 👈 Mantiene la relación
+      })) as CommentWithUser[],
     [post.comments]
   );
 
@@ -46,7 +52,7 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ post }) => {
     <Fragment>
       <Header label="Post" showBackArrow />
 
-      {/* ⚡ Post principal */}
+      {/* ⚡ Post principal - Pasa PostWithRelations, no PostType */}
       <PostItem post={deserializedPost} userId={post.user.id} />
 
       {/* ⚡ Comentarios */}
@@ -55,7 +61,7 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ post }) => {
           <div className="px-4 py-3">
             <h3 className="text-lg font-semibold">Comments ({post._count.comments})</h3>
           </div>
-          <CommentFeed comments={deserializedPost.comments} />
+          <CommentFeed comments={deserializedComments} />
         </div>
       )}
 
