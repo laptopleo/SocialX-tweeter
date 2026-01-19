@@ -121,7 +121,6 @@ jobs:
             "DIRECT_DATABASE_URL"
             "AUTH_SECRET"
             "NEXT_PUBLIC_APP_URL"
-            "NEXT_PUBLIC_BASE_URL"
             "PUSHER_APP_ID"
             "PUSHER_KEY"
             "PUSHER_SECRET"
@@ -165,9 +164,6 @@ jobs:
 
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: 🗄️ Generate Prisma Client
-        run: pnpm generate
 
       - name: 🏗️ Build
         run: pnpm build

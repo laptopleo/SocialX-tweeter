@@ -47,9 +47,6 @@ jobs:
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: 🗄️ Generate Prisma Client
-        run: pnpm generate
-
       - name: 🔍 Run ESLint
         run: pnpm lint
 
@@ -71,7 +68,6 @@ jobs:
       DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
       AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
       NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL || 'http://localhost:3000' }}
-      NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000' }}
       # Pusher
       PUSHER_APP_ID: ${{ secrets.PUSHER_APP_ID }}
       PUSHER_KEY: ${{ secrets.PUSHER_KEY }}
@@ -97,7 +93,6 @@ jobs:
             "DIRECT_DATABASE_URL"
             "AUTH_SECRET"
             "NEXT_PUBLIC_APP_URL"
-            "NEXT_PUBLIC_BASE_URL"
             "PUSHER_APP_ID"
             "PUSHER_KEY"
             "PUSHER_SECRET"
@@ -142,9 +137,6 @@ jobs:
 
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: 🗄️ Generate Prisma Client
-        run: npx prisma generate
 
       - name: 🏗️ Build Next.js application
         run: pnpm build
@@ -233,9 +225,6 @@ jobs:
 
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: 🗄️ Generate Prisma Client
-        run: pnpm generate
 
       - name: 🔍 Validate Prisma schema
         run: npx prisma validate

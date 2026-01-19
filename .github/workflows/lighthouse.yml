@@ -15,7 +15,6 @@ jobs:
       DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
       AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
       NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
-      NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
       # Pusher
       PUSHER_APP_ID: ${{ secrets.PUSHER_APP_ID }}
       PUSHER_KEY: ${{ secrets.PUSHER_KEY }}
@@ -41,7 +40,6 @@ jobs:
             "DIRECT_DATABASE_URL"
             "AUTH_SECRET"
             "NEXT_PUBLIC_APP_URL"
-            "NEXT_PUBLIC_BASE_URL"
             "PUSHER_APP_ID"
             "PUSHER_KEY"
             "PUSHER_SECRET"
@@ -85,9 +83,6 @@ jobs:
 
       - name: 📚 Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: 🗄️ Generate Prisma Client
-        run: pnpm generate
 
       - name: 🏗️ Build application
         run: pnpm build
