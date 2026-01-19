@@ -19,7 +19,7 @@ const QuickActions = () => {
       <CardContent className="flex flex-col gap-2">
         <Button
           variant="outline"
-          className="w-full justify-start gap-2 transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
+          className="hover:border-primary/50 hover:bg-primary/10 hover:text-primary w-full justify-start gap-2 transition-all duration-200"
           onClick={onOpenFeaturesModal}>
           <Sparkles className="h-4 w-4" />
           <span>Platform Features</span>
@@ -27,7 +27,7 @@ const QuickActions = () => {
 
         <Button
           variant="outline"
-          className="w-full justify-start gap-2 transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
+          className="hover:border-primary/50 hover:bg-primary/10 hover:text-primary w-full justify-start gap-2 transition-all duration-200"
           onClick={onOpenAboutModal}>
           <Info className="h-4 w-4" />
           <span>About SocialX</span>

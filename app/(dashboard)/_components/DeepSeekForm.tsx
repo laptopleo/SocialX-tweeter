@@ -124,7 +124,7 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
       <div className="flex w-full max-w-3xl flex-col items-center space-y-6">
         <Header label="Grok 3" showBackArrow />
 
-        <div className="flex h-96 w-full flex-col-reverse space-y-4 space-y-reverse overflow-y-auto p-2 scrollbar-hide">
+        <div className="scrollbar-hide flex h-96 w-full flex-col-reverse space-y-4 space-y-reverse overflow-y-auto p-2">
           {responses.map((msg, index) => (
             <div key={index} className="flex w-full">
               <div
@@ -150,7 +150,7 @@ const DeepSeekForm = ({ initialQuery = "", onGenerate }: DeepSeekFormProps) => {
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Ask anything..."
-              className="w-full border-0 bg-transparent pl-4 pr-16 text-white placeholder-gray-500 focus:ring-0"
+              className="w-full border-0 bg-transparent pr-16 pl-4 text-white placeholder-gray-500 focus:ring-0"
               disabled={isLoading}
             />
             <Button

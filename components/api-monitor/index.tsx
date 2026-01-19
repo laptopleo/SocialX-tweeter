@@ -72,13 +72,13 @@ const ApiMonitor = () => {
       <Button
         variant="outline"
         size="sm"
-        className="fixed bottom-4 right-4 z-50 border border-border bg-background"
+        className="border-border bg-background fixed right-4 bottom-4 z-50 border"
         onClick={() => setIsVisible(!isVisible)}>
         📊 API Stats
       </Button>
 
       {isVisible && (
-        <Card className="fixed bottom-16 right-4 z-50 w-80 border-border bg-background shadow-lg">
+        <Card className="border-border bg-background fixed right-4 bottom-16 z-50 w-80 shadow-lg">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium">API Monitor</CardTitle>
           </CardHeader>

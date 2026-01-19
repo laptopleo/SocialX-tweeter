@@ -70,7 +70,7 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
         type="button"
         variant="ghost"
         disabled={disabled}
-        className="gap-1 !bg-transparent !p-0 !text-primary"
+        className="!text-primary gap-1 !bg-transparent !p-0"
         onClick={() => {
           setModalOpen(true);
           fetchGifs();
@@ -80,7 +80,7 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
 
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="max-h-[80vh] w-[90%] max-w-2xl rounded-lg bg-background p-6">
+          <div className="bg-background max-h-[80vh] w-[90%] max-w-2xl rounded-lg p-6">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-xl font-bold">Seleccionar GIF</h2>
               <button
@@ -93,7 +93,7 @@ const GifButton = ({ onFileSelect, disabled }: PropsType) => {
             {loading ? (
               <p className="text-center">Cargando GIFs...</p>
             ) : (
-              <div className="max-h-[80vh] w-full max-w-2xl overflow-auto scroll-smooth rounded-lg bg-background p-6 scrollbar-thin">
+              <div className="bg-background scrollbar-thin max-h-[80vh] w-full max-w-2xl overflow-auto scroll-smooth rounded-lg p-6">
                 <div className="grid grid-cols-2 gap-3 overflow-auto md:grid-cols-3">
                   {gifs.map((gifUrl) => (
                     <div

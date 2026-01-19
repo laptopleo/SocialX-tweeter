@@ -13,8 +13,8 @@ export default function PostNotFound() {
       <div className="max-w-md space-y-6 text-center">
         {/* Icon */}
         <div className="flex justify-center">
-          <div className="rounded-full bg-muted p-4">
-            <FileX className="h-12 w-12 text-muted-foreground" />
+          <div className="bg-muted rounded-full p-4">
+            <FileX className="text-muted-foreground h-12 w-12" />
           </div>
         </div>
 

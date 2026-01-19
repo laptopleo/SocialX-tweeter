@@ -58,7 +58,7 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ post }) => {
 
       {/* ⚡ Comentarios */}
       {post.comments.length > 0 && (
-        <div className="mt-4 border-t border-border">
+        <div className="border-border mt-4 border-t">
           <div className="px-4 py-3">
             <h3 className="text-lg font-semibold">Comments ({post._count.comments})</h3>
           </div>
@@ -68,8 +68,8 @@ const PostDetailClient: React.FC<PostDetailClientProps> = ({ post }) => {
 
       {/* ⚡ Empty state para comentarios */}
       {post.comments.length === 0 && (
-        <div className="mt-4 border-t border-border px-4 py-8 text-center">
-          <p className="text-sm text-muted-foreground">No comments yet. Be the first to comment!</p>
+        <div className="border-border mt-4 border-t px-4 py-8 text-center">
+          <p className="text-muted-foreground text-sm">No comments yet. Be the first to comment!</p>
         </div>
       )}
     </Fragment>

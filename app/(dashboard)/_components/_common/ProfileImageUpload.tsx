@@ -74,7 +74,7 @@ const ProfileImageUpload: React.FC<PropsType> = ({ value, name, onChange }) => {
                     variant="ghost"
                     size="icon"
                     disabled={uploading}
-                    className="h-10 w-10 rounded-full bg-[#eee]/50 p-2 shadow transition-colors hover:bg-opacity-60 dark:bg-black/50">
+                    className="hover:bg-opacity-60 h-10 w-10 rounded-full bg-[#eee]/50 p-2 shadow transition-colors dark:bg-black/50">
                     <Camera size={18} />
                   </Button>
                 )}

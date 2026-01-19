@@ -12,7 +12,7 @@ const Rightbar = (props: { isPro: boolean }) => {
   return (
     <>
       {pathname !== "/search" && (
-        <div className="sticky top-0 z-30 flex w-full justify-center bg-background/90 p-2 text-black backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:text-white">
+        <div className="bg-background/90 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-30 flex w-full justify-center p-2 text-black backdrop-blur dark:text-white">
           <Suspense
             fallback={
               <div className="flex h-12 w-full items-center justify-center">Loading search...</div>

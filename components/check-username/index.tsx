@@ -67,7 +67,7 @@ const CheckUsername = ({
       <Input placeholder="Username" value={value} onChange={(e) => onChange?.(e.target.value)} />
 
       {/* Loader and validation icons */}
-      <div className="absolute right-3 top-2">
+      <div className="absolute top-2 right-3">
         {isLoading ? (
           <Spinner className="!size-[20px] text-gray-600" />
         ) : isAvailable === true ? (
@@ -81,7 +81,7 @@ const CheckUsername = ({
       {isAvailable === false && suggestions.length > 0 && (
         <div className="mt-2 text-sm">
           <p className="mb-1">Suggestions</p>
-          <ul className="ml-[1px] flex flex-row flex-wrap gap-3 text-base text-primary">
+          <ul className="text-primary ml-[1px] flex flex-row flex-wrap gap-3 text-base">
             {suggestions?.map((suggestion) => (
               <li role="button" key={suggestion} onClick={() => handleSuggestionClick(suggestion)}>
                 {suggestion}

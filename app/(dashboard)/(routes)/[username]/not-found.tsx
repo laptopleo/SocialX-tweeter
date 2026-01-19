@@ -12,8 +12,8 @@ export default function UserNotFound() {
       <div className="max-w-md space-y-6 text-center">
         {/* Icon */}
         <div className="flex justify-center">
-          <div className="rounded-full bg-muted p-4">
-            <UserX className="h-12 w-12 text-muted-foreground" />
+          <div className="bg-muted rounded-full p-4">
+            <UserX className="text-muted-foreground h-12 w-12" />
           </div>
         </div>
 

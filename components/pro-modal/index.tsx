@@ -85,7 +85,7 @@ const ProModal = () => {
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
               )}>
               Annual
-              <span className="absolute -right-2 -top-2 whitespace-nowrap rounded-full bg-green-500 px-1.5 py-0.5 text-[10px] text-white md:px-2 md:text-xs">
+              <span className="absolute -top-2 -right-2 rounded-full bg-green-500 px-1.5 py-0.5 text-[10px] whitespace-nowrap text-white md:px-2 md:text-xs">
                 Best Value
               </span>
             </button>
@@ -127,13 +127,13 @@ const ProModal = () => {
             {/* Chevron Navigation */}
             <button
               onClick={prevCard}
-              className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/90 p-2 shadow-lg backdrop-blur-sm transition-colors hover:bg-muted"
+              className="border-border bg-background/90 hover:bg-muted absolute top-1/2 left-0 z-10 -translate-y-1/2 rounded-full border p-2 shadow-lg backdrop-blur-sm transition-colors"
               aria-label="Previous plan">
               <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={nextCard}
-              className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/90 p-2 shadow-lg backdrop-blur-sm transition-colors hover:bg-muted"
+              className="border-border bg-background/90 hover:bg-muted absolute top-1/2 right-0 z-10 -translate-y-1/2 rounded-full border p-2 shadow-lg backdrop-blur-sm transition-colors"
               aria-label="Next plan">
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -147,8 +147,8 @@ const ProModal = () => {
                   className={cn(
                     "h-2 rounded-full transition-all duration-200",
                     currentCardIndex === index
-                      ? "w-6 bg-primary"
-                      : "w-2 bg-muted hover:bg-muted-foreground/50"
+                      ? "bg-primary w-6"
+                      : "bg-muted hover:bg-muted-foreground/50 w-2"
                   )}
                   aria-label={`Go to plan ${index + 1}`}
                 />
@@ -186,12 +186,12 @@ const PricingCard: React.FC<PricingCardProps> = ({
         "relative flex h-full flex-col gap-3 rounded-2xl border transition-all duration-200",
         isMobile ? "p-4" : "p-6",
         plan.isPopular
-          ? "border-primary shadow-lg shadow-primary/20 md:scale-105"
+          ? "border-primary shadow-primary/20 shadow-lg md:scale-105"
           : "border-border hover:border-primary/50"
       )}>
       {/* Popular Badge */}
       {plan.isPopular && (
-        <div className="absolute -top-3 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full bg-primary px-3 py-1 text-xs text-white">
+        <div className="bg-primary absolute -top-3 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full px-3 py-1 text-xs text-white">
           <Check className="h-3 w-3" />
           <span>Best Value</span>
         </div>
@@ -208,7 +208,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
       {/* Price */}
       <div className="flex items-baseline gap-1">
         <span className={cn("font-bold", isMobile ? "text-3xl" : "text-4xl")}>${price}</span>
-        <span className="text-sm text-muted-foreground">{period}</span>
+        <span className="text-muted-foreground text-sm">{period}</span>
       </div>
 
       {/* Description */}
@@ -230,7 +230,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
               className={cn("flex items-start gap-2", isMobile ? "text-xs" : "text-sm")}>
               <Check
                 className={cn(
-                  "mt-0.5 flex-shrink-0 text-primary",
+                  "text-primary mt-0.5 flex-shrink-0",
                   isMobile ? "h-3 w-3" : "h-4 w-4"
                 )}
               />
@@ -254,7 +254,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
             </div>
             <ul className="space-y-1">
               {plan.badgeFeatures.map((feature: string, index: number) => (
-                <li key={index} className="flex items-start gap-2 text-xs text-muted-foreground">
+                <li key={index} className="text-muted-foreground flex items-start gap-2 text-xs">
                   <Check className="mt-0.5 h-3 w-3 flex-shrink-0 text-purple-500" />
                   <span>{feature}</span>
                 </li>

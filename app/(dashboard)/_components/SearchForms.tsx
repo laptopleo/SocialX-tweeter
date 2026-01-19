@@ -24,12 +24,12 @@ const SearchForm = () => {
     <div className="w-full">
       <form className="w-full" action="#" role="search" onSubmit={handleSubmit}>
         <div className="relative flex h-11 flex-row items-center rounded-full bg-[#eee] dark:bg-black">
-          <div className="flex w-8 shrink-0 items-center !justify-end text-muted-foreground">
+          <div className="text-muted-foreground flex w-8 shrink-0 items-center !justify-end">
             <SearchIcon size="20px" />
           </div>
           <div className="flex-1">
             <Input
-              className="h-full w-full rounded-full border-0 !outline-none !ring-0"
+              className="h-full w-full rounded-full border-0 !ring-0 !outline-none"
               type="text"
               placeholder="Search"
               value={searchTerm}

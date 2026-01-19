@@ -16,10 +16,10 @@ const TweetList = () => {
   const posts = data && "posts" in data ? (data.posts ?? []) : [];
 
   return (
-    <div className="rounded-xl border bg-background p-4 dark:border-[rgb(47,51,54)]">
+    <div className="bg-background rounded-xl border p-4 dark:border-[rgb(47,51,54)]">
       <h2 className="text-[20px] font-bold">What is happening</h2>
 
-      <div className="h-[25vh] w-full overflow-auto scroll-smooth scrollbar-hide">
+      <div className="scrollbar-hide h-[25vh] w-full overflow-auto scroll-smooth">
         <div className="mt-4 space-y-4">
           {posts.map((post: PostType, index: number) => {
             // Eliminar etiquetas HTML del campo "body"
@@ -39,7 +39,7 @@ const TweetList = () => {
                       <p className="text-sm text-gray-500">@{post.user.username}</p>
                     </div>
                   </div>
-                  <p className="mt-4 line-clamp-3 flex flex-col overflow-hidden break-words text-[15px] font-semibold text-black dark:text-white lg:h-32">
+                  <p className="mt-4 line-clamp-3 flex flex-col overflow-hidden text-[15px] font-semibold break-words text-black lg:h-32 dark:text-white">
                     {cleanBody.length > 100 ? (
                       <>
                         {cleanBody.slice(0, 100)}
@@ -50,7 +50,7 @@ const TweetList = () => {
                         </button>
                       </>
                     ) : (
-                      <span className="line-clamp-1 overflow-hidden break-words font-semibold text-black dark:text-white lg:h-24">
+                      <span className="line-clamp-1 overflow-hidden font-semibold break-words text-black lg:h-24 dark:text-white">
                         {cleanBody || "No hay contenido"}
                       </span>
                     )}

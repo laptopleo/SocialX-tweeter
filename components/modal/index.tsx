@@ -39,23 +39,23 @@ const Modal: React.FC<PropsType> = ({
       <div>{children}</div>
 
       <Dialog modal open={isOpen} onOpenChange={handleClose}>
-        <DialogContent className="max-h-[90vh] min-h-[350px] !max-w-[95vw] overflow-y-auto !rounded-2xl pb-10 pt-5 scrollbar-hide md:!max-w-[1000px]">
+        <DialogContent className="scrollbar-hide max-h-[90vh] min-h-[350px] !max-w-[95vw] overflow-y-auto !rounded-2xl pt-5 pb-10 md:!max-w-[1000px]">
           <DialogHeader className="dialog_top_header w-full !p-0">
             {showLogo && (
               <div className="flex h-[40px] w-full items-center justify-center">
                 <Logo width="40px" height="40px" />
               </div>
             )}
-            <div className="px-5 pb-0 pt-2">
+            <div className="px-5 pt-2 pb-0">
               <DialogTitle
-                className={cn("!p-0 text-[31px] font-bold leading-9", {
+                className={cn("!p-0 text-[31px] leading-9 font-bold", {
                   "text-center": isCentered,
                 })}>
                 {title}
               </DialogTitle>
               {subTitle && (
                 <DialogDescription
-                  className={cn("!mt-0 !p-0 text-[14px] text-muted-foreground", {
+                  className={cn("text-muted-foreground !mt-0 !p-0 text-[14px]", {
                     "mx-auto block w-full max-w-sm text-center": isCentered,
                   })}>
                   {subTitle}

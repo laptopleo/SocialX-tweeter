@@ -34,7 +34,7 @@ const BillingSettings = async () => {
               alt="Pro Plan"
               className="h-full w-full"
             />
-            <div className="w-ful absolute inset-0 left-0 top-0 flex h-full items-center justify-center rounded-lg bg-black/20">
+            <div className="w-ful absolute inset-0 top-0 left-0 flex h-full items-center justify-center rounded-lg bg-black/20">
               <SubscriptionButton />
             </div>
           </div>

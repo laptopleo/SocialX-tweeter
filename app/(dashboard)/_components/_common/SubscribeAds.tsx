@@ -7,7 +7,7 @@ const SubscribeAds = () => {
   const { onOpenProModal } = useStore();
 
   return (
-    <div className="rounded-xl border bg-background p-4 dark:border-[rgb(47,51,54)]">
+    <div className="bg-background rounded-xl border p-4 dark:border-[rgb(47,51,54)]">
       <div className="w-full">
         <h2 className="mb-2 text-[20px] font-bold text-black dark:text-white">
           Subscribe to Premium

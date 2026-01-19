@@ -83,13 +83,13 @@ const CoverImageUpload: React.FC<PropsType> = ({ value, onChange, onRemove }) =>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-10 w-10 rounded-full bg-background p-2 shadow hover:bg-opacity-60 dark:bg-black/80">
+                    className="bg-background hover:bg-opacity-60 h-10 w-10 rounded-full p-2 shadow dark:bg-black/80">
                     <Camera size={18} />
                   </Button>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-10 w-10 rounded-full bg-background p-2 shadow hover:bg-opacity-60 dark:bg-black/80"
+                    className="bg-background hover:bg-opacity-60 h-10 w-10 rounded-full p-2 shadow dark:bg-black/80"
                     onClick={handleRemove}>
                     <X size={18} />
                   </Button>

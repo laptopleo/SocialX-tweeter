@@ -152,7 +152,7 @@ const PostItem: React.FC<PropsType> = ({ post, userId }) => {
           <div className="mb-3">
             <div
               dangerouslySetInnerHTML={{ __html: post.body }}
-              className="line-clamp-4 overflow-hidden break-words text-[15px] font-normal leading-5 text-gray-900 dark:text-gray-100 lg:line-clamp-6"
+              className="line-clamp-4 overflow-hidden text-[15px] leading-5 font-normal break-words text-gray-900 lg:line-clamp-6 dark:text-gray-100"
             />
           </div>
 

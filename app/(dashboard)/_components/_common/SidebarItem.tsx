@@ -74,7 +74,7 @@ const SidebarItem: React.FC<PropsType> = ({
       onClick={href === "#premium" ? handleOpenModal : handleClick}
       className={cn(
         "group mt-4 flex cursor-pointer items-center rounded-lg transition-all duration-100 md:w-44 lg:p-2",
-        "hover:dark:bg-black hover:dark:shadow-sm md:border md:border-transparent md:hover:dark:border-primary",
+        "md:hover:dark:border-primary md:border md:border-transparent hover:dark:bg-black hover:dark:shadow-sm",
         activePath ? "bg-primary/10" : "dark:text-white hover:dark:text-indigo-900"
       )}>
       {/* Versión móvil: se oculta en pantallas grandes */}
@@ -88,7 +88,7 @@ const SidebarItem: React.FC<PropsType> = ({
           <>
             {/* Para móviles: si es Premium se muestra Logo, pero aquí lo cambiamos mediante renderIcon */}
             {renderIcon()}
-            {alert && <Dot size={70} className="absolute -top-4 left-0 text-primary" />}
+            {alert && <Dot size={70} className="text-primary absolute -top-4 left-0" />}
           </>
         )}
       </div>
@@ -98,7 +98,7 @@ const SidebarItem: React.FC<PropsType> = ({
         {isUser && userInfo ? (
           <div className="flex w-full justify-between gap-2">
             <div className="flex-1 text-left">
-              <h3 className="block max-w-[150px] truncate text-[16px] font-medium leading-tight text-[#14171A] dark:text-white">
+              <h3 className="block max-w-[150px] truncate text-[16px] leading-tight font-medium text-[#14171A] dark:text-white">
                 {userInfo.name}
               </h3>
               <p className="block max-w-[120px] truncate text-[15px] font-medium !text-[#959fa8]">
@@ -113,10 +113,10 @@ const SidebarItem: React.FC<PropsType> = ({
           <>
             {/* Para escritorio: aplicamos la misma lógica */}
             {renderIcon()}
-            <span className="hidden text-xl font-medium text-[#14171A] dark:text-white lg:block">
+            <span className="hidden text-xl font-medium text-[#14171A] lg:block dark:text-white">
               {label}
             </span>
-            {alert && <Dot size={70} className="absolute -left-4 -top-8 text-primary" />}
+            {alert && <Dot size={70} className="text-primary absolute -top-8 -left-4" />}
           </>
         )}
       </div>

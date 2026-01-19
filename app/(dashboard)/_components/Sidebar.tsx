@@ -90,7 +90,7 @@ const Sidebar = (props: { isPro: boolean }) => {
   // Después: 8 líneas, mismo resultado, mejor semántica
 
   return (
-    <aside className="scrollbar-invisible top-14 overflow-y-auto overflow-x-hidden rounded-lg border border-black/20 p-4 dark:border-gray-800">
+    <aside className="scrollbar-invisible top-14 overflow-x-hidden overflow-y-auto rounded-lg border border-black/20 p-4 dark:border-gray-800">
       {/* SECCIÓN 1: Logo + Menú principal */}
       <div className="flex flex-col gap-3 px-3 py-4 text-black dark:text-white">
         <Logo

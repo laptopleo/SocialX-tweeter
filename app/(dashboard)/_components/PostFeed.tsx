@@ -72,7 +72,7 @@ const PostFeed: React.FC<PostFeedProps> = ({ userId, postId }) => {
   if (isError) {
     return (
       <div className="flex h-[25vh] w-full flex-col items-center justify-center">
-        <p className="text-sm text-muted-foreground">Error loading posts. Please try again.</p>
+        <p className="text-muted-foreground text-sm">Error loading posts. Please try again.</p>
       </div>
     );
   }
@@ -80,7 +80,7 @@ const PostFeed: React.FC<PostFeedProps> = ({ userId, postId }) => {
   if (posts.length === 0) {
     return (
       <div className="flex h-[25vh] w-full flex-col items-center justify-center">
-        <p className="text-sm text-muted-foreground">No posts yet. Be the first to post!</p>
+        <p className="text-muted-foreground text-sm">No posts yet. Be the first to post!</p>
       </div>
     );
   }

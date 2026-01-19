@@ -19,7 +19,7 @@ const Header: React.FC<PropsType> = ({ label, children, showBackArrow, showBorde
   return (
     <div
       className={cn(
-        "sticky top-0 z-30 flex w-full justify-center bg-background/90 p-4 text-black backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:text-white",
+        "bg-background/90 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-30 flex w-full justify-center p-4 text-black backdrop-blur dark:text-white",
         {
           "border-b-[1px] dark:border-[rgb(29,111,173)]": showBorder,
         }

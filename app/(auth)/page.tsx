@@ -9,12 +9,12 @@ const Page = () => {
     <div className="flex h-auto flex-col items-center lg:h-full">
       <main className="h-full w-full">
         <div className="flex h-full w-full flex-col-reverse items-center lg:flex-row-reverse">
-          <div className="flex h-full flex-1 flex-shrink flex-col p-4 lg:min-w-[437px] lg:max-w-[760px]">
-            <div className="mb-6 mt-4">
-              <h1 className="text-[68px] font-black leading-[84px]">Haapping now</h1>
+          <div className="flex h-full flex-1 flex-shrink flex-col p-4 lg:max-w-[760px] lg:min-w-[437px]">
+            <div className="mt-4 mb-6">
+              <h1 className="text-[68px] leading-[84px] font-black">Haapping now</h1>
             </div>
             <div className="mb-8">
-              <h5 className="text-[31px] font-extrabold leading-9">Sign in to X</h5>
+              <h5 className="text-[31px] leading-9 font-extrabold">Sign in to X</h5>
             </div>
             <div className="w-[300px]">
               <div className="sign_with_google mb-2">
@@ -24,9 +24,9 @@ const Page = () => {
 
               {/* { OR divider} */}
               <div className="-mx-1 my-1 flex w-[300px] max-w-[380px] flex-row items-center">
-                <div className="h-[1px] flex-1 bg-muted dark:bg-[rgb(47,51,54)]" />
+                <div className="bg-muted h-[1px] flex-1 dark:bg-[rgb(47,51,54)]" />
                 <div className="mx-1 basis-0 pb-[5px] text-[15px] leading-5">or</div>
-                <div className="h-[1px] flex-1 bg-muted dark:bg-[rgb(47,51,54)]" />
+                <div className="bg-muted h-[1px] flex-1 dark:bg-[rgb(47,51,54)]" />
               </div>
 
               <div className="sign_with_email py-[12px]">

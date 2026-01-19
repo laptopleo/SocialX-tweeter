@@ -196,7 +196,7 @@ const PostFormModal: React.FC<PropsType> = ({
           },
         }}>
         <DialogContent dividers sx={{ p: 0 }}>
-          <div className="flex w-[100%] items-center justify-center dark:bg-[#000000] lg:w-full">
+          <div className="flex w-[100%] items-center justify-center lg:w-full dark:bg-[#000000]">
             <FormProvider {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -208,7 +208,7 @@ const PostFormModal: React.FC<PropsType> = ({
                     <button
                       type="button"
                       onClick={handleClose}
-                      className="text-md absolute right-0 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-slate-700 font-semibold text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 lg:h-8 lg:w-8">
+                      className="text-md absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-slate-700 font-semibold text-gray-500 hover:text-gray-700 lg:h-8 lg:w-8 dark:hover:text-gray-300">
                       x
                     </button>
 
@@ -224,7 +224,7 @@ const PostFormModal: React.FC<PropsType> = ({
                         </AvatarFallback>
                       </Avatar>
                     </div>
-                    <div className="line-clamp-6 flex flex-1 flex-col gap-1 overflow-hidden break-words p-2 text-white lg:w-full">
+                    <div className="line-clamp-6 flex flex-1 flex-col gap-1 overflow-hidden p-2 break-words text-white lg:w-full">
                       {isComment && (
                         <div className="flex items-center">
                           <p className="text-sm font-normal !text-[#959fa8]">
@@ -250,7 +250,7 @@ const PostFormModal: React.FC<PropsType> = ({
                             <button
                               type="button"
                               onClick={clearFile}
-                              className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
+                              className="absolute top-0 right-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
                               ×
                             </button>
                             <Image
@@ -273,7 +273,7 @@ const PostFormModal: React.FC<PropsType> = ({
                             <button
                               type="button"
                               onClick={clearFile}
-                              className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
+                              className="absolute top-0 right-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
                               ×
                             </button>
                             <video
@@ -296,7 +296,7 @@ const PostFormModal: React.FC<PropsType> = ({
                             <button
                               type="button"
                               onClick={clearGif}
-                              className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
+                              className="absolute top-0 right-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
                               ×
                             </button>
 

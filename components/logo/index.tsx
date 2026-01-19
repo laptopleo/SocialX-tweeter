@@ -28,7 +28,7 @@ const Logo = (props: {
         height: logoHeight,
       }}
       className={cn(
-        `flex cursor-pointer items-center justify-center transition hover:bg-opacity-10`,
+        `hover:bg-opacity-10 flex cursor-pointer items-center justify-center transition`,
         className
       )}>
       <svg viewBox="0 0 24 24" aria-label="X" role="img" className="h-full w-full fill-current">

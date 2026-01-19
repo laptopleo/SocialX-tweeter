@@ -47,9 +47,9 @@ export const UserDropdown = ({ username, name, profileImage, onLogout }: UserDro
         </DropdownMenuTrigger>
 
         {/* Contenido del menú */}
-        <DropdownMenuContent className="w-56 bg-secondary" align="end">
+        <DropdownMenuContent className="bg-secondary w-56" align="end">
           <DropdownMenuItem
-            className="cursor-pointer border dark:hover:border-primary"
+            className="dark:hover:border-primary cursor-pointer border"
             onClick={() => router.push(`/${username}`)}>
             <User className="mr-2 h-4 w-4" />
             Profile

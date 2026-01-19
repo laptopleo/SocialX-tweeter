@@ -56,21 +56,21 @@ const FeaturesModal = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="flex flex-col gap-3 rounded-xl border border-border p-4 transition-all duration-200 hover:scale-[1.02] hover:border-primary/50 hover:shadow-lg">
+                className="border-border hover:border-primary/50 flex flex-col gap-3 rounded-xl border p-4 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg">
                 <div className="flex items-center gap-3">
-                  <div className="rounded-lg bg-primary/10 p-2">{feature.icon}</div>
+                  <div className="bg-primary/10 rounded-lg p-2">{feature.icon}</div>
                   <h3 className="text-lg font-semibold">{feature.title}</h3>
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="mx-auto mt-8 max-w-[550px] rounded-xl border border-primary/20 bg-primary/5 p-4">
-            <p className="text-center text-sm text-muted-foreground">
-              <span className="font-semibold text-primary">Pro Tip:</span> Upgrade to Premium to
+          <div className="border-primary/20 bg-primary/5 mx-auto mt-8 max-w-[550px] rounded-xl border p-4">
+            <p className="text-muted-foreground text-center text-sm">
+              <span className="text-primary font-semibold">Pro Tip:</span> Upgrade to Premium to
               unlock exclusive features and boost your social presence!
             </p>
           </div>

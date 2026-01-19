@@ -110,7 +110,7 @@ const MobileSidebar = (props: { isPro: boolean }) => {
         onClick={toggleSidebar}
         variant="ghost"
         size="icon"
-        className="fixed left-0 top-0 z-50 h-10 w-10 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 lg:hidden"
+        className="fixed top-0 left-0 z-50 h-10 w-10 rounded-full hover:bg-gray-200 lg:hidden dark:hover:bg-gray-800"
         aria-label={isOpen ? "Cerrar menú" : "Abrir menú"} // ✅ Accesibilidad
         aria-expanded={isOpen}>
         {isOpen ? <X size={24} /> : <Menu size={34} />}
@@ -127,9 +127,9 @@ const MobileSidebar = (props: { isPro: boolean }) => {
 
       {/* Drawer - Simplificado: eliminé el wrapper div innecesario */}
       <aside
-        className={`// // // // fixed left-0 top-0 z-50 h-screen w-20 transform bg-white shadow-lg transition-transform duration-300 ease-in-out dark:bg-gray-950 lg:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"} // // flex flex-col overflow-y-auto border-r border-gray-200 dark:border-gray-800`}>
+        className={`// // // // fixed top-0 left-0 z-50 h-screen w-20 transform bg-white shadow-lg transition-transform duration-300 ease-in-out lg:hidden dark:bg-gray-950 ${isOpen ? "translate-x-0" : "-translate-x-full"} // // flex flex-col overflow-y-auto border-r border-gray-200 dark:border-gray-800`}>
         {/* Header - Semántico y sin wrapper div */}
-        <header className="border-b border-gray-200 dark:border-gray-900 md:p-3">
+        <header className="border-b border-gray-200 md:p-3 dark:border-gray-900">
           <Logo
             className="h-6 w-6 cursor-pointer md:h-8 md:w-8"
             onClick={() => {

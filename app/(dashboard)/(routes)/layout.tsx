@@ -77,16 +77,16 @@ function MainLayout({
 
       <MobileSidebar {...{ isPro }} />
 
-      <div className="relative mx-auto flex max-w-[1300px] flex-col overflow-y-auto scrollbar-hide lg:flex-row">
+      <div className="scrollbar-hide relative mx-auto flex max-w-[1300px] flex-col overflow-y-auto lg:flex-row">
         <aside className="sticky top-0 hidden h-full w-[275px] lg:block">
           <div className="no-scrollbar h-screen overflow-y-auto">
             <Sidebar {...{ isPro }} />
           </div>
         </aside>
-        <main className="min-h-screen-dynamic flex-1 border-x border-gray-200 dark:border-gray-800 md:mr-4 md:w-[600px]">
+        <main className="min-h-screen-dynamic flex-1 border-x border-gray-200 md:mr-4 md:w-[600px] dark:border-gray-800">
           <div className="h-full">{children}</div>
         </main>
-        <aside className="no-scrollbar sticky top-0 hidden h-full w-[350px] space-y-4 overflow-hidden overflow-y-auto pb-8 pt-2 lg:block">
+        <aside className="no-scrollbar sticky top-0 hidden h-full w-[350px] space-y-4 overflow-hidden overflow-y-auto pt-2 pb-8 lg:block">
           <Rightbar {...{ isPro }} />
         </aside>
       </div>

@@ -36,10 +36,10 @@ const AboutModal = () => {
           {/* Mission Statement */}
           <div className="mx-auto mb-8 max-w-[550px]">
             <div className="mb-4 flex items-center justify-center gap-2">
-              <Award className="h-8 w-8 text-primary" />
+              <Award className="text-primary h-8 w-8" />
               <h3 className="text-xl font-bold">Our Mission</h3>
             </div>
-            <p className="text-center leading-relaxed text-muted-foreground">
+            <p className="text-muted-foreground text-center leading-relaxed">
               To create a safe, fast, and engaging social platform where creators and communities
               can connect, share, and grow together. Built with modern technology and a focus on
               user experience.
@@ -51,10 +51,10 @@ const AboutModal = () => {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center gap-2 rounded-xl border border-border bg-card p-4 transition-all duration-200 hover:border-primary/50">
+                className="border-border bg-card hover:border-primary/50 flex flex-col items-center gap-2 rounded-xl border p-4 transition-all duration-200">
                 <div className="text-primary">{stat.icon}</div>
-                <div className="text-2xl font-bold text-primary">{stat.value}</div>
-                <div className="text-center text-xs text-muted-foreground">{stat.label}</div>
+                <div className="text-primary text-2xl font-bold">{stat.value}</div>
+                <div className="text-muted-foreground text-center text-xs">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -62,14 +62,14 @@ const AboutModal = () => {
           {/* Tech Stack */}
           <div className="mx-auto max-w-[550px]">
             <div className="mb-4 flex items-center justify-center gap-2">
-              <Code2 className="h-6 w-6 text-primary" />
+              <Code2 className="text-primary h-6 w-6" />
               <h3 className="text-lg font-semibold">Built With</h3>
             </div>
             <div className="flex flex-wrap justify-center gap-2">
               {techStack.map((tech, index) => (
                 <span
                   key={index}
-                  className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-sm text-primary transition-colors duration-200 hover:bg-primary/20">
+                  className="border-primary/20 bg-primary/10 text-primary hover:bg-primary/20 rounded-full border px-3 py-1.5 text-sm transition-colors duration-200">
                   {tech}
                 </span>
               ))}
@@ -77,7 +77,7 @@ const AboutModal = () => {
           </div>
 
           {/* Footer Note */}
-          <div className="mx-auto mt-8 max-w-[550px] rounded-xl border border-primary/20 bg-gradient-to-r from-primary/10 to-purple-500/10 p-4">
+          <div className="border-primary/20 from-primary/10 mx-auto mt-8 max-w-[550px] rounded-xl border bg-gradient-to-r to-purple-500/10 p-4">
             <p className="text-center text-sm">
               <span className="font-semibold">🚀 Portfolio Project</span>
               <br />

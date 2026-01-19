@@ -161,7 +161,7 @@ const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, p
   );
 
   return (
-    <div className="line-clamp-6 max-w-2xl overflow-hidden break-words border-b-[1px] py-2 text-white dark:border-[rgb(47,51,54)]">
+    <div className="line-clamp-6 max-w-2xl overflow-hidden border-b-[1px] py-2 break-words text-white dark:border-[rgb(47,51,54)]">
       <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -180,7 +180,7 @@ const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, p
                   <AvatarFallback className="font-bold">{currentUser?.name?.[0]}</AvatarFallback>
                 </Avatar>
               </div>
-              <div className="line-clamp-6 flex flex-1 flex-col gap-1 overflow-hidden break-words p-2 text-white lg:w-full">
+              <div className="line-clamp-6 flex flex-1 flex-col gap-1 overflow-hidden p-2 break-words text-white lg:w-full">
                 {isComment && (
                   <div className="flex items-center">
                     <p className="text-sm font-normal !text-[#959fa8]">
@@ -206,7 +206,7 @@ const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, p
                       <button
                         type="button"
                         onClick={clearFile}
-                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
+                        className="absolute top-0 right-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
                         ×
                       </button>
                       <Image
@@ -229,7 +229,7 @@ const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, p
                       <button
                         type="button"
                         onClick={clearFile}
-                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
+                        className="absolute top-0 right-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
                         ×
                       </button>
                       <video
@@ -252,7 +252,7 @@ const PostForm: React.FC<PropsType> = ({ placeholder, isComment, postUsername, p
                       <button
                         type="button"
                         onClick={clearGif}
-                        className="absolute right-0 top-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
+                        className="absolute top-0 right-0 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/80 text-white hover:bg-gray-700/90">
                         ×
                       </button>
 

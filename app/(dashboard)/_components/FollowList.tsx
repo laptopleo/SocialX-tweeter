@@ -18,7 +18,7 @@ const FollowList = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-[150px] rounded-xl bg-background p-4 dark:border dark:border-[rgb(47,51,54)]">
+      <div className="bg-background min-h-[150px] rounded-xl p-4 dark:border dark:border-[rgb(47,51,54)]">
         <div className="flex items-center justify-center">
           <Spinner size="icon" />
         </div>
@@ -31,10 +31,10 @@ const FollowList = () => {
   }
 
   return (
-    <div className="rounded-xl border bg-background p-4 dark:border-[rgb(47,51,54)]">
+    <div className="bg-background rounded-xl border p-4 dark:border-[rgb(47,51,54)]">
       <h2 className="text-[20px] font-bold">Who to follow</h2>
 
-      <div className="h-[28vh] w-full overflow-auto scroll-smooth scrollbar-hide">
+      <div className="scrollbar-hide h-[28vh] w-full overflow-auto scroll-smooth">
         <ul role="list" className="mt-4 flex flex-col gap-6 pb-2">
           {users?.map((user) => (
             <li key={user?.id} role="listitem" className="flex cursor-pointer flex-row gap-4">
