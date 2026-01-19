@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:webpack": "next dev --webpack",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "build:webpack": "next build --webpack",
     "build:clean": "if exist .next (rd /s /q .next) && pnpm build",
     "analyze": "next experimental-analyze",
@@ -38,8 +38,7 @@
     "docker:deploy": "bash scripts/docker-deploy.sh",
     "test": "echo 'No tests specified yet'",
     "test:ci": "echo 'No tests specified yet'",
-    "postinstall": "echo \"✅ Dependencies installed. Prisma generate will run in CI step.\"",
-    "generate": "prisma generate",
+    "postinstall": "prisma generate",
     "prepare": "node -e \"try { require('husky').install() } catch (e) {}\""
   },
   "dependencies": {

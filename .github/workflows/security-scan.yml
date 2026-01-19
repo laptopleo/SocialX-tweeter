@@ -102,8 +102,8 @@ jobs:
         continue-on-error: true
         with:
           path: ./
-          base: ${{ github.event.before }}
-          head: ${{ github.event.after }}
+          base: HEAD~1
+          head: HEAD
           extra_args: --only-verified
 
   # ============================================
