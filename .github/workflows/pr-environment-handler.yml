@@ -1,0 +1,29 @@
+name: 🔄 PR Environment Handler
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  pr-environment-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 🛡️ Check PR Source
+        run: |
+          if [[ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]]; then
+            echo "External PR detected - using safe defaults"
+            echo "PR_SOURCE=external" >> $GITHUB_ENV
+          else
+            echo "Internal PR detected - full access available"
+            echo "PR_SOURCE=internal" >> $GITHUB_ENV
+          fi
+          
+      - name: 📋 Environment Summary
+        run: |
+          echo "## PR Environment Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "Source: ${{ env.PR_SOURCE }}" >> $GITHUB_STEP_SUMMARY
+          echo "Repository: ${{ github.repository }}" >> $GITHUB_STEP_SUMMARY
+          echo "Head Repo: ${{ github.event.pull_request.head.repo.full_name }}" >> $GITHUB_STEP_SUMMARY

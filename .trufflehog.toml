@@ -1,0 +1,34 @@
+# TruffleHog Configuration - Exclude False Positives
+# File: .trufflehog.toml
+
+[exclude]
+# Skip development/example files that trigger false positives
+paths = [
+    ".env.example",
+    ".env.local.example",
+    "docker-compose.yml",
+    "**/*.md",
+    "**/README.md",
+    "**/prisma/schema.prisma",
+    "**/__tests__/**",
+    "**/*.test.*",
+    "**/*.spec.*"
+]
+
+# Skip specific content patterns that are false positives
+patterns = [
+    # PostgreSQL example connection strings
+    "postgresql://localhost:",
+    "postgres://user:pass@localhost",
+    "DATABASE_URL=postgresql://",
+    
+    # Development environment markers
+    "development",
+    "example",
+    "sample",
+    "mock",
+    
+    # Documentation examples
+    "```env",
+    "```postgresql"
+]
