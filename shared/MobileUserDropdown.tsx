@@ -7,8 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { LogOut, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { LogOut, User } from "lucide-react"
 import { useRouter } from "next/navigation";
 
 interface MobileUserDropdownProps {
