@@ -54,7 +54,7 @@ jobs:
         run: npx tsc --noEmit
 
   # ============================================
-  # JOB 2: Build Test
+  # JOB 2: Build Testt
   # ============================================
   build:
     name: 🏗️ Build Application
