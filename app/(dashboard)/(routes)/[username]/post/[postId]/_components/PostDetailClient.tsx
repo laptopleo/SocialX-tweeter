@@ -1,8 +1,8 @@
 "use client";
-import type { 
-  SerializedPostWithRelations, 
+import type {
+  SerializedPostWithRelations,
   PostWithRelations,
-  CommentWithUser 
+  CommentWithUser,
 } from "@/types/post-detail.type"; // 👈 Cambia este import
 import React, { Fragment, useMemo } from "react";
 import Header from "../../../../../_components/_common/Header";
@@ -21,19 +21,20 @@ interface PostDetailClientProps {
 const PostDetailClient: React.FC<PostDetailClientProps> = ({ post }) => {
   // ⚡ Deserializar fechas de string a Date usando los tipos CORRECTOS
   const deserializedPost: PostWithRelations = useMemo(
-    () => ({
-      ...post,
-      createdAt: new Date(post.createdAt),
-      updatedAt: new Date(post.updatedAt),
-      comments: post.comments.map((comment) => ({
-        ...comment,
-        createdAt: new Date(comment.createdAt),
-        updatedAt: new Date(comment.updatedAt),
-        user: comment.user, // 👈 Mantiene la relación de usuario
-      })),
-      user: post.user, // 👈 Asegura que el usuario esté incluido
-      _count: post._count, // 👈 Asegura que los counts estén incluidos
-    }) as PostWithRelations, // 👈 Type assertion para asegurar compatibilidad
+    () =>
+      ({
+        ...post,
+        createdAt: new Date(post.createdAt),
+        updatedAt: new Date(post.updatedAt),
+        comments: post.comments.map((comment) => ({
+          ...comment,
+          createdAt: new Date(comment.createdAt),
+          updatedAt: new Date(comment.updatedAt),
+          user: comment.user, // 👈 Mantiene la relación de usuario
+        })),
+        user: post.user, // 👈 Asegura que el usuario esté incluido
+        _count: post._count, // 👈 Asegura que los counts estén incluidos
+      }) as PostWithRelations, // 👈 Type assertion para asegurar compatibilidad
     [post]
   );
 

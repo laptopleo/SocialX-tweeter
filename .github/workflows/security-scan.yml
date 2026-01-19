@@ -17,6 +17,10 @@ jobs:
   dependency-scan:
     name: 🔍 Dependency Vulnerability Scan
     runs-on: ubuntu-latest
+    
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
 
     steps:
       - name: 📥 Checkout code
@@ -112,6 +116,10 @@ jobs:
   license-check:
     name: 📜 License Compliance
     runs-on: ubuntu-latest
+    
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
 
     steps:
       - name: 📥 Checkout code
