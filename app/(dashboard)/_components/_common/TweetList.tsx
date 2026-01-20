@@ -12,8 +12,8 @@ const TweetList = () => {
   const { data } = usePost({ isInfinite: false }); // Explicitly set isInfinite to false
   const router = useRouter();
 
-  // Simplified data extraction for useQuery response - need to properly check the data type
-  const posts = data && "posts" in data ? (data.posts ?? []) : [];
+  // Safe data extraction with proper type checking
+  const posts = data && typeof data === "object" && data !== null && "posts" in data && Array.isArray(data.posts) ? data.posts : [];
 
   return (
     <div className="bg-background rounded-xl border p-4 dark:border-[rgb(2,125,219)]">

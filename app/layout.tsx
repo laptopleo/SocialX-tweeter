@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("h-full bg-background text-foreground", dmSans.className)}>
+      <body className={cn("bg-background text-foreground h-full", dmSans.className)}>
         <SpeedInsights />
         <SessionProviders>
           <QueryProvider>
