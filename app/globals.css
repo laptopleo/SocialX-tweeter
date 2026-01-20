@@ -60,7 +60,7 @@
   }
 
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
   html {
     min-height: 100dvh;
@@ -72,7 +72,8 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 
   .public-DraftStyleDefault-block {
@@ -110,11 +111,5 @@
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
-  }
-  /* Para el grid responsive */
-  @media (max-width: 1024px) {
-    .lg\\:grid-cols-12 {
-      grid-template-columns: 1fr;
-    }
   }
 }
