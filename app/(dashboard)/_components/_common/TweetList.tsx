@@ -16,7 +16,7 @@ const TweetList = () => {
   const posts = data && "posts" in data ? (data.posts ?? []) : [];
 
   return (
-    <div className="bg-background rounded-xl border p-4 dark:border-[rgb(47,51,54)]">
+    <div className="bg-background rounded-xl border p-4 dark:border-[rgb(2,125,219)]">
       <h2 className="text-[20px] font-bold">What is happening</h2>
 
       <div className="scrollbar-hide h-[25vh] w-full overflow-auto scroll-smooth">

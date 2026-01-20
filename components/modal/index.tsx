@@ -39,7 +39,7 @@ const Modal: React.FC<PropsType> = ({
       <div>{children}</div>
 
       <Dialog modal open={isOpen} onOpenChange={handleClose}>
-        <DialogContent className="scrollbar-hide max-h-[90vh] min-h-[350px] !max-w-[95vw] overflow-y-auto !rounded-2xl pt-5 pb-10 md:!max-w-[1000px]">
+        <DialogContent className="scrollbar-hide max-h-[90vh] min-h-[350px] !max-w-[95vw] overflow-y-auto !rounded-2xl pt-5 pb-10 md:!max-w-[1000px] border border-gray-700 bg-black">
           <DialogHeader className="dialog_top_header w-full !p-0">
             {showLogo && (
               <div className="flex h-[40px] w-full items-center justify-center">

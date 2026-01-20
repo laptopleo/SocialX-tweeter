@@ -1,115 +1,146 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 203 89% 53%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
+@theme inline {
+  /* === Estados semánticos === */
+  /* === Colores principales === */
+  --color-primary: oklch(0.62 0.19 250.5); /* Azul principal */
+  --color-vibrant-magenta: oklch(0.65 0.37 328); /* Magenta Puro vibrante */
+  --color-primary-hover: oklch(0.55 0.22 250.5);
+  --color-wheat: wheat; /* Color acento dorado */
+  --color-tan-hover: tan; /* Dorado más oscuro */
+  --color-vibrant-salmonn: oklch(0.75 0.25 30); /* Salmon vibrante */
+  --color-vibrant-salmon: oklch(0.72 0.28 25); /* Coral-Salmon */
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 203 89% 53%;
-    --color-primary: oklch(0.62 0.19 250.5); /* Azul principal */
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
+  /* Variantes con alfa (opcional) */
+  --color-green-60: oklch(0.48 0.16 145 / 0.6); /* verde esmeralda*/
+  --color-primary-50: oklch(0.65 0.18 240 / 0.5);
+  --color-primary-60: oklch(0.65 0.18 240 / 0.6);
+  --color-coral-60: oklch(0.75 0.2 40 / 0.6);
+  --color-magenta-60: oklch(0.75 0.25 320 / 0.6);
+  --color-lime-bright-60: oklch(0.85 0.2 120 / 0.6);
+  --color-visited: oklch(0.65 0.18 240 / 0.7); /*links */
 
-  * {
-    border-color: hsl(var(--border));
-  }
-  html {
-    min-height: 100dvh;
-    scroll-behavior: smooth;
-  }
+  /* Colores vibrantes para títulos en OKLCH */
+  --color-title-electric-blue: oklch(0.85 0.1 220);
+  --color-title-cyan-bright: oklch(0.85 0.15 200);
+  --color-title-neon-green: oklch(0.85 0.2 140);
+  --color-title-lime-bright: oklch(0.85 0.2 120);
+  --color-title-vibrant-orange: oklch(0.75 0.2 70);
+  --color-title-hot-pink: oklch(0.75 0.2 350);
+  --color-title-magenta: oklch(0.75 0.25 320);
+  --color-title-purple: oklch(0.65 0.25 300);
+  --color-title-violet: oklch(0.65 0.25 280);
+  --color-title-red: oklch(0.65 0.25 25);
+  --color-title-coral: oklch(0.75 0.2 40);
+  --color-green: oklch(0.48 0.16 145); /* Verde esmeralda */
 
-  body {
-    min-height: 100dvh;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-  }
+  /* === Sombras === */
+  --shadow-sm: 0 1px 3px 0 oklch(0 0 0 / 0.1), 0 1px 2px -1px oklch(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1);
+}
 
-  .public-DraftStyleDefault-block {
-    margin: 0 !important;
-  }
+@theme dark {
+  /* Variables HSL para modo oscuro */
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
 
-  /* ⚡ Scrollbar invisible utility */
-  @layer utilities {
-    .scrollbar-hide {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-    }
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+}
+/* ========== VARIABLES CSS PARA TEMAS ========== */
+:root {
+  /* === Tema claro === */
 
-    .scrollbar-hide::-webkit-scrollbar {
-      display: none; /* Chrome, Safari and Opera */
-    }
-  }
-  /* Scrollbars completamente invisibles pero funcionales */
-  .scrollbar-invisible {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-  }
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  
+  --primary-foreground: 210 40% 98%; /* Blanco */
+  --secondary: 210 40% 96.1%; /* Gris muy claro */
+  --secondary-foreground: 222.2 47.4% 11.2%; /* Negro */
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%; /* Gris texto */
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
 
-  /* Asegurar invisibilidad también en navegadores WebKit */
-  .scrollbar-invisible::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    display: none;
-  }
-  /* En tu globals.css o un archivo de estilos */
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+  /* Colores vibrantes para títulos */
+  --title-color-1: var(--primary); /* Azul brillante */
+  --title-color-2: var(--vibrant-orange); /* Naranja sapote */
+  --title-color-3: 75 94% 57%; /* Lima neón */
+  --title-color-4: 330 81% 60%; /* Rosa fucsia */
+  --title-color-5: 262 83% 58%; /* Púrpura eléctrico */
+  
 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
+  /* === Efectos tema claro === */
+  --glass-background: rgba(255, 255, 255, 0.8);
+ 
+}
+
+
+/* Estilos globales */
+
+
+html {
+  min-height: 100dvh;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Utilidades personalizadas */
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Los pseudo-elementos van FUERA de @utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-invisible {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-invisible::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.public-DraftStyleDefault-block {
+  margin: 0 !important;
 }

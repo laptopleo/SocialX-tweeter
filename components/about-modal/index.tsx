@@ -51,10 +51,10 @@ const AboutModal = () => {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="border-border bg-card hover:border-primary/50 flex flex-col items-center gap-2 rounded-xl border p-4 transition-all duration-200">
+                className="border border-gray-800 bg-card hover:border-primary/50 flex flex-col items-center gap-2 rounded-xl p-4 transition-all duration-200">
                 <div className="text-primary">{stat.icon}</div>
                 <div className="text-primary text-2xl font-bold">{stat.value}</div>
-                <div className="text-muted-foreground text-center text-xs">{stat.label}</div>
+                <div className="text-muted-foreground text-center text-xs text-vibrant-magenta">{stat.label}</div>
               </div>
             ))}
           </div>

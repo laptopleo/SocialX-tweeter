@@ -11,7 +11,7 @@ import { ThemeProvider } from "@/context/theme-provider";
 const dmSans = Urbanist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3001"),
   title: "SocialX - Connect with the world",
   description:
     "A modern social media platform to connect, share, and engage with people around the world.",
@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("h-full bg-black text-white", dmSans.className)}>
+      <body className={cn("h-full bg-background text-foreground", dmSans.className)}>
         <SpeedInsights />
         <SessionProviders>
           <QueryProvider>
