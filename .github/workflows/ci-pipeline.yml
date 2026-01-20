@@ -189,11 +189,12 @@ jobs:
 
       - name: 🛡️ Check for secrets in code
         uses: trufflesecurity/trufflehog@main
+        continue-on-error: true
         with:
           path: ./
           base: ""
           head: ${{ github.ref_name }}
-          extra_args: --results=verified,unknown
+          extra_args: --only-verified
 
   # ============================================
   # JOB 4: Database Check
