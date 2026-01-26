@@ -145,7 +145,7 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: 💾 Upload backup artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: db-backup-${{ github.sha }}
           path: prisma/schema.prisma
