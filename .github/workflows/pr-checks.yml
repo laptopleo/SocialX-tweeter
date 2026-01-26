@@ -52,7 +52,7 @@ jobs:
 
       - name: 📊 Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v44
+        uses: tj-actions/changed-files@v47
         with:
           files: |
             **/*.ts
